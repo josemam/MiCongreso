@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+   <head>
+
+      <meta charset="UTF-8">
+      <title>MiCongreso</title>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+      <script type="text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+      <script type="text/javascript" src="metodos_escanos.js"></script>
+      <script type="text/javascript" src="script.js"></script>
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=PT Sans:700'>
+      <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Lato:900'>
+      <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Roboto Slab'>
+ 
+   </head>
+   <body>
+      <div id="titulo">
+         <h1>MiCongreso</h1>
+      </div>
+      <div id="tooltip"><span id="contenido"></span></div>
+      <div id="grafico"></div>
+      <div id="derecha_grafico">
+         <textarea id="res_texto" READONLY rows="16"></textarea>
+
+         <div id="controles">
+            Método:
+            <select id="sel_metodo" size=1 onChange="procesa()"> 
+               <option value=dhondt>D'Hondt</option>
+               <option value=resto_mayor>Resto mayor</option>
+               <option value=saintelague>Sainte-Laguë</option>
+               <option value=escanocadacincuentamil>Votos/50 000</option>
+               <option value=muestreoaleatorio>Muestreo</option>
+            </select><br>
+
+            Circunscripción:
+            <select id="sel_circ" size=1 onChange="procesa()"> 
+               <option value="provincia">Provincial</option>
+               <option value="comunidad">Comunitaria</option>
+               <option value="unica">Única</option>
+            </select><br>
+            Corte:
+            <input id="corte" value="3" size="1" onChange="procesa()">%
+            Unir Podemos
+            <input type="checkbox" id="pod_conf" onChange="procesa()">
+         </div>
+      </div>
+      <p>
+         ¿En qué influye la ley electoral? ¿Cómo habría quedado el Congreso de los
+         Diputados tras el 20 de Diciembre si nuestra ley fuese otra? ¡Compruébalo
+         tú mismo! ¡Selecciona un método de reparto de escaños, el ámbito de cada
+         circunscripción y el mínimo de votos necesarios para acceder al reparto,
+         y mira cómo fluctua el Parlamento!<br><br>
+         
+         Si marcas 'Unir Podemos', se considerará que Podemos y todas las
+         confluencias en las que participa Podemos (En Comú, Compromís-Podemos y
+         En Marea) son el mismo partido. En circunscripción única, marcar o no esta
+         casilla puede afectar al reparto de escaños de todos los partidos. En otro
+         caso, solo tiene el efecto de mostrar los escaños de Podemos y partidos
+         relacionados en un solo bloque. ¡Recuerda que Izquierda Unida también
+         participa en En comú y En Marea!<br><br>
+         
+         Nota: Los resultados suponen que los votos son los mismos, pero cambiar
+         la ley electoral puede alterar el enfoque que los partidos dan a la
+         campaña electoral, las uniones de partidos, e incluso la perspectiva de
+         los electores, alterando profundamente los resultados.<br><br>
+         
+         <a href="https://github.com/josemam/MiCongreso">Código fuente aquí</a>
+      </p>
+   </body>
+</html>
