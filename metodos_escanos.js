@@ -2,9 +2,8 @@
 // En el JSON están ordenadas, pero pueden desordenarse al trasvasar votos
 function ordenaPorVotos(a, b) { return b.votos - a.votos };
 
-// Da un escaño a cada partido por cada cincuenta mil votos
+// Da un escaño a cada partido por cada cincuenta mil votos (ignora el corte)
 function escanocadacincuentamil(resultados, blancos, escanyos, corte) {
-   var divisor = 50000
    // Mapea a lista de objetos
    if (typeof(resultados) == "object")
       var resultados = $.map(resultados, function(value, index) {
@@ -12,14 +11,9 @@ function escanocadacincuentamil(resultados, blancos, escanyos, corte) {
 
    resultados.sort(ordenaPorVotos);
 
-   for (var i = 0; i < resultados.length; i++)
-      if (resultados[i].votos < divisor) {
-         resultados = resultados.slice(0, i);
-         break;
-      }
-
    var res_nombres = [];
-   for (var x = 0; resultados[x] != undefined; x++)
+   var divisor = 50000;
+   for (var x = 0; x < resultados.length && resultados[x].votos >= divisor; x++)
       res_nombres[x] = [resultados[x].partido, Math.floor(resultados[x].votos / divisor)];
    
    return res_nombres;
@@ -40,10 +34,8 @@ function muestreoaleatorio(resultados, blancos, escanyos, corte) {
 
    var votos_corte = votos_totales*corte/100;
    for (var i = 0; i < resultados.length; i++)
-      if (resultados[i].votos < votos_corte) {
+      if (resultados[i].votos < votos_corte)
          resultados = resultados.slice(0, i);
-         break;
-      }
 
    if (resultados.length == 0) return [];
 
@@ -89,10 +81,8 @@ function resto_mayor(resultados, blancos, escanyos, corte) {
 
    var votos_corte = votos_totales*corte/100;
    for (var i = 0; i < resultados.length; i++)
-      if (resultados[i].votos < votos_corte) {
+      if (resultados[i].votos < votos_corte)
          resultados = resultados.slice(0, i);
-         break;
-      }
 
    if (resultados.length == 0) return [];
 
@@ -141,10 +131,8 @@ function dhondt(resultados, blancos, escanyos, corte) {
 
    var votos_corte = votos_totales*corte/100;
    for (var i = 0; i < resultados.length; i++)
-      if (resultados[i].votos < votos_corte) {
+      if (resultados[i].votos < votos_corte)
          resultados = resultados.slice(0, i);
-         break;
-      }
 
    var dhondt_matrix = [];
    for (var i = 0; i < resultados.length; i++) {
@@ -187,10 +175,8 @@ function saintelague(resultados, blancos, escanyos, corte) {
 
    var votos_corte = votos_totales*corte/100;
    for (var i = 0; i < resultados.length; i++)
-      if (resultados[i].votos < votos_corte) {
+      if (resultados[i].votos < votos_corte)
          resultados = resultados.slice(0, i);
-         break;
-      }
 
    var saint_lague_matrix = [];
    for (var i = 0; i < resultados.length; i++) {
