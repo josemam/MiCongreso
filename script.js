@@ -91,6 +91,7 @@ function imprime(d) {
       .attr("width", w)
       .attr("height", h)
       .data([datos])
+      .append("g")
       .attr("transform", "translate(" + r + "," + r + ")")
 
    var arc = d3.svg.arc()
@@ -107,9 +108,6 @@ function imprime(d) {
       .attr("dy", ".0em")
       .text(function() {return "MA: " + Math.floor(total/2+1)})
 
-   vis.selectAll("text")
-      .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
-
    var pie = d3.layout.pie()
       .value(function(d) { return d.value; })
       .startAngle(-Math.PI/2)
@@ -121,14 +119,13 @@ function imprime(d) {
       .style("z-index", 1)
       .style("opacity", 0)
 
-   var arcs = vis.selectAll("g.slice")
+   var arcs = vis.selectAll("g")
       .data(pie)
       .enter()
          .append("svg:g")
-            .attr("class", "slice")
 
    arcs.append("svg:path")
-      .attr("fill", coloreado )
+      .attr("fill", coloreado)
       .attr("d", arc)
       .on("mouseover", function(d, i) {d3.select(this).style("fill",aclarar(coloreado(d,i)));
          d3.select("#tooltip")
