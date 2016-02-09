@@ -59,9 +59,9 @@ function clear_grafico() {
 
 // A partir de un color, obtiene uno más claro
 function aclarar(color) {
-   var r = (255-parseInt(color.substring(1,3), 16)); r = Math.floor(r*3/5); r = (255-r).toString(16)
-   var g = (255-parseInt(color.substring(3,5), 16)); g = Math.floor(g*3/5); g = (255-g).toString(16)
-   var b = (255-parseInt(color.substring(5,7), 16)); b = Math.floor(b*3/5); b = (255-b).toString(16)
+   var r = (102+Math.ceil(parseInt(color.substring(1,3), 16)*3/5)).toString(16);
+   var g = (102+Math.ceil(parseInt(color.substring(3,5), 16)*3/5)).toString(16);
+   var b = (102+Math.ceil(parseInt(color.substring(5,7), 16)*3/5)).toString(16);
    return "#" + r + g + b;
 }
 
