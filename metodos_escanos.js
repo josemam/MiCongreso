@@ -66,6 +66,16 @@ function muestreoaleatorio(resultados, blancos, escanyos, corte) {
    return res_nombres;
 }
 
+// Cociente Droop para el método de resto mayor
+function cociente_droop(totales, escanyos) {
+   return 1+totales/(escanyos+1);
+}
+
+// Cociente Hare para el método de resto mayor
+function cociente_hare(totales, escanyos) {
+   return totales/escanyos;
+}
+
 // Aplica el método del resto mayor con cociente Droop
 function resto_mayor(resultados, blancos, escanyos, corte) {
    // Mapea a lista de objetos
@@ -86,8 +96,7 @@ function resto_mayor(resultados, blancos, escanyos, corte) {
 
    if (resultados.length == 0) return [];
 
-   var divisor = 1+votos_totales/(escanyos+1);  // cociente Droop
-   //var divisor = votos_totales/escanyos;      // cociente Hare
+   var divisor = cociente_droop(votos_totales, escanyos);
 
    var cocientes = []
    var restos = [];
@@ -116,8 +125,16 @@ function resto_mayor(resultados, blancos, escanyos, corte) {
    return res_nombres;
 }
 
-// Aplica el método D'Hondt
-function dhondt(resultados, blancos, escanyos, corte) {
+function divisor_dhondt(votos, index) {
+   return votos/(index+1);
+}
+
+function divisor_sainte_lague(votos, index) {
+   return votos/(2*index+1);
+}
+
+// Aplica un método de promedio mayor
+function promedio_mayor(resultados, blancos, escanyos, corte, tipo_divisor) {
    // Mapea a lista de objetos
    if (typeof(resultados) == "object")
       var resultados = $.map(resultados, function(value, index) {
@@ -134,15 +151,15 @@ function dhondt(resultados, blancos, escanyos, corte) {
       if (resultados[i].votos < votos_corte)
          resultados = resultados.slice(0, i);
 
-   var dhondt_matrix = [];
+   var cocientes_matrix = [];
    for (var i = 0; i < resultados.length; i++) {
-      dhondt_matrix[i] = [];
+      cocientes_matrix[i] = [];
       for (var j = 0; j < escanyos; j++)
-         dhondt_matrix[i][j] = resultados[i].votos/(j+1);
+         cocientes_matrix[i][j] = tipo_divisor(resultados[i].votos, j);
    }
 
    var res = [];
-   function orden(a, b) { var dif = dhondt_matrix[b[0]][b[1]] - dhondt_matrix[a[0]][a[1]]; if (dif != 0) { return dif } else { return a[0]-b[0]} };
+   function orden(a, b) { var dif = cocientes_matrix[b[0]][b[1]] - cocientes_matrix[a[0]][a[1]]; if (dif != 0) { return dif } else { return a[0]-b[0]} };
    var candidatos = [];
       for (var i = 0; i < resultados.length; i++)
          for (var j = 0; j < escanyos; j++)
@@ -160,46 +177,12 @@ function dhondt(resultados, blancos, escanyos, corte) {
    return res_nombres;
 }
 
+// Aplica el método D'Hondt
+function dhondt(resultados, blancos, escanyos, corte) {
+   return promedio_mayor(resultados, blancos, escanyos, corte, divisor_dhondt);
+}
+
 // Aplica el método Sainte-Laguë
 function saintelague(resultados, blancos, escanyos, corte) {
-   // Mapea a lista de objetos
-   if (typeof(resultados) == "object")
-      var resultados = $.map(resultados, function(value, index) {
-         return { partido: index, votos: value}; });
-
-   resultados.sort(ordenaPorVotos);
-
-   var votos_totales = blancos;
-   for (var i = 0; i < resultados.length; i++)
-      votos_totales += resultados[i].votos;
-
-   var votos_corte = votos_totales*corte/100;
-   for (var i = 0; i < resultados.length; i++)
-      if (resultados[i].votos < votos_corte)
-         resultados = resultados.slice(0, i);
-
-   var saint_lague_matrix = [];
-   for (var i = 0; i < resultados.length; i++) {
-      saint_lague_matrix[i] = [];
-      for (var j = 0; j < escanyos; j++)
-         saint_lague_matrix[i][j] = resultados[i].votos/(2*j+1);
-   }
-
-   var res = [];
-   function orden(a, b) { var dif = saint_lague_matrix[b[0]][b[1]] - saint_lague_matrix[a[0]][a[1]]; if (dif != 0) { return dif } else { return a[0]-b[0]} };
-   var candidatos = [];
-      for (var i = 0; i < resultados.length; i++)
-         for (var j = 0; j < escanyos; j++)
-            candidatos.push([i, j]); // [partido, división]
-
-   candidatos.sort(orden);
-   candidatos = candidatos.slice(0, escanyos);
-   for (var x in candidatos)
-      suma(res, candidatos[x][0]);
-
-   var res_nombres = [];
-   for (var x in res)
-      res_nombres[x] = [resultados[x].partido, res[x]];
-
-   return res_nombres;
+   return promedio_mayor(resultados, blancos, escanyos, corte, divisor_sainte_lague);
 }
