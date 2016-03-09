@@ -2,14 +2,36 @@
 // En el JSON están ordenadas, pero pueden desordenarse al trasvasar votos
 function ordenaPorVotos(a, b) { return b.votos - a.votos };
 
+// Mapea a lista ordenada de objetos
+function aListaOrdenada(resultados) {
+   if (typeof(resultados) == "object")
+      resultados = $.map(resultados, function(value, index) {
+         return { partido: index, votos: value}; });
+         
+   return resultados.sort(ordenaPorVotos);
+}
+
+// Cuenta el total de votos emitidos no nulos
+function contarVotosTotales(resultados, blancos) {
+   for (var i = 0; i < resultados.length; i++)
+      blancos += resultados[i].votos;
+
+   return blancos;
+}
+
+// Aplica el corte en los resultados
+function corta(resultados, votos_totales, corte) {
+   var votos_corte = votos_totales*corte/100;
+   for (var i = 0; i < resultados.length; i++)
+      if (resultados[i].votos < votos_corte)
+         return resultados.slice(0, i);
+
+   return resultados;
+}
+
 // Da un escaño a cada partido por cada cincuenta mil votos (ignora el corte)
 function escanocadacincuentamil(resultados, blancos, escanyos, corte) {
-   // Mapea a lista de objetos
-   if (typeof(resultados) == "object")
-      var resultados = $.map(resultados, function(value, index) {
-         return { partido: index, votos: value}; });
-
-   resultados.sort(ordenaPorVotos);
+   resultados = aListaOrdenada(resultados);
 
    var res_nombres = [];
    var divisor = 50000;
@@ -21,21 +43,9 @@ function escanocadacincuentamil(resultados, blancos, escanyos, corte) {
 
 // Toma tantos votantes al azar como escaños y considera sus votos
 function muestreoaleatorio(resultados, blancos, escanyos, corte) {
-   // Mapea a lista de objetos
-   if (typeof(resultados) == "object")
-      var resultados = $.map(resultados, function(value, index) {
-         return { partido: index, votos: value}; });
-
-   resultados.sort(ordenaPorVotos);
-
-   var votos_totales = blancos;
-   for (var i = 0; i < resultados.length; i++)
-      votos_totales += resultados[i].votos;
-
-   var votos_corte = votos_totales*corte/100;
-   for (var i = 0; i < resultados.length; i++)
-      if (resultados[i].votos < votos_corte)
-         resultados = resultados.slice(0, i);
+   resultados = aListaOrdenada(resultados);
+   var votos_totales = contarVotosTotales(resultados, blancos);
+   resultados = corta(resultados, votos_totales, corte);
 
    if (resultados.length == 0) return [];
 
@@ -78,21 +88,9 @@ function cociente_hare(totales, escanyos) {
 
 // Aplica el método del resto mayor con cociente Droop
 function resto_mayor(resultados, blancos, escanyos, corte) {
-   // Mapea a lista de objetos
-   if (typeof(resultados) == "object")
-      var resultados = $.map(resultados, function(value, index) {
-         return { partido: index, votos: value}; });
-
-   resultados.sort(ordenaPorVotos);
-
-   var votos_totales = blancos;
-   for (var i = 0; i < resultados.length; i++)
-      votos_totales += resultados[i].votos;
-
-   var votos_corte = votos_totales*corte/100;
-   for (var i = 0; i < resultados.length; i++)
-      if (resultados[i].votos < votos_corte)
-         resultados = resultados.slice(0, i);
+   resultados = aListaOrdenada(resultados);
+   var votos_totales = contarVotosTotales(resultados, blancos);
+   resultados = corta(resultados, votos_totales, corte);
 
    if (resultados.length == 0) return [];
 
@@ -135,21 +133,11 @@ function divisor_sainte_lague(votos, index) {
 
 // Aplica un método de promedio mayor
 function promedio_mayor(resultados, blancos, escanyos, corte, tipo_divisor) {
-   // Mapea a lista de objetos
-   if (typeof(resultados) == "object")
-      var resultados = $.map(resultados, function(value, index) {
-         return { partido: index, votos: value}; });
+   resultados = aListaOrdenada(resultados);
+   var votos_totales = contarVotosTotales(resultados, blancos);
+   resultados = corta(resultados, votos_totales, corte);
 
-   resultados.sort(ordenaPorVotos);
-
-   var votos_totales = blancos;
-   for (var i = 0; i < resultados.length; i++)
-      votos_totales += resultados[i].votos;
-
-   var votos_corte = votos_totales*corte/100;
-   for (var i = 0; i < resultados.length; i++)
-      if (resultados[i].votos < votos_corte)
-         resultados = resultados.slice(0, i);
+   if (resultados.length == 0) return [];
 
    var cocientes_matrix = [];
    for (var i = 0; i < resultados.length; i++) {
