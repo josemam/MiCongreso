@@ -4,7 +4,7 @@ function procesa() { actualiza(getResultados(
             eval(document.getElementById('sel_metodo').value),
                  document.getElementById('sel_circ').value,
       parseFloat(document.getElementById('corte').value.replace(",", "."), 10),
-                (document.getElementById('pod_conf').checked ? [["Podemos", ["EN COMÚ", "Compromís-Podemos", "En Marea"]]] : []))
+                (document.getElementById('iu_pod').checked ? [["Unidos Podemos", ["Podemos", "EN COMÚ", "Compromís-Podemos", "En Marea", "IU-UPeC"]]] : (document.getElementById('pod_conf').checked ? [["Podemos", ["EN COMÚ", "Compromís-Podemos", "En Marea"]]] : [])))
 )}
 
 // Suma valor (1 si valor == undefined) a partir de 0 si el elemento no está definido
