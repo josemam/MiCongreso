@@ -1,11 +1,57 @@
-var CCAA, circunscripciones, escanyos, blancos, nulos, resultados;
+var CCAA, circunscripciones, blancos, nulos, llamados_espana, llamados_extranjero, resultados;
 
 function procesa() { actualiza(getResultados(
+            getEscanyos(2, [[["Ceuta", "Melilla"], 1]], 350),
             eval(document.getElementById('sel_metodo').value),
                  document.getElementById('sel_circ').value,
       parseFloat(document.getElementById('corte').value.replace(",", "."), 10),
                 (document.getElementById('iu_pod').checked ? [["Unidos Podemos", ["Podemos", "EN COMÚ", "Compromís-Podemos", "En Marea", "IU-UPeC"]]] : (document.getElementById('pod_conf').checked ? [["Podemos", ["EN COMÚ", "Compromís-Podemos", "En Marea"]]] : [])))
 )}
+
+function getEscanyos(minimo, fijos, total) {
+   var escanos = {}, escanos_fijos = {};
+   var restantes = total;
+   for (var i = 0; i < fijos.length; i++)
+      for (var j = 0; j < fijos[i][0].length; j++) {
+         escanos_fijos[fijos[i][0][j]] = fijos[i][1];
+         restantes -= fijos[i][1];
+      }
+
+   for (var ccaa in circunscripciones)
+      for (var circ in circunscripciones[ccaa])
+         if (!escanos_fijos.hasOwnProperty(circunscripciones[ccaa][circ]))
+            restantes -= (escanos[circunscripciones[ccaa][circ]] = minimo);
+
+   if (restantes > 0) {
+      var divisiones = {};
+      var total_llamados = 0;
+      for (var l in escanos)
+         total_llamados += llamados_espana[l] + llamados_extranjero[l];
+
+
+      var cuota_reparto = total_llamados/restantes;
+      for (var e in escanos) {
+         divisiones[e] = (llamados_espana[e] + llamados_extranjero[e])/cuota_reparto;
+         var suelo = Math.floor(divisiones[e]);
+         escanos[e] += suelo;
+         divisiones[e] -= suelo;
+         restantes -= suelo;
+      }
+
+      var restos = [];
+      for (var d in divisiones)
+         restos.push([d, divisiones[d]]);
+
+      restos.sort(function(a,b) { return b[1]-a[1] });
+      for (; restantes > 0; restantes--)
+         escanos[restos.shift()[0]]++;
+   }
+   for (var f in escanos_fijos)
+      escanos[f] = escanos_fijos[f];
+
+   var reparto = ""; for (var x in escanos) reparto += "\n" + x + ": " + escanos[x]; alert(reparto) // TODO: quitar
+   return escanos;
+}
 
 // Suma valor (1 si valor == undefined) a partir de 0 si el elemento no está definido
 function suma(obj, clave, valor) {
@@ -23,7 +69,8 @@ function leerdatos(data) {
    var elecciones = data["espana_2015"]
    CCAA = elecciones["CCAA"];
    circunscripciones = elecciones["circunscripciones"];
-   escanyos = elecciones["escaños"];
+   llamados_espana = elecciones["llamados_espana"];
+   llamados_extranjero = elecciones["llamados_extranjero"];
    blancos = elecciones["blancos"];
    nulos = elecciones["nulos"];
    colores = elecciones["colores"];
@@ -167,7 +214,7 @@ function trasvasa(trasvases, votos) {
 }
 
 // Obtiene los escaños en función de los votos
-function getResultados(metodo, circunscripcion, corte, trasvases) {
+function getResultados(escanyos, metodo, circunscripcion, corte, trasvases) {
    var res = {};
    var res_temp;
    if (circunscripcion == "provincia") {
