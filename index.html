@@ -21,9 +21,11 @@
       <div id="tooltip"><span id="contenido"></span></div>
       <div id="grafico"></div>
       <div id="derecha_grafico">
-         <textarea id="res_texto" READONLY rows="15"></textarea>
+         <textarea id="res_texto" READONLY rows="14"></textarea>
 
          <div id="controles">
+            <input id="minimo" value="2" size="1" onChange="procesa()"> escaños/prov
+            hasta <input id="total_diputados" value="350" size="2" onChange="procesa()">
             Método:
             <select id="sel_metodo" size=1 onChange="procesa()"> 
                <option value=dhondt>D'Hondt</option>
@@ -42,7 +44,7 @@
             Corte:
             <input id="corte" value="3" size="1" onChange="procesa()">%
             Unir Podemos
-            <input type="checkbox" id="pod_conf" onChange="procesa()">
+            <input type="checkbox" id="pod_conf" onChange="procesa()"><br>
             Unir Podemos+IU
             <input type="checkbox" id="iu_pod" onChange="procesa()">
          </div>
@@ -50,9 +52,9 @@
       <p>
          ¿En qué influye la ley electoral? ¿Cómo habría quedado el Congreso de los
          Diputados tras el 20 de Diciembre si nuestra ley fuese otra? ¡Compruébalo
-         tú mismo! ¡Selecciona un método de reparto de escaños, el ámbito de cada
-         circunscripción y el mínimo de votos necesarios para acceder al reparto,
-         y mira cómo fluctua el Parlamento!<br><br>
+         tú mismo! ¡Selecciona una asignación de escaños por provincia, un método
+         de reparto de escaños, el ámbito de cada circunscripción y el mínimo de
+         votos necesarios para acceder al reparto, y mira cómo fluctua el Parlamento!<br><br>
          
          Si marcas 'Unir Podemos', se considerará que Podemos y todas las
          confluencias en las que participa Podemos (En Comú, Compromís-Podemos y

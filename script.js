@@ -1,7 +1,9 @@
 var CCAA, circunscripciones, blancos, nulos, poblacion, resultados;
 
 function procesa() { actualiza(getResultados(
-            getEscanyos(2, [[["Ceuta", "Melilla"], 1]], 350),
+            getEscanyos(parseInt(document.getElementById('minimo').value, 10),
+                        [[["Ceuta", "Melilla"], 1]],
+                        parseInt(document.getElementById('total_diputados').value), 10),
             eval(document.getElementById('sel_metodo').value),
                  document.getElementById('sel_circ').value,
       parseFloat(document.getElementById('corte').value.replace(",", "."), 10),
@@ -117,7 +119,6 @@ function imprime(d) {
        r = 300,     // radio exterior
        ir = 160,    // radio interior
        pad = 1/400, // grados de espacio entre bloques (radianes)
-       min = 20,    // mínimo de escaños para mostrar texto
        colores = getcolores(d),
        color_def = d3.scale.category10();  // paleta para los partidos sin color
    var coloreado = function(d, i) { return (colores[i] != undefined ? colores[i] : color_def(i)); }
@@ -129,6 +130,8 @@ function imprime(d) {
          total += d[x][1];
          datos.push({"label": d[x][0], "value": d[x][1]});
       }
+
+   var min = Math.floor(total*0.055);    // mínimo de escaños para mostrar texto
 
    var vis = d3.select("#grafico")
       .append("svg")
