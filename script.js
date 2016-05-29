@@ -1,4 +1,4 @@
-var CCAA, circunscripciones, blancos, nulos, llamados_espana, llamados_extranjero, resultados;
+var CCAA, circunscripciones, blancos, nulos, poblacion, resultados;
 
 function procesa() { actualiza(getResultados(
             getEscanyos(2, [[["Ceuta", "Melilla"], 1]], 350),
@@ -26,12 +26,11 @@ function getEscanyos(minimo, fijos, total) {
       var divisiones = {};
       var total_llamados = 0;
       for (var l in escanos)
-         total_llamados += llamados_espana[l] + llamados_extranjero[l];
-
+         total_llamados += poblacion[l];
 
       var cuota_reparto = total_llamados/restantes;
       for (var e in escanos) {
-         divisiones[e] = (llamados_espana[e] + llamados_extranjero[e])/cuota_reparto;
+         divisiones[e] = poblacion[e]/cuota_reparto;
          var suelo = Math.floor(divisiones[e]);
          escanos[e] += suelo;
          divisiones[e] -= suelo;
@@ -49,7 +48,6 @@ function getEscanyos(minimo, fijos, total) {
    for (var f in escanos_fijos)
       escanos[f] = escanos_fijos[f];
 
-   var reparto = ""; for (var x in escanos) reparto += "\n" + x + ": " + escanos[x]; alert(reparto) // TODO: quitar
    return escanos;
 }
 
@@ -69,8 +67,7 @@ function leerdatos(data) {
    var elecciones = data["espana_2015"]
    CCAA = elecciones["CCAA"];
    circunscripciones = elecciones["circunscripciones"];
-   llamados_espana = elecciones["llamados_espana"];
-   llamados_extranjero = elecciones["llamados_extranjero"];
+   poblacion = elecciones["ultimo_censo"];
    blancos = elecciones["blancos"];
    nulos = elecciones["nulos"];
    colores = elecciones["colores"];

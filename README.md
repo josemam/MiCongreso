@@ -10,9 +10,8 @@ las leyes electorales hubiesen sido otras pero los votos en cada territorio a
 cada partido hubiesen sido los mismos. Presenta el resultado en números y en un
 gráfico usando [D3.js] (https://github.com/mbostock/d3). Los resultados, junto
 con el nombre de los partidos, se han obtenido de [aquí]
-(http://elecciones.laopinioncoruna.es/resultados-elecciones/generales), y los
-llamados a las urnas de [aquí]
-(http://www.ine.es/oficina_censo/elecgral2015/elecgral2015_lv_tab5.xlsx). 
+(http://elecciones.laopinioncoruna.es/resultados-elecciones/generales), y el
+censo de población de [aquí] (http://www.ine.es/jaxiT3/Tabla.htm?t=9687&L=0). 
 
 Las opciones que aparecen al acceder a la página se corresponden con la ley
 electoral española según estaba configurada entonces (y sigue estando así),
