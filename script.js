@@ -1,11 +1,57 @@
-var CCAA, circunscripciones, escanyos, blancos, nulos, resultados;
+var CCAA, circunscripciones, blancos, nulos, poblacion, resultados;
 
 function procesa() { actualiza(getResultados(
+            getEscanyos(parseInt(document.getElementById('minimo').value, 10),
+                        [[["Ceuta", "Melilla"], 1]],
+                        parseInt(document.getElementById('total_diputados').value), 10),
             eval(document.getElementById('sel_metodo').value),
                  document.getElementById('sel_circ').value,
       parseFloat(document.getElementById('corte').value.replace(",", "."), 10),
                 (document.getElementById('iu_pod').checked ? [["Unidos Podemos", ["Podemos", "EN COMÚ", "Compromís-Podemos", "En Marea", "IU-UPeC"]]] : (document.getElementById('pod_conf').checked ? [["Podemos", ["EN COMÚ", "Compromís-Podemos", "En Marea"]]] : [])))
 )}
+
+function getEscanyos(minimo, fijos, total) {
+   var escanos = {}, escanos_fijos = {};
+   var restantes = total;
+   for (var i = 0; i < fijos.length; i++)
+      for (var j = 0; j < fijos[i][0].length; j++) {
+         escanos_fijos[fijos[i][0][j]] = fijos[i][1];
+         restantes -= fijos[i][1];
+      }
+
+   for (var ccaa in circunscripciones)
+      for (var circ in circunscripciones[ccaa])
+         if (!escanos_fijos.hasOwnProperty(circunscripciones[ccaa][circ]))
+            restantes -= (escanos[circunscripciones[ccaa][circ]] = minimo);
+
+   if (restantes > 0) {
+      var divisiones = {};
+      var total_llamados = 0;
+      for (var l in escanos)
+         total_llamados += poblacion[l];
+
+      var cuota_reparto = total_llamados/restantes;
+      for (var e in escanos) {
+         divisiones[e] = poblacion[e]/cuota_reparto;
+         var suelo = Math.floor(divisiones[e]);
+         escanos[e] += suelo;
+         divisiones[e] -= suelo;
+         restantes -= suelo;
+      }
+
+      var restos = [];
+      for (var d in divisiones)
+         restos.push([d, divisiones[d]]);
+
+      restos.sort(function(a,b) { return b[1]-a[1] });
+      for (; restantes > 0; restantes--)
+         escanos[restos.shift()[0]]++;
+   }
+   for (var f in escanos_fijos)
+      escanos[f] = escanos_fijos[f];
+
+   return escanos;
+}
 
 // Suma valor (1 si valor == undefined) a partir de 0 si el elemento no está definido
 function suma(obj, clave, valor) {
@@ -23,7 +69,7 @@ function leerdatos(data) {
    var elecciones = data["espana_2015"]
    CCAA = elecciones["CCAA"];
    circunscripciones = elecciones["circunscripciones"];
-   escanyos = elecciones["escaños"];
+   poblacion = elecciones["ultimo_censo"];
    blancos = elecciones["blancos"];
    nulos = elecciones["nulos"];
    colores = elecciones["colores"];
@@ -73,7 +119,6 @@ function imprime(d) {
        r = 300,     // radio exterior
        ir = 160,    // radio interior
        pad = 1/400, // grados de espacio entre bloques (radianes)
-       min = 20,    // mínimo de escaños para mostrar texto
        colores = getcolores(d),
        color_def = d3.scale.category10();  // paleta para los partidos sin color
    var coloreado = function(d, i) { return (colores[i] != undefined ? colores[i] : color_def(i)); }
@@ -85,6 +130,8 @@ function imprime(d) {
          total += d[x][1];
          datos.push({"label": d[x][0], "value": d[x][1]});
       }
+
+   var min = Math.floor(total*0.055);    // mínimo de escaños para mostrar texto
 
    var vis = d3.select("#grafico")
       .append("svg")
@@ -167,7 +214,7 @@ function trasvasa(trasvases, votos) {
 }
 
 // Obtiene los escaños en función de los votos
-function getResultados(metodo, circunscripcion, corte, trasvases) {
+function getResultados(escanyos, metodo, circunscripcion, corte, trasvases) {
    var res = {};
    var res_temp;
    if (circunscripcion == "provincia") {
