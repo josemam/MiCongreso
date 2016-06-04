@@ -1,16 +1,18 @@
 var CCAA, circunscripciones, blancos, nulos, poblacion, resultados;
 
-function procesa() { actualiza(getResultados(
-            getEscanyos(parseInt(document.getElementById('minimo').value, 10),
-                        [[["Ceuta", "Melilla"], 1]],
-                        parseInt(document.getElementById('total_diputados').value), 10),
-            eval(document.getElementById('sel_metodo').value),
-                 document.getElementById('sel_circ').value,
-      parseFloat(document.getElementById('corte').value.replace(",", "."), 10),
-                (document.getElementById('iu_pod').checked ? [["Unidos Podemos", ["Podemos", "EN COMÚ", "Compromís-Podemos", "En Marea", "IU-UPeC"]]] : (document.getElementById('pod_conf').checked ? [["Podemos", ["EN COMÚ", "Compromís-Podemos", "En Marea"]]] : [])))
-)}
+function procesa() {
+   var minimo = parseInt(document.getElementById('minimo').value, 10);
+   var total_diputados = parseInt(document.getElementById('total_diputados').value, 10);
+   var metodo = eval(document.getElementById('sel_metodo').value);
+   var tipo_circ = document.getElementById('sel_circ').value;
+   var corte = parseFloat(document.getElementById('corte').value.replace(",", "."), 10);
+   var trasvases = (document.getElementById('iu_pod').checked ? [["Unidos Podemos", ["Podemos", "EN COMÚ", "Compromís-Podemos", "En Marea", "IU-UPeC"]]] : (document.getElementById('pod_conf').checked ? [["Podemos", ["EN COMÚ", "Compromís-Podemos", "En Marea"]]] : []));
+   var escanyos = getEscanyos(minimo,[[["Ceuta", "Melilla"], 1]], total_diputados, tipo_circ == "comunidad");
 
-function getEscanyos(minimo, fijos, total) {
+   actualiza(getResultados(escanyos, metodo, tipo_circ, corte, trasvases));
+}
+
+function getEscanyos(minimo, fijos, total, por_ccaa) {
    var escanos = {}, escanos_fijos = {};
    var restantes = total;
    for (var i = 0; i < fijos.length; i++)
@@ -19,18 +21,34 @@ function getEscanyos(minimo, fijos, total) {
          restantes -= fijos[i][1];
       }
 
-   for (var ccaa in circunscripciones)
-      for (var circ in circunscripciones[ccaa])
-         if (!escanos_fijos.hasOwnProperty(circunscripciones[ccaa][circ]))
-            restantes -= (escanos[circunscripciones[ccaa][circ]] = minimo);
+   if (por_ccaa) {
+      for (var ccaa in circunscripciones)
+         if (!escanos_fijos.hasOwnProperty(ccaa))
+            restantes -= (escanos[ccaa] = minimo);
+   }
+   else
+      for (var ccaa in circunscripciones)
+         for (var circ in circunscripciones[ccaa])
+            if (!escanos_fijos.hasOwnProperty(circunscripciones[ccaa][circ]))
+               restantes -= (escanos[circunscripciones[ccaa][circ]] = minimo);
 
    if (restantes > 0) {
       var divisiones = {};
-      var total_llamados = 0;
-      for (var l in escanos)
-         total_llamados += poblacion[l];
+      var poblacion_total = 0;
 
-      var cuota_reparto = total_llamados/restantes;
+      if (por_ccaa)
+         for (var ccaa in circunscripciones)
+            if (!poblacion.hasOwnProperty(ccaa)) {
+               var suma_ccaa = 0;
+               for (var prov in circunscripciones[ccaa])
+                  suma_ccaa += poblacion[circunscripciones[ccaa][prov]];
+               poblacion[ccaa] = suma_ccaa;
+            }
+
+      for (var l in escanos)
+         poblacion_total += poblacion[l];
+
+      var cuota_reparto = poblacion_total/restantes;
       for (var e in escanos) {
          divisiones[e] = poblacion[e]/cuota_reparto;
          var suelo = Math.floor(divisiones[e]);
@@ -229,7 +247,7 @@ function getResultados(escanyos, metodo, circunscripcion, corte, trasvases) {
          }
       }
    }
-   else if (circunscripcion == "comunidad") {
+   else if (circunscripcion == "comunidad" || circunscripcion == "comunidad_mix") {
       for (var ca in CCAA) {
          var resultados_ccaa = {};
          var blancos_ccaa = 0, escanyos_ccaa = 0;
@@ -243,6 +261,8 @@ function getResultados(escanyos, metodo, circunscripcion, corte, trasvases) {
 
          }
          trasvasa(trasvases, resultados_ccaa);
+         if (circunscripcion == "comunidad")
+            escanyos_ccaa = escanyos[CCAA[ca]];
 
          res_temp = metodo(resultados_ccaa, blancos_ccaa, escanyos_ccaa, corte)
          for (var x in res_temp)

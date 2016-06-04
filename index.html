@@ -24,25 +24,26 @@
          <textarea id="res_texto" READONLY rows="14"></textarea>
 
          <div id="controles">
-            <input id="minimo" value="2" size="1" onChange="procesa()"> escaños/prov
-            hasta <input id="total_diputados" value="350" size="2" onChange="procesa()">
+            <input id="minimo" value="2" size="1" onChange="procesa()" title="Mínimo de escaños por provincia (por comunidad autónoma si la circunscripción es del tipo Comunidad 1)"> escaños/circ
+            hasta <input id="total_diputados" value="350" size="2" onChange="procesa()" title="Total de escaños">
             Método:
             <select id="sel_metodo" size=1 onChange="procesa()"> 
                <option value=dhondt>D'Hondt</option>
                <option value=resto_mayor>Resto mayor</option>
                <option value=saintelague>Sainte-Laguë</option>
-               <option value=escanocadacincuentamil>Votos/50 000</option>
-               <option value=muestreoaleatorio>Muestreo</option>
+               <option value=escanocadacincuentamil title="Un escaño por cada cincuenta mil votos en una circunscripción. Ignora el reparto de escaños.">Votos/50 000</option>
+               <option value=muestreoaleatorio title="Por cada circunscripción, toma tantos votos (no nulos ni en blanco) al azar como escaños tenga asignados, y cada partido votado recibe un escaño.">Muestreo</option>
             </select><br>
 
             Circunscrip.:
             <select id="sel_circ" size=1 onChange="procesa()"> 
-               <option value="provincia">Provincial</option>
-               <option value="comunidad">Comunitaria</option>
-               <option value="unica">Única</option>
+               <option value="provincia">Provincia</option>
+               <option value="comunidad" title="Se juntan los votos de cada provincia en la comunidad autónoma y el número de escaños por comunidad se calcula a partir del censo total de la comunidad.">Comunidad 1</option>
+               <option value="comunidad_mix" title="Se juntan los votos de cada provincia en la comunidad autónoma, pero el número de escaños de la comunidad es la suma de los escaños de cada provincia.">Comunidad 2</option>
+               <option value="unica" title="Se juntan todos los votos en una sola circunscripción para todo el país.">Única</option>
             </select><br>
             Corte:
-            <input id="corte" value="3" size="1" onChange="procesa()">%
+            <input id="corte" value="3" size="1" onChange="procesa()" title="Los partidos con un porcentaje de votos menor en una circunscripción serán ignorados en el reparto de escaños de esa circunscripción.">%
             Unir Podemos
             <input type="checkbox" id="pod_conf" onChange="procesa()"><br>
             Unir Podemos+IU
