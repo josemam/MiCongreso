@@ -71,9 +71,10 @@ function muestreoaleatorio(resultados, blancos, escanyos, corte) {
 
    var res_nombres = [];
    for (var x in res)
-      res_nombres[x] = [resultados[x].partido, res[x]];
+      if (res[x] != 0)
+         res_nombres[x] = [resultados[x].partido, res[x]];
 
-   return res_nombres;
+   return res_nombres.sort(function(a, b) { return b[1]-a[1]; });
 }
 
 // Cociente Droop para el método de resto mayor

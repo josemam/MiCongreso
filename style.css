@@ -15,6 +15,7 @@ body {
    border-width: 2px;
    position: absolute;
    padding: 7px;
+   font-size: 14px;
    background-color: white;
    -webkit-border-radius: 8px;
    -moz-border-radius: 8px;
@@ -28,7 +29,23 @@ body {
 text {
    text-anchor: middle;
 }
-#grafico {
+.province {
+   fill: #cdd;
+}
+.province-boundary {
+   fill: none;
+   stroke: #444;
+   stroke-linejoin: round;
+}
+.ccaa-boundary {
+   fill: none;
+   stroke: #000;
+   stroke-linejoin: round;
+}
+.province-label {
+   font-size: 0.7em;
+}
+#grafico, #mapa {
    float: left;
 }
 #derecha_grafico {

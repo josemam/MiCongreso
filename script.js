@@ -7,7 +7,7 @@ function procesa() {
    var tipo_circ = document.getElementById('sel_circ').value;
    var corte = parseFloat(document.getElementById('corte').value.replace(",", "."), 10);
    var trasvases = (document.getElementById('iu_pod').checked ? [["Unidos Podemos", ["Podemos", "EN COMÚ", "Compromís-Podemos", "En Marea", "IU-UPeC"]]] : (document.getElementById('pod_conf').checked ? [["Podemos", ["EN COMÚ", "Compromís-Podemos", "En Marea"]]] : []));
-   var escanyos = getEscanyos(minimo,[[["Ceuta", "Melilla"], 1]], total_diputados, tipo_circ == "comunidad");
+   var escanyos = (tipo_circ == "unica" ? total_diputados : getEscanyos(minimo,[[["Ceuta", "Melilla"], 1]], total_diputados, tipo_circ == "comunidad"));
 
    actualiza(getResultados(escanyos, metodo, tipo_circ, corte, trasvases));
 }
@@ -118,7 +118,12 @@ function getcolores(datos) {
 
 // Limpia el gráfico
 function clear_grafico() {
-   d3.select("svg").remove();
+   d3.select("#grafico").select("svg").remove();
+}
+
+// Limpia el mapa
+function clear_mapa() {
+   d3.select("#mapa").select("svg").remove();
 }
 
 // A partir de un color, obtiene uno más claro
@@ -194,7 +199,6 @@ function imprime(d) {
       .attr("d", arc)
       .on("mouseover", function(d, i) {d3.select(this).style("fill",aclarar(coloreado(d,i)));
          d3.select("#tooltip")
-            .attr("font-size", "14px")
             .style("opacity", 1)
             .select("#contenido")
                .text(datos[i].label + ": " + d.value);})
@@ -231,17 +235,104 @@ function trasvasa(trasvases, votos) {
          trasvasaVotos(trasvases[x][1][y], trasvases[x][0], votos);
 }
 
+// Prepara el mapa
+function generaMapa(colores, escanyos, circunscripcion) {
+   d3.select("#mapa").select("svg").remove();
+
+   var width = 400, height = 300;
+    
+   var projection = d3.geo.albers()
+      .center([2.4, 39.4])
+      .rotate([4.4, 0])
+      .parallels([50, 60])
+      .scale(2000)
+      .translate([width / 2, height / 2]);
+
+   var path = d3.geo.path()
+      .projection(projection);
+    
+    
+   var svg = d3.select("#mapa").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+   d3.json("mapa.json", function(error, mapa) {
+      var provincias = topojson.feature(mapa, mapa.objects.provinces);
+      var features;
+      if (circunscripcion != "comunidad")
+         features = provincias.features;
+      else {
+         features = [];
+         for (var ca in CCAA) {
+            var m = topojson.merge(mapa, mapa.objects.provinces.geometries.filter(function(d) { return circunscripciones[CCAA[ca]].indexOf(d.id) != -1 }));
+            m.id = CCAA[ca];
+            features.push(m)
+         }
+      }
+
+      var coloreado;
+      if (circunscripcion != "comunidad_mix")
+         coloreado = function(d) { if (colores[d.id] != undefined) return colores[d.id]; return "#CCDDDD"; }
+      else
+         coloreado = function(d) { if (colores[d.properties.ccaa] != undefined) return colores[d.properties.ccaa]; return "#CCDDDD"; }
+   
+      svg.selectAll(".province")
+         .data(features)
+         .enter().append("path")
+         .attr("class", function(d) { return "province " + d.id; })
+         .attr("d", path)
+         .style("fill", coloreado)
+         .on("mouseover", function(d, i) {
+            d3.select(this).style("fill", function(d) { return aclarar(coloreado(d)); } );
+            d3.select("#tooltip")
+               .style("opacity", 1)
+               .select("#contenido")
+                  .text(d.id + ": " + escanyos[d.id]);})
+         .on("mousemove", function() {
+            d3.select("#tooltip")
+               .style("left", (d3.event.pageX + 5) + "px")
+               .style("top", (d3.event.pageY - 35) + "px")})
+         .on("mouseout", function(d, i) {
+            d3.select(this).style("fill", coloreado);
+            d3.select("#tooltip").style("opacity", 0)});
+
+      if (circunscripcion == "provincia" || circunscripcion == "comunidad_mix")
+         svg.append("path")
+            .datum(topojson.mesh(mapa, mapa.objects.provinces, function(a, b) { return a !== b }))
+            .attr("d", path)
+            .attr("class", "province-boundary");
+
+      svg.append("path")
+         .datum(topojson.mesh(mapa, mapa.objects.provinces, function(a, b) { return a !== b && a.properties.ccaa != b.properties.ccaa }))
+         .attr("d", path)
+         .attr("class", "ccaa-boundary");
+      
+      svg.selectAll(".province-label")
+         .data(features).enter().append("text")
+         .attr("class", function(d) { return "province-label " + d.id; })
+         .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
+         .attr("dy", ".35em")
+         .text(function(d) { return escanyos[d.id]; });
+   });
+}
+
 // Obtiene los escaños en función de los votos
 function getResultados(escanyos, metodo, circunscripcion, corte, trasvases) {
    var res = {};
    var res_temp;
+   var colores_provincia = {};
+   
    if (circunscripcion == "provincia") {
       for (var ca in CCAA) {
          for (var circ in circunscripciones[CCAA[ca]]) {
             var actual_circ = circunscripciones[CCAA[ca]][circ];
             var resultados_circ = jQuery.extend({}, resultados[actual_circ]);  // Hace una copia
             trasvasa(trasvases, resultados_circ);
-            res_temp = metodo(resultados_circ, blancos[actual_circ], escanyos[actual_circ], corte)
+            res_temp = metodo(resultados_circ, blancos[actual_circ], escanyos[actual_circ], corte);
+            if (res_temp.length)
+               colores_provincia[circunscripciones[CCAA[ca]][circ]] = colores[res_temp[0][0]];
+            else
+               colores_provincia[circunscripciones[CCAA[ca]][circ]] = "#777";   
             for (var x in res_temp)
                suma(res, res_temp[x][0], res_temp[x][1]);
          }
@@ -265,18 +356,21 @@ function getResultados(escanyos, metodo, circunscripcion, corte, trasvases) {
             escanyos_ccaa = escanyos[CCAA[ca]];
 
          res_temp = metodo(resultados_ccaa, blancos_ccaa, escanyos_ccaa, corte)
+         if (res_temp.length)
+            colores_provincia[CCAA[ca]] = colores[res_temp[0][0]];
+         else
+            colores_provincia[CCAA[ca]] = "#777";  
          for (var x in res_temp)
             suma(res, res_temp[x][0], res_temp[x][1]);
       }
    }
    else if (circunscripcion == "unica") {
       var resultados_total = {};
-      var blancos_total = 0, escanyos_total = 0;
+      var blancos_total = 0;
       for (var ca in CCAA) {
          for (var circ in circunscripciones[CCAA[ca]]) {
             var actual_circ = circunscripciones[CCAA[ca]][circ];
             blancos_total += blancos[actual_circ];
-            escanyos_total += escanyos[actual_circ];
             var partidos = Object.keys(resultados[actual_circ]);
             for (var x in partidos)
                suma(resultados_total, partidos[x], resultados[actual_circ][partidos[x]]);
@@ -285,7 +379,7 @@ function getResultados(escanyos, metodo, circunscripcion, corte, trasvases) {
       }
       trasvasa(trasvases, resultados_total);
 
-      res_temp = metodo(resultados_total, blancos_total, escanyos_total, corte)
+      res_temp = metodo(resultados_total, blancos_total, escanyos, corte)
       for (var x in res_temp)
          suma(res, res_temp[x][0], res_temp[x][1]);
    }
@@ -296,6 +390,10 @@ function getResultados(escanyos, metodo, circunscripcion, corte, trasvases) {
    partidos.sort(MasAMenosEscanos);
    for (var x in partidos)
       salida.push([partidos[x], res[partidos[x]]]);
+
+   clear_mapa();
+   if (circunscripcion != "unica")
+      generaMapa(colores_provincia, escanyos, circunscripcion);
 
    return salida;
 }
