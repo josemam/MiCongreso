@@ -87,15 +87,25 @@ function cociente_hare(totales, escanyos) {
    return totales/escanyos;
 }
 
-// Aplica el método del resto mayor con cociente Droop
-function resto_mayor(resultados, blancos, escanyos, corte) {
+// Divisor usado en la versión D'Hondt del método de promedio mayor
+function divisor_dhondt(votos, index) {
+   return votos/(index+1);
+}
+
+// Divisor usado en la versión Sainte-Laguë del método de promedio mayor
+function divisor_sainte_lague(votos, index) {
+   return votos/(2*index+1);
+}
+
+// Aplica un método de resto mayor
+function resto_mayor(resultados, blancos, escanyos, corte, tipo_cociente) {
    resultados = aListaOrdenada(resultados);
    var votos_totales = contarVotosTotales(resultados, blancos);
    resultados = corta(resultados, votos_totales, corte);
 
    if (resultados.length == 0) return [];
 
-   var divisor = cociente_droop(votos_totales, escanyos);
+   var divisor = tipo_cociente(votos_totales, escanyos);
 
    var cocientes = []
    var restos = [];
@@ -122,14 +132,6 @@ function resto_mayor(resultados, blancos, escanyos, corte) {
          res_nombres.push([resultados[x].partido, cocientes[x]]);
 
    return res_nombres;
-}
-
-function divisor_dhondt(votos, index) {
-   return votos/(index+1);
-}
-
-function divisor_sainte_lague(votos, index) {
-   return votos/(2*index+1);
 }
 
 // Aplica un método de promedio mayor
@@ -164,6 +166,16 @@ function promedio_mayor(resultados, blancos, escanyos, corte, tipo_divisor) {
       res_nombres[x] = [resultados[x].partido, res[x]];
 
    return res_nombres;
+}
+
+// Aplica el método de resto mayor con cociente Droop
+function droop(resultados, blancos, escanyos, corte) {
+   return resto_mayor(resultados, blancos, escanyos, corte, cociente_droop);
+}
+
+// Aplica el método de resto mayor con cociente Hare
+function hare(resultados, blancos, escanyos, corte) {
+   return resto_mayor(resultados, blancos, escanyos, corte, cociente_hare);
 }
 
 // Aplica el método D'Hondt
