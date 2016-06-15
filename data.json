@@ -97,26 +97,6 @@
 "Zaragoza": 964534
 },
 
-"escaños": {
-"Madrid": 36,
-"Barcelona": 31,
-"Valencia": 15,
-"Alicante": 12,
-"Sevilla": 12,
-"Málaga": 11,
-"Murcia": 10,
-"Cádiz": 9,
-"Bizkaia": 8, "A Coruña": 8, "Baleares": 8, "Las Palmas": 8, "Asturias": 8,
-"SC de Tenerife": 7, "Zaragoza": 7, "Pontevedra": 7, "Granada": 7,
-"Tarragona": 6, "Córdoba": 6, "Girona": 6, "Gipuzkoa": 6, "Toledo": 6, "Almería": 6, "Badajoz": 6,
-"Navarra": 5, "Castellón": 5, "Cantabria": 5, "Valladolid": 5, "Ciudad Real": 5, "Huelva": 5, "Jaén": 5, "León": 5,
-"Lleida": 4, "Cáceres": 4, "Albacete": 4, "Burgos": 4, "Salamanca": 4, "Lugo": 4, "Ourense": 4, "La Rioja": 4, "Araba": 4,
-"Guadalajara": 3, "Huesca": 3, "Cuenca": 3, "Zamora": 3, "Ávila": 3, "Palencia": 3, "Segovia": 3, "Teruel": 3,
-"Soria": 2,
-"Ceuta": 1,
-"Melilla": 1
-},
-
 "blancos": {
 "A Coruña": 7643,
 "Albacete": 1725,
