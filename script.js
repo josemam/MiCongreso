@@ -1,4 +1,4 @@
-var CCAA, circunscripciones, blancos, nulos, poblacion, resultados;
+var data, CCAA, circunscripciones, blancos, nulos, poblacion, resultados;
 
 function procesa() {
    var minimo = parseInt(document.getElementById('minimo').value, 10);
@@ -82,9 +82,9 @@ function suma(obj, clave, valor) {
       obj[clave] += valor;
 }
 
-// Guarda los datos del archivo JSON en variables y presenta los resultados reales
-function leerdatos(data) {
-   var elecciones = data["espana_2015"]
+// Reparte los datos del archivo JSON en variables y presenta los resultados reales
+function leerdatos(elec = "espana_2015") {
+   var elecciones = data[elec];
    CCAA = elecciones["CCAA"];
    circunscripciones = elecciones["circunscripciones"];
    poblacion = elecciones["ultimo_censo"];
@@ -97,7 +97,7 @@ function leerdatos(data) {
 }
 
 $(document).ready(function() {
-   $.getJSON("data.json", leerdatos);
+   $.getJSON("data.json", function(d) { data = d; leerdatos() } );
 });
 
 // Presenta los datos procesados en gráfico y lista

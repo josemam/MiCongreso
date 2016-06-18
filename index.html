@@ -22,9 +22,13 @@
       <div id="tooltip"><span id="contenido"></span></div>
       <div id="grafico"></div>
       <div id="derecha_grafico">
-         <textarea id="res_texto" READONLY rows="14"></textarea>
+         <textarea id="res_texto" READONLY rows="13"></textarea>
 
          <div id="controles">
+            Resultados del <select id="elecciones" size=1 onChange="leerdatos(this.value)">
+               <option value=espana_2015 selected="selected">20/12/2015</option>
+            </select><br>
+            
             <input id="minimo" value="2" size="1" onChange="procesa()" title="Mínimo de escaños por provincia (por comunidad autónoma si la circunscripción es del tipo Comunidad 1)"> escaños/circ
             hasta <input id="total_diputados" value="350" size="2" onChange="procesa()" title="Total de escaños">
             Método:
