@@ -100,10 +100,35 @@ $(document).ready(function() {
    $.getJSON("data.json", function(d) { data = d; leerdatos() } );
 });
 
+// Ordena los partidos según los escaños conseguidos (por votos en caso de empate si se pasan los votos)
+// Si todos es true se ordenan los partidos sin escaños también
+sortPartidos = function(escanos, votos, todos) {
+   if (todos == undefined) todos = false;
+   var partidos = Object.keys(todos ? votos : escanos);
+   function MasAMenosEscanos(a,b) {return escanos[b]-escanos[a] || (votos != undefined && votos[b]-votos[a])};
+   return partidos.sort(MasAMenosEscanos);
+}
+
+// Obtiene la lista de partidos con sus escaños
+function parsableResults(escanos, votos) {
+   var res = [];
+   var partidos = sortPartidos(escanos, votos); // Ordena solo los partidos con escaños
+   for (var x in partidos)
+      res.push([partidos[x], escanos[partidos[x]]]);
+
+   return res;
+}
+
 // Presenta los datos procesados en gráfico y lista
 function actualiza(data) {
-   document.getElementById("res_texto").value = data.map(function(a) {return a.join(": ")}).join("\n");
-   imprime(data);
+   var salida = parsableResults(data.g_escanos, data.g_votos);
+
+   clear_mapa();
+   if (data.circunscripcion != "unica")
+      generaMapa(data.l_escanos, data.l_votos, data.circunscripcion, data.escanyos);
+
+   document.getElementById("res_texto").value = salida.map(function(a) {return a.join(": ")}).join("\n");
+   imprime(salida);
 }
 
 // Obtiene los colores fijos de los partidos (el resto queda sin definir)
@@ -235,8 +260,42 @@ function trasvasa(trasvases, votos) {
          trasvasaVotos(trasvases[x][1][y], trasvases[x][0], votos);
 }
 
+// Obtiene los colores de cada circunscripción a partir de los resultados
+function getColoresFromData(escanos, votos) {
+   var partidos = sortPartidos(escanos, votos);
+   if (partidos.length) {
+      if (colores.hasOwnProperty(partidos[0]))
+         return colores[partidos[0]];
+
+      return "#CDD"; // Color si el primer partido no tiene color asignado
+   }
+   return "#777"; // Color si ningún partido obtiene escaños
+}
+
+// Obtiene los escaños de cada circunscripción a partir de los resultados
+function getEscanyosFromData(escanos) {
+   var total = 0;
+   for (var x in escanos)
+      total += escanos[x];
+
+   return total;
+}
+
 // Prepara el mapa
-function generaMapa(colores, escanyos, circunscripcion) {
+function generaMapa(escanos_partidos, votos, circunscripcion, escanyos_supuestos) {
+   var colores = {};
+   var escanyos = {};
+   var cmix = circunscripcion == "comunidad_mix";
+   for (var circ in escanos_partidos) {
+      colores[circ] = getColoresFromData(escanos_partidos[circ], votos[circ]);
+      if (!cmix)
+         escanyos[circ] = getEscanyosFromData(escanos_partidos[circ]);
+   }
+
+   if (cmix)
+      for (var prov in escanyos_supuestos)
+         escanyos[prov] = escanyos_supuestos[prov]
+   
    d3.select("#mapa").select("svg").remove();
 
    var width = 400, height = 300;
@@ -272,9 +331,9 @@ function generaMapa(colores, escanyos, circunscripcion) {
 
       var coloreado;
       if (circunscripcion != "comunidad_mix")
-         coloreado = function(d) { if (colores[d.id] != undefined) return colores[d.id]; return "#CCDDDD"; }
+         coloreado = function(d) { return colores[d.id] }
       else
-         coloreado = function(d) { if (colores[d.properties.ccaa] != undefined) return colores[d.properties.ccaa]; return "#CCDDDD"; }
+         coloreado = function(d) { return colores[d.properties.ccaa] }
    
       svg.selectAll(".province")
          .data(features)
@@ -287,11 +346,11 @@ function generaMapa(colores, escanyos, circunscripcion) {
             d3.select("#tooltip")
                .style("opacity", 1)
                .select("#contenido")
-                  .text(d.id + ": " + escanyos[d.id]);})
+                  .html(d.id + ": " + escanyos[d.id] + "<br><br>" + (cmix && !escanos_partidos.hasOwnProperty(d.id) ? "(Escaños de " + d.properties.ccaa + ")<br>" : "") + parsableResults(escanos_partidos[cmix ? d.properties.ccaa : d.id], votos[cmix ? d.properties.ccaa : d.id]).map(function(a) {return a.join(": ")}).join("<br>"));})
          .on("mousemove", function() {
             d3.select("#tooltip")
-               .style("left", (d3.event.pageX + 5) + "px")
-               .style("top", (d3.event.pageY - 35) + "px")})
+               .style("left", (d3.event.pageX + 10) + "px")
+               .style("top", (d3.event.pageY + 5) + "px")})
          .on("mouseout", function(d, i) {
             d3.select(this).style("fill", coloreado);
             d3.select("#tooltip").style("opacity", 0)});
@@ -316,31 +375,32 @@ function generaMapa(colores, escanyos, circunscripcion) {
    });
 }
 
+// Vuelca resultados locales en los resultados globales
+function vuelca(local, global) {
+   for (var x in local)
+      suma(global, x, local[x]);
+}
+
 // Obtiene los escaños en función de los votos
 function getResultados(escanyos, metodo, circunscripcion, corte, trasvases) {
-   var res = {};
-   var res_temp;
-   var colores_provincia = {};
+   var g_escanos = {}, g_votos = {}, l_escanos = {}, l_votos = {}; // global/local escaños/votos
    
    if (circunscripcion == "provincia") {
       for (var ca in CCAA) {
          for (var circ in circunscripciones[CCAA[ca]]) {
             var actual_circ = circunscripciones[CCAA[ca]][circ];
-            var resultados_circ = jQuery.extend({}, resultados[actual_circ]);  // Hace una copia
-            trasvasa(trasvases, resultados_circ);
-            res_temp = metodo(resultados_circ, blancos[actual_circ], escanyos[actual_circ], corte);
-            if (res_temp.length)
-               colores_provincia[circunscripciones[CCAA[ca]][circ]] = colores[res_temp[0][0]];
-            else
-               colores_provincia[circunscripciones[CCAA[ca]][circ]] = "#777";   
-            for (var x in res_temp)
-               suma(res, res_temp[x][0], res_temp[x][1]);
+            l_votos[actual_circ] = jQuery.extend({}, resultados[actual_circ]);  // Hace una copia
+            trasvasa(trasvases, l_votos[actual_circ]);
+            l_escanos[actual_circ] = metodo(l_votos[actual_circ], blancos[actual_circ], escanyos[actual_circ], corte);
+
+            vuelca(l_escanos[actual_circ], g_escanos);
+            vuelca(l_votos[actual_circ], g_votos);
          }
       }
    }
    else if (circunscripcion == "comunidad" || circunscripcion == "comunidad_mix") {
       for (var ca in CCAA) {
-         var resultados_ccaa = {};
+         l_votos[CCAA[ca]] = {};
          var blancos_ccaa = 0, escanyos_ccaa = 0;
          for (var circ in circunscripciones[CCAA[ca]]) {
             var actual_circ = circunscripciones[CCAA[ca]][circ];
@@ -348,24 +408,20 @@ function getResultados(escanyos, metodo, circunscripcion, corte, trasvases) {
             escanyos_ccaa += escanyos[actual_circ];
             var partidos = Object.keys(resultados[actual_circ]);
             for (var x in partidos)
-               suma(resultados_ccaa, partidos[x], resultados[actual_circ][partidos[x]]);
+               suma(l_votos[CCAA[ca]], partidos[x], resultados[actual_circ][partidos[x]]);
 
          }
-         trasvasa(trasvases, resultados_ccaa);
+         trasvasa(trasvases, l_votos[CCAA[ca]]);
          if (circunscripcion == "comunidad")
             escanyos_ccaa = escanyos[CCAA[ca]];
 
-         res_temp = metodo(resultados_ccaa, blancos_ccaa, escanyos_ccaa, corte)
-         if (res_temp.length)
-            colores_provincia[CCAA[ca]] = colores[res_temp[0][0]];
-         else
-            colores_provincia[CCAA[ca]] = "#777";  
-         for (var x in res_temp)
-            suma(res, res_temp[x][0], res_temp[x][1]);
+         l_escanos[CCAA[ca]] = metodo(l_votos[CCAA[ca]], blancos_ccaa, escanyos_ccaa, corte);
+
+         vuelca(l_escanos[CCAA[ca]], g_escanos);
+         vuelca(l_votos[CCAA[ca]], g_votos);
       }
    }
    else if (circunscripcion == "unica") {
-      var resultados_total = {};
       var blancos_total = 0;
       for (var ca in CCAA) {
          for (var circ in circunscripciones[CCAA[ca]]) {
@@ -373,27 +429,14 @@ function getResultados(escanyos, metodo, circunscripcion, corte, trasvases) {
             blancos_total += blancos[actual_circ];
             var partidos = Object.keys(resultados[actual_circ]);
             for (var x in partidos)
-               suma(resultados_total, partidos[x], resultados[actual_circ][partidos[x]]);
+               suma(g_votos, partidos[x], resultados[actual_circ][partidos[x]]);
 
          }
       }
-      trasvasa(trasvases, resultados_total);
+      trasvasa(trasvases, g_votos);
 
-      res_temp = metodo(resultados_total, blancos_total, escanyos, corte)
-      for (var x in res_temp)
-         suma(res, res_temp[x][0], res_temp[x][1]);
+      g_escanos = metodo(g_votos, blancos_total, escanyos, corte)
    }
 
-   var salida = [];
-   var partidos = Object.keys(res);
-   function MasAMenosEscanos(a,b) {return res[b]-res[a]};
-   partidos.sort(MasAMenosEscanos);
-   for (var x in partidos)
-      salida.push([partidos[x], res[partidos[x]]]);
-
-   clear_mapa();
-   if (circunscripcion != "unica")
-      generaMapa(colores_provincia, escanyos, circunscripcion);
-
-   return salida;
+   return {g_escanos, g_votos, l_escanos, l_votos, circunscripcion, escanyos};
 }

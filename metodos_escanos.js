@@ -36,7 +36,7 @@ function escanocadacincuentamil(resultados, blancos, escanyos, corte) {
    var res_nombres = [];
    var divisor = 50000;
    for (var x = 0; x < resultados.length && resultados[x].votos >= divisor; x++)
-      res_nombres[x] = [resultados[x].partido, Math.floor(resultados[x].votos / divisor)];
+      res_nombres[resultados[x].partido] = Math.floor(resultados[x].votos / divisor);
    
    return res_nombres;
 }
@@ -72,7 +72,7 @@ function muestreoaleatorio(resultados, blancos, escanyos, corte) {
    var res_nombres = [];
    for (var x in res)
       if (res[x] != 0)
-         res_nombres[x] = [resultados[x].partido, res[x]];
+         res_nombres[resultados[x].partido] = res[x];
 
    return res_nombres.sort(function(a, b) { return b[1]-a[1]; });
 }
@@ -126,10 +126,10 @@ function resto_mayor(resultados, blancos, escanyos, corte, tipo_cociente) {
       asignados++;
    }
 
-   var res_nombres = [];
+   var res_nombres = {};
    for (var x = 0; x < cocientes.length; x++)
       if (cocientes[x] != 0)
-         res_nombres.push([resultados[x].partido, cocientes[x]]);
+         res_nombres[resultados[x].partido] = cocientes[x];
 
    return res_nombres;
 }
@@ -161,9 +161,9 @@ function promedio_mayor(resultados, blancos, escanyos, corte, tipo_divisor) {
    for (var x in candidatos)
       suma(res, candidatos[x][0]);
 
-   var res_nombres = [];
+   var res_nombres = {};
    for (var x in res)
-      res_nombres[x] = [resultados[x].partido, res[x]];
+      res_nombres[resultados[x].partido] = res[x];
 
    return res_nombres;
 }
