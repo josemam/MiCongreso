@@ -1,5 +1,6 @@
 var data, CCAA, circunscripciones, blancos, nulos, poblacion, resultados;
 
+// Lee los campos y genera los resultados
 function procesa() {
    var minimo = parseInt(document.getElementById('minimo').value, 10);
    var total_diputados = parseInt(document.getElementById('total_diputados').value, 10);
@@ -12,6 +13,12 @@ function procesa() {
    actualiza(getResultados(escanyos, metodo, tipo_circ, corte, trasvases));
 }
 
+// Obtiene el reparto de escaños por circunscripción
+// minimo es el mínimo número de escaños que puede tener una circunscripción (ignorando los fijos)
+// fijos es un array de la forma [[[circ1a, circ1b, ...], num1], [[circ2a, circ2b, ...], num2], ...]
+// donde a circ1a, circ1b... se les asigna num1 escaños, etc
+// total es el número de escaños que deben repartirse
+// por_ccaa determina si se reparten entre comunidades autónomas (true) o provincias (false)
 function getEscanyos(minimo, fijos, total, por_ccaa) {
    var escanos = {}, escanos_fijos = {};
    var restantes = total;
@@ -71,7 +78,7 @@ function getEscanyos(minimo, fijos, total, por_ccaa) {
    return escanos;
 }
 
-// Suma valor (1 si valor == undefined) a partir de 0 si el elemento no está definido
+// Suma valor (o 1 si valor == undefined) a partir de 0 si el elemento no está definido
 function suma(obj, clave, valor) {
    if (obj[clave] == undefined)
       obj[clave] = 0;
@@ -119,7 +126,7 @@ function parsableResults(escanos, votos) {
    return res;
 }
 
-// Presenta los datos procesados en gráfico y lista
+// Presenta los datos procesados en gráfico, lista y mapa
 function actualiza(data) {
    var salida = parsableResults(data.g_escanos, data.g_votos);
 
@@ -272,7 +279,8 @@ function getColoresFromData(escanos, votos) {
    return "#777"; // Color si ningún partido obtiene escaños
 }
 
-// Obtiene los escaños de cada circunscripción a partir de los resultados
+// Obtiene los escaños de una circunscripción a partir de los resultados
+// Si el reparto asigna un número distinto de diputados al previsto, esta función no devolverá el previsto, sino el resultante
 function getEscanyosFromData(escanos) {
    var total = 0;
    for (var x in escanos)

@@ -97,6 +97,11 @@ function divisor_sainte_lague(votos, index) {
    return votos/(2*index+1);
 }
 
+// Divisor usado en la versión modificada de la versión Sainte-Laguë del método de promedio mayor
+function divisor_sainte_lague_mod(votos, index) {
+   return votos/(index ? (2*index+1) : 1.4);
+}
+
 // Aplica un método de resto mayor
 function resto_mayor(resultados, blancos, escanyos, corte, tipo_cociente) {
    resultados = aListaOrdenada(resultados);
@@ -186,4 +191,9 @@ function dhondt(resultados, blancos, escanyos, corte) {
 // Aplica el método Sainte-Laguë
 function saintelague(resultados, blancos, escanyos, corte) {
    return promedio_mayor(resultados, blancos, escanyos, corte, divisor_sainte_lague);
+}
+
+// Aplica el método Sainte-Laguë modificado
+function saintelaguemod(resultados, blancos, escanyos, corte) {
+   return promedio_mayor(resultados, blancos, escanyos, corte, divisor_sainte_lague_mod);
 }
