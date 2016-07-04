@@ -102,6 +102,11 @@ function divisor_sainte_lague_mod(votos, index) {
    return votos/(index ? (2*index+1) : 1.4);
 }
 
+// Divisor usado en la versión Huntington-Hill del método de promedio mayor
+function divisor_huntington_hill(votos, index) {
+   return votos/(Math.sqrt((index+1)*(index+2)));
+}
+
 // Aplica un método de resto mayor
 function resto_mayor(resultados, blancos, escanyos, corte, tipo_cociente) {
    resultados = aListaOrdenada(resultados);
@@ -196,4 +201,9 @@ function saintelague(resultados, blancos, escanyos, corte) {
 // Aplica el método Sainte-Laguë modificado
 function saintelaguemod(resultados, blancos, escanyos, corte) {
    return promedio_mayor(resultados, blancos, escanyos, corte, divisor_sainte_lague_mod);
+}
+
+// Aplica el método Huntington-Hill
+function huntington_hill(resultados, blancos, escanyos, corte) {
+   return promedio_mayor(resultados, blancos, escanyos, corte, divisor_huntington_hill);
 }
