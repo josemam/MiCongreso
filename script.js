@@ -90,7 +90,7 @@ function suma(obj, clave, valor) {
 }
 
 // Reparte los datos del archivo JSON en variables y presenta los resultados reales
-function leerdatos(elec = "espana_2015") {
+function leerdatos(elec = "espana_2016") {
    var elecciones = data[elec];
    CCAA = elecciones["CCAA"];
    circunscripciones = elecciones["circunscripciones"];
