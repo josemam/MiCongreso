@@ -1,4 +1,11 @@
 {
+"colores_por_defecto" : {
+"PP+C's": "#0BB2FF",
+"PP+Vox": "#0BB2FF",
+"PP+C's+Vox": "#0BB2FF",
+"PSOE+Podemos+IU": "#ED0A01"
+},
+
 "espana_2016" : {
 "CCAA": ["Andalucía", "Aragón", "Asturias", "Baleares", "Canarias", "Cantabria", "Castilla-La Mancha",
           "Castilla y León", "Cataluña", "Ceuta", "Comunidad Valenciana", "Extremadura", "Galicia",
