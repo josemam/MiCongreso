@@ -7,7 +7,22 @@ function procesa() {
    var metodo = eval(document.getElementById('sel_metodo').value);
    var tipo_circ = document.getElementById('sel_circ').value;
    var corte = parseFloat(document.getElementById('corte').value.replace(",", "."), 10);
-   var trasvases = (document.getElementById('iu_pod').checked ? [["Unidos Podemos", ["Podemos", "EN COMÚ", "Compromís-Podemos", "En Marea", "IU-UPeC"]]] : (document.getElementById('pod_conf').checked ? [["Podemos", ["EN COMÚ", "Compromís-Podemos", "En Marea"]]] : []));
+
+   var confluencias_podemos_2015 = ["PODEMOS", "EN COMÚ", "PODEMOS-COM", "PODEMOS-En"];
+   var confluencias_up_2016 = ["PODEMOS-IU-EQUO", "PODEMOS-EN MAREA-ANOVA-EU", "ECP", "PODEMOS-COMPROMÍS-EUPV"];
+   var confluencias_podemos_up = confluencias_podemos_2015.concat(confluencias_up_2016);
+   var nombres_iu = ["IU-UPeC", "IU-LV", "I.U.", "IU"];
+   var agrupaciones_podemos = [["Podemos", confluencias_podemos_2015], ["Unidos Podemos", confluencias_up_2016]];
+   
+   var trasvases = {
+         "nada": [],
+         "pod_conf": agrupaciones_podemos,
+         "pod_iu": [["Unidos Podemos", ["IU-UPeC"].concat(confluencias_podemos_up)]],
+         "psoe_up": [["PSOE+Podemos+IU", ["PSOE", "P.S.O.E.", "PSOE-PROGR."].concat(nombres_iu).concat(confluencias_podemos_up)]],
+         "pp_cs": [["PP+C's", ["PP", "P.P.", "C's"]]].concat(agrupaciones_podemos),
+         "pp_vox": [["PP+Vox", ["PP", "P.P.", "Vox"]]].concat(agrupaciones_podemos),
+         "pp_cs_vox": [["PP+C's+Vox", ["PP", "P.P.", "C's", "Vox"]]].concat(agrupaciones_podemos)
+      }[document.getElementById('sel_union').value];
    var escanyos = (tipo_circ == "unica" ? total_diputados : getEscanyos(minimo,[[["Ceuta", "Melilla"], 1]], total_diputados, tipo_circ == "comunidad"));
 
    actualiza(getResultados(escanyos, metodo, tipo_circ, corte, trasvases));
@@ -97,8 +112,13 @@ function leerdatos(elec = "espana_2016") {
    poblacion = elecciones["ultimo_censo"];
    blancos = elecciones["blancos"];
    nulos = elecciones["nulos"];
+   colores_por_defecto = data["colores_por_defecto"];
    colores = elecciones["colores"];
    resultados = elecciones["resultados"];
+
+   for (var c in colores_por_defecto)
+      if (!colores.hasOwnProperty(c))
+         colores[c] = colores_por_defecto[c];
 
    procesa();
 }

@@ -59,11 +59,16 @@
                <option value="unica" title="Se juntan todos los votos en una sola circunscripción para todo el país.">Única</option>
             </select><br>
             Corte:
-            <input id="corte" value="3" size="1" onChange="procesa()" title="Los partidos con un porcentaje de votos menor en una circunscripción serán ignorados en el reparto de escaños de esa circunscripción.">%
-            Unir Podemos
-            <input type="checkbox" id="pod_conf" onChange="procesa()"><br>
-            Unir Podemos+IU
-            <input type="checkbox" id="iu_pod" onChange="procesa()">
+            <input id="corte" value="3" size="1" onChange="procesa()" title="Los partidos con un porcentaje de votos menor en una circunscripción serán ignorados en el reparto de escaños de esa circunscripción.">%<br>
+            Unir: <select id="sel_union" size=1 onChange="procesa()">
+               <option value="nada">Nada</option>
+               <option value="pod_conf" selected="selected">Podemos y confluencias</option>
+               <option value="pod_iu">Podemos + IU</option>
+               <option value="psoe_up">PSOE + Podemos + IU</option>
+               <option value="pp_cs">PP + C's</option>
+               <option value="pp_vox">PP + Vox</option>
+               <option value="pp_cs_vox">PP + C's + Vox</option>
+            </select>
          </div>
       </div>
       <div id="mapa"></div>
@@ -74,18 +79,20 @@
          de reparto de escaños, el ámbito de cada circunscripción y el mínimo de
          votos necesarios para acceder al reparto, y mira cómo fluctua el Parlamento!<br><br>
          
-         Si marcas 'Unir Podemos', se considerará que Podemos y todas las
-         confluencias en las que participó Podemos en las elecciones del 20 de diciembre
-         del 2015 (En Comú, Compromís-Podemos y En Marea) son el mismo partido. En
-         circunscripción única, marcar o no esta casilla puede afectar al reparto de
-         escaños de todos los partidos. En otro caso, solo tiene el efecto de mostrar los
-         escaños de Podemos y partidos relacionados en un solo bloque. ¡Recuerda que
-         Izquierda Unida también participó en En comú y En Marea!<br><br>
+         También puedes ver el efecto que tendría la fusión de partidos en la
+         distribución de escaños. En el menú Unir, por defecto está seleccionado Podemos
+         y confluencias, de forma que se identifican los partidos relacionados con Podemos
+         o Unidos Podemos como uno solo, lo cual solo tiene efecto visual y no influye en
+         el reparto porque los distintos nombres de las confluencias de Podemos participan
+         en provincias distintas. Sin embargo, se puede seleccionar una unión distinta de
+         partidos; al hacer esto se considera que se presentan con el mismo nombre y
+         reciben tantos votos como los partidos implicados, afectando notablemente al
+         reparto de escaños y a las posibles coaliciones de gobierno.<br><br>
          
          Nota: Los resultados suponen que los votos son los mismos, pero cambiar
-         la ley electoral puede alterar el enfoque que los partidos dan a la
-         campaña electoral, las uniones de partidos, e incluso la perspectiva de
-         los electores, alterando profundamente los resultados.<br><br>
+         la ley electoral o fusionar partidos puede alterar el enfoque que los
+         partidos dan a la campaña electoral, las uniones de partidos, e incluso la
+         perspectiva de los electores, alterando profundamente los resultados.<br><br>
          
          <a href="https://github.com/josemam/MiCongreso">Código fuente aquí</a>
       </p>
