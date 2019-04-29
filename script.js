@@ -20,9 +20,9 @@ function procesa() {
          "pod_conf": agrupaciones_podemos,
          "pod_iu": [["Unidos Podemos", ["IU-UPeC"].concat(confluencias_podemos_up)]],
          "psoe_up": [["PSOE+Podemos+IU", ["PSOE", "P.S.O.E.", "PSOE-PROGR."].concat(nombres_iu).concat(confluencias_podemos_up)]],
-         "pp_cs": [["PP+C's", ["PP", "P.P.", "C's"]]].concat(agrupaciones_podemos),
-         "pp_vox": [["PP+Vox", ["PP", "P.P.", "Vox"]]].concat(agrupaciones_podemos),
-         "pp_cs_vox": [["PP+C's+Vox", ["PP", "P.P.", "C's", "Vox"]]].concat(agrupaciones_podemos)
+         "pp_cs": [["PP+C's", ["PP", "P.P.", "C's", "Cs"]]].concat(agrupaciones_podemos),
+         "pp_vox": [["PP+Vox", ["PP", "P.P.", "Vox", "VOX"]]].concat(agrupaciones_podemos),
+         "pp_cs_vox": [["PP+C's+Vox", ["PP", "P.P.", "C's", "Cs", "Vox", "VOX"]]].concat(agrupaciones_podemos)
       }[document.getElementById('sel_union').value];
    var escanyos = (tipo_circ == "unica" ? total_diputados : getEscanyos(minimo,[[["Ceuta", "Melilla"], 1]], total_diputados, tipo_circ == "comunidad"));
 
