@@ -10,10 +10,10 @@ function procesa() {
 
    var confluencias_podemos_2015 = ["PODEMOS", "EN COMÚ", "PODEMOS-COM", "PODEMOS-En"];
    var confluencias_up_2016 = ["PODEMOS-IU-EQUO", "PODEMOS-EN MAREA-ANOVA-EU", "ECP", "PODEMOS-COMPROMÍS-EUPV"];
-   var confluencias_up_2019 = ["ECP-GUANYEM EL CANVI"];
-   var confluencias_podemos_up = confluencias_podemos_2015.concat(confluencias_up_2016);
+   var confluencias_up_2019 = ["Unidas Podemos", "ECP-GUANYEM EL CANVI"];
+   var confluencias_podemos_up = confluencias_podemos_2015.concat(confluencias_up_2016).concat(confluencias_up_2019);
    var nombres_iu = ["IU-UPeC", "IU-LV", "I.U.", "IU"];
-   var agrupaciones_podemos = [["Podemos", confluencias_podemos_2015], ["Unidos Podemos", confluencias_up_2016], ["Unidas Podemos", confluencias_up_2019]];
+   var agrupaciones_podemos = [["Podemos", confluencias_podemos_2015], ["Unidos Podemos", confluencias_up_2016], ["Unidos Podemos", confluencias_up_2019]];
    
    var trasvases = {
          "nada": [],
