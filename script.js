@@ -10,9 +10,10 @@ function procesa() {
 
    var confluencias_podemos_2015 = ["PODEMOS", "EN COMÚ", "PODEMOS-COM", "PODEMOS-En"];
    var confluencias_up_2016 = ["PODEMOS-IU-EQUO", "PODEMOS-EN MAREA-ANOVA-EU", "ECP", "PODEMOS-COMPROMÍS-EUPV"];
+   var confluencias_up_2019 = ["ECP-GUANYEM EL CANVI"];
    var confluencias_podemos_up = confluencias_podemos_2015.concat(confluencias_up_2016);
    var nombres_iu = ["IU-UPeC", "IU-LV", "I.U.", "IU"];
-   var agrupaciones_podemos = [["Podemos", confluencias_podemos_2015], ["Unidos Podemos", confluencias_up_2016]];
+   var agrupaciones_podemos = [["Podemos", confluencias_podemos_2015], ["Unidos Podemos", confluencias_up_2016], ["Unidas Podemos", confluencias_up_2019]];
    
    var trasvases = {
          "nada": [],
@@ -105,7 +106,7 @@ function suma(obj, clave, valor) {
 }
 
 // Reparte los datos del archivo JSON en variables y presenta los resultados reales
-function leerdatos(elec = "espana_2016") {
+function leerdatos(elec = "espana_2019_prov") {
    var elecciones = data[elec];
    CCAA = elecciones["CCAA"];
    circunscripciones = elecciones["circunscripciones"];
@@ -136,12 +137,12 @@ sortPartidos = function(escanos, votos, todos) {
    return partidos.sort(MasAMenosEscanos);
 }
 
-// Obtiene la lista de partidos con sus escaños
+// Obtiene la lista de partidos con sus escaños y votos
 function parsableResults(escanos, votos) {
    var res = [];
    var partidos = sortPartidos(escanos, votos); // Ordena solo los partidos con escaños
    for (var x in partidos)
-      res.push([partidos[x], escanos[partidos[x]]]);
+      res.push([partidos[x], escanos[partidos[x]]/*, votos[partidos[x]]*/]);
 
    return res;
 }
