@@ -13,6 +13,7 @@ function aListaOrdenada(resultados) {
 
 // Cuenta el total de votos emitidos no nulos
 function contarVotosTotales(resultados, blancos) {
+   if (blancos == undefined) blancos = 0;
    for (var i = 0; i < resultados.length; i++)
       blancos += resultados[i].votos;
 
