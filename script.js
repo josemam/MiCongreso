@@ -10,16 +10,17 @@ function procesa() {
 
    var confluencias_podemos_2015 = ["PODEMOS", "EN COMÚ", "PODEMOS-COM", "PODEMOS-En"];
    var confluencias_up_2016 = ["PODEMOS-IU-EQUO", "PODEMOS-EN MAREA-ANOVA-EU", "ECP", "PODEMOS-COMPROMÍS-EUPV"];
-   var confluencias_up_2019 = ["Unidas Podemos", "ECP-GUANYEM EL CANVI"];
-   var confluencias_podemos_up = confluencias_podemos_2015.concat(confluencias_up_2016).concat(confluencias_up_2019);
+   var confluencias_up_nuevas_2019 = ["PODEMOS-EU-MAREAS EN COMÚN-EQUO", "ECP-GUANYEM EL CANVI"];
+   var confluencias_up_2019 = confluencias_up_2016.concat(confluencias_up_nuevas_2019);
+   var confluencias_podemos_up = confluencias_podemos_2015.concat(confluencias_up_2019);
    var nombres_iu = ["IU-UPeC", "IU-LV", "I.U.", "IU"];
-   var agrupaciones_podemos = [["Podemos", confluencias_podemos_2015], ["Unidos Podemos", confluencias_up_2016], ["Unidos Podemos", confluencias_up_2019]];
+   var agrupaciones_podemos = [["Podemos", confluencias_podemos_2015], ["Unidos Podemos", confluencias_up_2019]];
    
    var trasvases = {
          "nada": [],
          "pod_conf": agrupaciones_podemos,
-         "pod_iu": [["Unidos Podemos", ["IU-UPeC"].concat(confluencias_podemos_up)]],
-         "psoe_up": [["PSOE+Podemos+IU", ["PSOE", "P.S.O.E.", "PSOE-PROGR."].concat(nombres_iu).concat(confluencias_podemos_up)]],
+         "pod_iu": [["Unidos Podemos", ["IU-UPeC", "COMPROMÍS 2019", "EN MAREA"].concat(confluencias_podemos_up)]],
+         "psoe_up": [["PSOE+Podemos+IU", ["PSOE", "P.S.O.E.", "PSOE-PROGR.", "COMPROMÍS 2019", "EN MAREA"].concat(nombres_iu).concat(confluencias_podemos_up)]],
          "pp_cs": [["PP+C's", ["PP", "P.P.", "C's", "Cs", "NA+"]]].concat(agrupaciones_podemos),
          "pp_vox": [["PP+Vox", ["PP", "P.P.", "Vox", "VOX"]]].concat(agrupaciones_podemos),
          "pp_cs_vox": [["PP+C's+Vox", ["PP", "P.P.", "C's", "Cs", "Vox", "VOX", "NA+"]]].concat(agrupaciones_podemos)
