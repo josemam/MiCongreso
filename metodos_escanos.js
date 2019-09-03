@@ -42,6 +42,16 @@ function escanocadacincuentamil(resultados, blancos, escanyos, corte) {
    return res_nombres;
 }
 
+// Da todos los escaños al partido más votado en la circunscripción
+// Sí, esto todavía se usa en algunos países
+function fptp(resultados, blancos, escanyos, corte) {
+   resultados = aListaOrdenada(resultados)
+   if (resultados.length == 0) return [];
+   var res_nombres = [];
+   res_nombres[resultados[0].partido] = escanyos;
+   return res_nombres;
+}
+
 // Toma tantos votantes al azar como escaños y considera sus votos
 function muestreoaleatorio(resultados, blancos, escanyos, corte) {
    resultados = aListaOrdenada(resultados);
