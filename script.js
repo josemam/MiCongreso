@@ -197,7 +197,7 @@ function imprime(d) {
        ir = 160,    // radio interior
        pad = 1/400, // grados de espacio entre bloques (radianes)
        colores = getcolores(d),
-       color_def = d3.scale.category10();  // paleta para los partidos sin color
+       color_def = d3.scaleOrdinal(d3.schemeCategory10);  // paleta para los partidos sin color
    var coloreado = function(d, i) { return (colores[i] != undefined ? colores[i] : color_def(i)); }
 
    var datos = [];   // Nombre y escaños de cada partido
@@ -218,7 +218,7 @@ function imprime(d) {
       .append("g")
       .attr("transform", "translate(" + r + "," + r + ")")
 
-   var arc = d3.svg.arc()
+   var arc = d3.arc()
       .outerRadius(r)
       .innerRadius(ir);
 
@@ -232,7 +232,7 @@ function imprime(d) {
       .attr("dy", ".0em")
       .text(function() {return "MA: " + Math.floor(total/2+1)})
 
-   var pie = d3.layout.pie()
+   var pie = d3.pie()
       .value(function(d) { return d.value; })
       .startAngle(-Math.PI/2)
       .endAngle(Math.PI/2)
@@ -330,14 +330,14 @@ function generaMapa(escanos_partidos, votos, circunscripcion, escanyos_supuestos
 
    var width = 400, height = 300;
     
-   var projection = d3.geo.albers()
+   var projection = d3.geoAlbers()
       .center([2.4, 39.4])
       .rotate([4.4, 0])
       .parallels([50, 60])
       .scale(2000)
       .translate([width / 2, height / 2]);
 
-   var path = d3.geo.path()
+   var path = d3.geoPath()
       .projection(projection);
     
     
