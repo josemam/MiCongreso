@@ -47,6 +47,10 @@
 "EH Bildu": "#0198B3",
 "CCa-PNC-NC": "#8BB5F1",
 "MÁS PAÍS": "#0FD6BE",
+"¡TERUEL EXISTE!": "#037252",
+"NA+": "#FF3710",
+"BNG": "#76B3DD",
+"CUP-PR": "#FFF200",
 "PACMA": "#B9BF00"
 },
 
@@ -942,6 +946,8 @@
 "EAJ-PNV": "#069148",
 "EH Bildu": "#0198B3",
 "CCa-PNC": "#8BB5F1",
+"NA+": "#FF3710",
+"BNG": "#76B3DD",
 "PACMA": "#B9BF00"
 },
 
@@ -3788,6 +3794,7 @@
 "AMAIUR": "#0198B3",
 "CC-NC-PNC": "#8BB5F1",
 "UPyD": "#FF60DA",
+"BNG": "#76B3DD",
 "PACMA": "#B9BF00"
 },
 
@@ -6219,7 +6226,8 @@
 "CiU": "#1E2364",
 "EAJ-PNV": "#069148",
 "IU": "#97C62E",
-"CC": "#8BB5F1"
+"CC": "#8BB5F1",
+"BNG": "#76B3DD"
 },
 
 "ultimo_censo": {
@@ -7455,7 +7463,8 @@
 "CIU": "#1E2364",
 "EAJ-PNV": "#069148",
 "IU": "#97C62E",
-"CC": "#8BB5F1"
+"CC": "#8BB5F1",
+"BNG": "#76B3DD"
 },
 
 "ultimo_censo": {
@@ -8578,7 +8587,8 @@
 "CIU": "#1E2364",
 "EAJ-PNV": "#069148",
 "IU": "#97C62E",
-"CC": "#8BB5F1"
+"CC": "#8BB5F1",
+"BNG": "#76B3DD"
 },
 
 "ultimo_censo": {
@@ -9460,7 +9470,8 @@
 "CIU": "#1E2364",
 "EAJ-PNV": "#069148",
 "IU": "#97C62E",
-"CC": "#8BB5F1"
+"CC": "#8BB5F1",
+"BNG": "#76B3DD"
 },
 
 "ultimo_censo": {
@@ -10565,7 +10576,8 @@
 "ERC": "#FFB232",
 "CIU": "#1E2364",
 "EAJ-PNV": "#069148",
-"IU": "#97C62E"
+"IU": "#97C62E",
+"BNG": "#76B3DD"
 },
 
 "ultimo_censo": {
