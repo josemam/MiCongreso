@@ -10,7 +10,7 @@ function procesa() {
 
    var confluencias_podemos_2015 = ["PODEMOS", "EN COMÚ", "PODEMOS-COM", "PODEMOS-En"];
    var confluencias_up_2016 = ["PODEMOS-IU-EQUO", "PODEMOS-EN MAREA-ANOVA-EU", "ECP", "PODEMOS-COMPROMÍS-EUPV"];
-   var confluencias_up_nuevas_2019 = ["PODEMOS-EU-MAREAS EN COMÚN-EQUO", "ECP-GUANYEM EL CANVI"];
+   var confluencias_up_nuevas_2019 = ["PODEMOS-EU-MAREAS EN COMÚN-EQUO", "ECP-GUANYEM EL CANVI", "PODEMOS-IU"];
    var confluencias_up_2019 = confluencias_up_2016.concat(confluencias_up_nuevas_2019);
    var confluencias_podemos_up = confluencias_podemos_2015.concat(confluencias_up_2019);
    var nombres_iu = ["IU-UPeC", "IU-LV", "I.U.", "IU"];
@@ -19,7 +19,7 @@ function procesa() {
    var trasvases = {
          "nada": [],
          "pod_conf": agrupaciones_podemos,
-         "pod_iu": [["Unidos Podemos", ["IU-UPeC", "COMPROMÍS 2019", "EN MAREA"].concat(confluencias_podemos_up)]],
+         "pod_iu": [["Unidos Podemos", ["IU-UPeC", "COMPROMÍS 2019", "EN MAREA", "MÁS PAÍS"].concat(confluencias_podemos_up)]],
          "psoe_up": [["PSOE+Podemos+IU", ["PSOE", "P.S.O.E.", "PSOE-PROGR.", "COMPROMÍS 2019", "EN MAREA"].concat(nombres_iu).concat(confluencias_podemos_up)]],
          "pp_cs": [["PP+C's", ["PP", "P.P.", "C's", "Cs", "NA+"]]].concat(agrupaciones_podemos),
          "pp_vox": [["PP+Vox", ["PP", "P.P.", "Vox", "VOX"]]].concat(agrupaciones_podemos),
@@ -107,7 +107,7 @@ function suma(obj, clave, valor) {
 }
 
 // Reparte los datos del archivo JSON en variables y presenta los resultados reales
-function leerdatos(elec = "espana_2019_prov") {
+function leerdatos(elec = "espana_2019_noviembre_prov") {
    var elecciones = data[elec];
    CCAA = elecciones["CCAA"];
    circunscripciones = elecciones["circunscripciones"];

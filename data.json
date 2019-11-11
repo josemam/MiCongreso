@@ -6,7 +6,902 @@
 "PSOE+Podemos+IU": "#ED0A01"
 },
 
-"espana_2019_prov" : {
+"espana_2019_noviembre_prov" : {
+"CCAA": ["Andalucía", "Aragón", "Asturias", "Baleares", "Canarias", "Cantabria", "Castilla-La Mancha",
+          "Castilla y León", "Cataluña", "Ceuta", "Comunidad Valenciana", "Extremadura", "Galicia",
+          "La Rioja", "Madrid", "Melilla", "Navarra", "País Vasco", "Región de Murcia"],
+
+"circunscripciones": {
+"Andalucía": ["Almería", "Cádiz", "Córdoba", "Granada", "Huelva", "Jaén", "Málaga", "Sevilla"],
+"Aragón": ["Huesca", "Teruel", "Zaragoza"],
+"Asturias": ["Asturias"],
+"Baleares": ["Baleares"],
+"Canarias": ["Las Palmas", "SC de Tenerife"],
+"Cantabria": ["Cantabria"],
+"Castilla-La Mancha": ["Albacete", "Ciudad Real", "Cuenca", "Guadalajara", "Toledo"],
+"Castilla y León": ["Ávila", "Burgos", "León", "Palencia", "Salamanca", "Segovia", "Soria", "Valladolid", "Zamora"],
+"Cataluña": ["Barcelona", "Girona", "Lleida", "Tarragona"],
+"Ceuta": ["Ceuta"],
+"Comunidad Valenciana": ["Alicante", "Castellón", "Valencia"],
+"Extremadura": ["Badajoz", "Cáceres"],
+"Galicia": ["A Coruña", "Lugo", "Ourense", "Pontevedra"],
+"La Rioja": ["La Rioja"],
+"Madrid": ["Madrid"],
+"Melilla": ["Melilla"],
+"Navarra": ["Navarra"],
+"País Vasco": ["Araba", "Bizkaia", "Gipuzkoa"],
+"Región de Murcia": ["Murcia"]
+},
+
+"colores": {
+"PP": "#0BB2FF",
+"PSOE": "#ED0A01",
+"PODEMOS-IU": "#9A559A",
+"Unidos Podemos": "#9A559A",
+"ECP-GUANYEM EL CANVI": "#9A559A",
+"Cs": "#FCA136",
+"VOX": "#66BC29",
+"ERC-SOBIRANISTES": "#FFB232",
+"JxCAT-JUNTS": "#C40048",
+"EAJ-PNV": "#069148",
+"EH Bildu": "#0198B3",
+"CCa-PNC-NC": "#8BB5F1",
+"MÁS PAÍS": "#0FD6BE",
+"PACMA": "#B9BF00"
+},
+
+"ultimo_censo": {
+"A Coruña": 1119351,
+"Albacete": 388786,
+"Alicante": 1838819,
+"Almería": 709340,
+"Araba": 328868,
+"Asturias": 1028244,
+"Ávila": 158498,
+"Badajoz": 676376,
+"Baleares": 1128908,
+"Barcelona": 5609350,
+"Bizkaia": 1149628,
+"Burgos": 357070,
+"Cáceres": 396487,
+"Cádiz": 1238714,
+"Cantabria": 580229,
+"Castellón": 576898,
+"Ceuta": 85144,
+"Ciudad Real": 499100,
+"Córdoba": 785240,
+"Cuenca": 197222,
+"Gipuzkoa": 720592,
+"Girona": 761947,
+"Granada": 912075,
+"Guadalajara": 254308,
+"Huelva": 519932,
+"Huesca": 219345,
+"Jaén": 638099,
+"La Rioja": 315675,
+"Las Palmas": 1109175,
+"León": 463746,
+"Lleida": 432866,
+"Lugo": 331327,
+"Madrid": 6578079,
+"Málaga": 1641121,
+"Melilla": 86384,
+"Murcia": 1478509,
+"Navarra": 647554,
+"Ourense": 309293,
+"Palencia": 162035,
+"Pontevedra": 941772,
+"Salamanca": 331473,
+"SC de Tenerife": 1018510,
+"Segovia": 153342,
+"Sevilla": 1939887,
+"Soria": 88600,
+"Tarragona": 795902,
+"Teruel": 134572,
+"Toledo": 687391,
+"Valencia": 2547986,
+"Valladolid": 519851,
+"Zamora": 174549,
+"Zaragoza": 954811
+},
+
+"blancos" : {
+},
+
+"nulos" : {
+},
+
+"resultados": {
+
+
+"A Coruña": {
+"PP": 185267,
+"PSOE": 182355,
+"PODEMOS-IU": 76235,
+"BNG": 57765,
+"VOX": 49793,
+"Cs": 28043,
+"MÁS PAÍS": 12398,
+"PACMA": 4377,
+"PCOE": 1668,
+"RECORTES CERO-GV": 935,
+"PUM+J": 583,
+"PCTG": 458
+},
+
+"Albacete": {
+"PSOE": 69589,
+"PP": 58616,
+"VOX": 44237,
+"PODEMOS-IU": 20644,
+"Cs": 15892,
+"PACMA": 1643,
+"PUM+J": 369,
+"PDSJE": 296,
+"RECORTES CERO-GV-PCAS-TC": 214,
+"PCPE": 176,
+"PCTE": 151
+},
+
+"Alicante": {
+"PSOE": 239605,
+"PP": 207060,
+"VOX": 167211,
+"PODEMOS-IU": 108046,
+"Cs": 68832,
+"MÁS PAÍS": 35415,
+"PACMA": 9379,
+"AVANT ADELANTE LOS VERDES": 2282,
+"ERPV": 1673,
+"PUM+J": 935,
+"PCPE": 899,
+"RECORTES CERO-GV": 886,
+"P-LIB": 549
+},
+
+"Almería": {
+"PSOE": 88425,
+"VOX": 80397,
+"PP": 77751,
+"PODEMOS-IU": 24089,
+"Cs": 22645,
+"PACMA": 2518,
+"EB": 586,
+"PCPA": 411,
+"PUM+J": 360,
+"RECORTES CERO-GV": 334,
+"AxSÍ": 301
+},
+
+"Araba": {
+"EAJ-PNV": 40127,
+"PSOE": 37325,
+"PODEMOS-IU": 27992,
+"EH Bildu": 27364,
+"PP": 25318,
+"VOX": 6423,
+"Cs": 2504,
+"PACMA": 1151,
+"RECORTES CERO-GV": 402,
+"PUM+J": 380,
+"PCTE/ELAK": 216
+},
+
+"Asturias": {
+"PSOE": 184062,
+"PP": 128698,
+"PODEMOS-IU": 88393,
+"VOX": 88052,
+"Cs": 36852,
+"MÁS PAÍS": 12496,
+"PACMA": 4288,
+"ANDECHA": 897,
+"PCTE": 826,
+"RECORTES CERO-GV": 776,
+"PCPE": 574,
+"PUM+J": 463,
+"PH": 361
+},
+
+"Ávila": {
+"PP": 32385,
+"PSOE": 24267,
+"VOX": 17259,
+"Cs": 6081,
+"PODEMOS-IU": 5977,
+"XAV": 5399,
+"PACMA": 421,
+"RECORTES CERO-GV-PCAS-TC": 100,
+"PUM+J": 99,
+"PCTE": 97,
+"FE de las JONS": 56,
+"P-LIB": 32
+},
+
+"Badajoz": {
+"PSOE": 141980,
+"PP": 92588,
+"VOX": 63893,
+"PODEMOS-IU": 33780,
+"Cs": 29407,
+"PACMA": 2390,
+"PUM+J": 915,
+"RECORTES CERO-GV": 658
+},
+
+"Baleares": {
+"PSOE": 115135,
+"PP": 103493,
+"PODEMOS-IU": 81976,
+"VOX": 77346,
+"Cs": 33342,
+"MÉS-ESQUERRA": 18206,
+"M PAÍS": 10605,
+"PACMA": 6174,
+"RECORTES CERO-GV": 939,
+"PUM+J": 566,
+"P-LIB": 373
+},
+
+"Barcelona": {
+"PSOE": 635265,
+"ERC-SOBIRANISTES": 615504,
+"ECP-GUANYEM EL CANVI": 450612,
+"JxCAT-JUNTS": 342082,
+"PP": 224639,
+"VOX": 184313,
+"CUP-PR": 177428,
+"Cs": 172918,
+"MÁS PAÍS": 41703,
+"PACMA": 34626,
+"RECORTES CERO-GV": 4572,
+"I.Fem": 2822,
+"PCTC": 1560,
+"PUM+J": 1499,
+"PCPC": 1445,
+"IZQP": 1152
+},
+
+"Bizkaia": {
+"EAJ-PNV": 221171,
+"PSOE": 119917,
+"PODEMOS-IU": 96558,
+"EH Bildu": 94377,
+"PP": 55130,
+"VOX": 15094,
+"MÁS PAÍS": 8463,
+"Cs": 6829,
+"PACMA": 3745,
+"RECORTES CERO-GV": 821,
+"PUM+J": 486,
+"PCTE/ELAK": 481,
+"SOLIDARIA": 269
+},
+
+"Burgos": {
+"PSOE": 63726,
+"PP": 60931,
+"VOX": 29408,
+"PODEMOS-IU": 21843,
+"Cs": 16049,
+"PACMA": 1400,
+"RECORTES CERO-GV-PCAS-TC": 624,
+"PUM+J": 605,
+"PCTE": 395
+},
+
+"Cáceres": {
+"PSOE": 84756,
+"PP": 61357,
+"VOX": 35654,
+"PODEMOS-IU": 19887,
+"Cs": 15430,
+"EXTREMADURA UNIDA": 1317,
+"PACMA": 1259,
+"RECORTES CERO-GV": 325,
+"PUM+J": 283
+},
+
+"Cádiz": {
+"PSOE": 187701,
+"VOX": 130936,
+"PP": 110769,
+"PODEMOS-IU": 92997,
+"Cs": 55262,
+"MÁS PAÍS": 11213,
+"PACMA": 8393,
+"AxSÍ": 3533,
+"PCOE": 1730,
+"RECORTES CERO-GV": 900,
+"PUM+J": 691,
+"PCPA": 628
+},
+
+"Cantabria": {
+"PP": 84032,
+"PSOE": 75430,
+"PRC": 68580,
+"VOX": 48600,
+"PODEMOS-IU": 28075,
+"Cs": 15459,
+"PACMA": 1823,
+"RECORTES CERO-GV": 286,
+"PCPE": 259,
+"EB": 257,
+"PCTE": 245,
+"PUM+J": 184,
+"P-LIB": 123
+},
+
+"Castellón": {
+"PSOE": 83707,
+"PP": 70020,
+"VOX": 54700,
+"PODEMOS-IU": 38995,
+"Cs": 20230,
+"MÁS PAÍS": 18096,
+"PACMA": 2469,
+"ERPV": 1093,
+"AVANT LOS VERDES": 392,
+"PCOE": 379,
+"PUM+J": 368,
+"RECORTES CERO-GV": 279,
+"PCPE": 190,
+"FE de las JONS": 136,
+"AUNACV": 103
+},
+
+"Ceuta": {
+"VOX": 11738,
+"PSOE": 10407,
+"PP": 7408,
+"PODEMOS-IU": 1287,
+"Cs": 1129,
+"MDyC": 814,
+"RECORTES CERO-GV": 116,
+"PUM+J": 44
+},
+
+"Ciudad Real": {
+"PSOE": 91790,
+"PP": 74600,
+"VOX": 55904,
+"PODEMOS-IU": 22089,
+"Cs": 18237,
+"PACMA": 1777,
+"PUM+J": 482,
+"RECORTES CERO-GV-PCAS-TC": 439
+},
+
+"Córdoba": {
+"PSOE": 146166,
+"PP": 99766,
+"VOX": 82162,
+"PODEMOS-IU": 64111,
+"Cs": 36039,
+"PACMA": 3918,
+"PCOE": 1050,
+"AxSÍ": 1006,
+"EB": 731,
+"PCPA": 699,
+"PUM+J": 619,
+"PCTE": 583,
+"RECORTES CERO-GV": 533
+},
+
+"Cuenca": {
+"PSOE": 40551,
+"PP": 33669,
+"VOX": 20076,
+"PODEMOS-IU": 7474,
+"Cs": 5067,
+"PACMA": 541,
+"RECORTES CERO-GV-PCAS-TC": 124,
+"PUM+J": 124,
+"PCPE": 83,
+"PCTE": 66,
+"P-LIB": 45
+},
+
+"Gipuzkoa": {
+"EAJ-PNV": 116125,
+"EH Bildu": 98391,
+"PSOE": 68663,
+"PODEMOS-IU": 56787,
+"PP": 23373,
+"VOX": 7142,
+"Cs": 3725,
+"PACMA": 2024,
+"EB": 559,
+"RECORTES CERO-GV": 484,
+"PUM+J": 390,
+"ELAK/PCTE": 272
+},
+
+"Girona": {
+"ERC-SOBIRANISTES": 91389,
+"JxCAT-JUNTS": 87642,
+"PSOE": 52387,
+"ECP-GUANYEM EL CANVI": 33535,
+"CUP-PR": 31483,
+"VOX": 18425,
+"PP": 17315,
+"Cs": 13764,
+"PACMA": 3701,
+"RECORTES CERO-GV": 497,
+"PUM+J": 331,
+"PCPC": 324,
+"PCTC": 315,
+"IZQP": 263
+},
+
+"Granada": {
+"PSOE": 159184,
+"PP": 104235,
+"VOX": 99505,
+"PODEMOS-IU": 58792,
+"Cs": 37435,
+"MÁS PAÍS": 8496,
+"PACMA": 4017,
+"PCTE": 741,
+"PUM+J": 599,
+"AxSÍ": 590,
+"CAnda": 515,
+"RECORTES CERO-GV": 504,
+"PCPA": 364,
+"IZAR": 144
+},
+
+"Guadalajara": {
+"PSOE": 40990,
+"VOX": 31600,
+"PP": 30375,
+"PODEMOS-IU": 14797,
+"Cs": 10116,
+"PACMA": 1260,
+"RECORTES CERO-GV-PCAS-TC": 284,
+"PUM+J": 279,
+"PDSJE": 234,
+"PCOE": 193,
+"FE de las JONS": 188,
+"PCTE": 105,
+"PCPE": 88
+},
+
+"Huelva": {
+"PSOE": 91461,
+"VOX": 52363,
+"PP": 49547,
+"PODEMOS-IU": 30270,
+"Cs": 18322,
+"PACMA": 2527,
+"AxSÍ": 854,
+"PCOE": 464,
+"PUM+J": 351,
+"RECORTES CERO-GV": 335,
+"PCPA": 162,
+"PCTE": 113
+},
+
+"Huesca": {
+"PSOE": 37758,
+"PP": 29702,
+"VOX": 17155,
+"PODEMOS-IU": 13873,
+"Cs": 9177,
+"CHA": 1980,
+"PACMA": 719,
+"EB": 388,
+"RECORTES CERO-GV": 181,
+"PUM+J": 148,
+"PCPE": 96,
+"PCTE": 92,
+"PYLN": 71,
+"FIA": 50
+},
+
+"Jaén": {
+"PSOE": 141470,
+"PP": 81894,
+"VOX": 71814,
+"PODEMOS-IU": 35728,
+"Cs": 24711,
+"PACMA": 2750,
+"AxSÍ": 849,
+"PCTE": 467,
+"RECORTES CERO-GV": 451,
+"PUM+J": 410,
+"RISA": 229
+},
+
+"La Rioja": {
+"PSOE": 57193,
+"PP": 56208,
+"VOX": 18772,
+"PODEMOS-IU": 16118,
+"Cs": 11584,
+"PACMA": 1078,
+"EB": 412,
+"RECORTES CERO-GV": 300,
+"PUM+J": 296,
+"PCTE": 260
+},
+
+"Las Palmas": {
+"PSOE": 140685,
+"PP": 103233,
+"PODEMOS-IU": 74382,
+"VOX": 64197,
+"CCa-PNC-NC": 47959,
+"Cs": 27906,
+"MÁS PAÍS": 8336,
+"PACMA": 5784,
+"VERDES": 1838,
+"AHORA CANARIAS": 1104,
+"PDSJE": 743,
+"PCPC": 723,
+"PUM+J": 545,
+"RECORTES CERO-GV": 501,
+"CONTIGO": 453,
+"PH": 271
+},
+
+"León": {
+"PSOE": 86951,
+"PP": 74078,
+"VOX": 40589,
+"PODEMOS-IU": 27125,
+"Cs": 16490,
+"UPL": 9550,
+"PACMA": 1448,
+"PCTE": 372,
+"PREPAL": 328,
+"PUM+J": 304,
+"RECORTES CERO-GV-PCAS-TC": 164
+},
+
+"Lleida": {
+"ERC-SOBIRANISTES": 64715,
+"JxCAT-JUNTS": 46471,
+"PSOE": 29712,
+"ECP-GUANYEM EL CANVI": 16183,
+"PP": 14583,
+"CUP-PR": 13985,
+"VOX": 9258,
+"Cs": 7052,
+"PACMA": 1496,
+"RECORTES CERO-GV": 178,
+"PUM+J": 165,
+"PCPC": 127,
+"IZQP": 124,
+"PCTC": 122
+},
+
+"Lugo": {
+"PP": 67942,
+"PSOE": 56892,
+"PODEMOS-IU": 16341,
+"VOX": 14475,
+"BNG": 12853,
+"Cs": 5708,
+"PACMA": 1102,
+"RECORTES CERO-GV": 215,
+"PUM+J": 206,
+"PCOE": 176,
+"PCTG": 127,
+"C 21": 64
+},
+
+"Madrid": {
+"PSOE": 948751,
+"PP": 879667,
+"VOX": 647924,
+"PODEMOS-IU": 459030,
+"Cs": 319310,
+"MÁS PAÍS": 199172,
+"PACMA": 31631,
+"RECORTES CERO-GV-PCAS-TC": 5141,
+"PUM+J": 4185,
+"PH": 2563,
+"PCPE": 2176,
+"PCTE": 2045
+},
+
+"Málaga": {
+"PSOE": 225523,
+"PP": 162577,
+"VOX": 161752,
+"PODEMOS-IU": 97103,
+"Cs": 66580,
+"MÁS PAÍS": 14004,
+"PACMA": 10987,
+"AxSÍ": 1661,
+"PCOE": 1252,
+"RECORTES CERO-GV": 1198,
+"PUM+J": 880,
+"PCPA": 571,
+"PCTE": 379
+},
+
+"Melilla": {
+"PP": 9104,
+"CpM": 8925,
+"VOX": 5669,
+"PSOE": 5042,
+"Cs": 907,
+"PODEMOS-IU": 792,
+"LOS VERDES": 99,
+"PUM+J": 28,
+"RECORTES CERO-GV": 19
+},
+
+"Murcia": {
+"VOX": 199440,
+"PP": 188870,
+"PSOE": 176426,
+"PODEMOS-IU": 62897,
+"Cs": 52967,
+"MÁS PAÍS": 13287,
+"PACMA": 6947,
+"SOMOS REGIÓN": 2303,
+"PCOE": 986,
+"RECORTES CERO-GV": 847,
+"PUM+J": 582,
+"CONTIGO": 542,
+"PCPE": 489,
+"IZQP": 431,
+"DPL": 210
+},
+
+"Navarra": {
+"NA+": 98448,
+"PSOE": 83242,
+"EH Bildu": 56387,
+"PODEMOS-IU": 55191,
+"VOX": 18656,
+"GBAI": 12622,
+"PACMA": 2203,
+"RECORTES CERO-GV": 928,
+"PUM+J": 910,
+"PCTE/ELAK": 378
+},
+
+"Ourense": {
+"PP": 66538,
+"PSOE": 56056,
+"PODEMOS-IU": 13342,
+"VOX": 12956,
+"BNG": 10143,
+"Cs": 6200,
+"PACMA": 983,
+"PUM+J": 287,
+"RECORTES CERO-GV": 191,
+"PCTG": 147
+},
+
+"Palencia": {
+"PP": 34051,
+"PSOE": 31668,
+"VOX": 13768,
+"PODEMOS-IU": 7650,
+"Cs": 5885,
+"PACMA": 570,
+"RECORTES CERO-GV-PCAS-TC": 249,
+"PUM+J": 207,
+"PCTE": 105,
+"FE de las JONS": 78
+},
+
+"Pontevedra": {
+"PSOE": 164910,
+"PP": 150294,
+"PODEMOS-IU": 80342,
+"BNG": 38836,
+"VOX": 37610,
+"Cs": 23620,
+"MÁS PAÍS": 10076,
+"PACMA": 4454,
+"RECORTES CERO-GV": 746,
+"EB": 681,
+"PCTG": 468,
+"PUM+J": 429
+},
+
+"Salamanca": {
+"PP": 67249,
+"PSOE": 56710,
+"VOX": 34883,
+"Cs": 16682,
+"PODEMOS-IU": 13357,
+"PACMA": 908,
+"UPL": 284,
+"PREPAL": 271,
+"PUM+J": 254,
+"CONTIGO": 220,
+"PCTE": 194,
+"RECORTES CERO-GV-PCAS-TC": 176
+},
+
+"SC de Tenerife": {
+"PSOE": 132162,
+"PP": 93156,
+"CCa-PNC-NC": 76022,
+"PODEMOS-IU": 64420,
+"VOX": 53298,
+"Cs": 22854,
+"MÁS PAÍS": 6543,
+"PACMA": 6121,
+"VERDES": 1304,
+"AHORA CANARIAS": 911,
+"RECORTES CERO-GV": 539,
+"PCPC": 462,
+"EB": 413,
+"PUM+J": 314,
+"CONTIGO": 231
+},
+
+"Segovia": {
+"PP": 27982,
+"PSOE": 25090,
+"VOX": 14525,
+"PODEMOS-IU": 7834,
+"Cs": 6828,
+"PACMA": 459,
+"centrados": 237,
+"RECORTES CERO-GV-PCAS-TC": 189,
+"PCOE": 174,
+"PUM+J": 132,
+"PDSJE": 113,
+"PCTE": 66,
+"P-LIB": 37
+},
+
+"Sevilla": {
+"PSOE": 380075,
+"VOX": 188500,
+"PP": 187651,
+"PODEMOS-IU": 152812,
+"Cs": 83280,
+"MÁS PAÍS": 22182,
+"PACMA": 12017,
+"AxSÍ": 5160,
+"PCOE": 1497,
+"RECORTES CERO-GV": 1438,
+"PUM+J": 1378,
+"PCPA": 841,
+"PCTE": 551
+},
+
+"Soria": {
+"PSOE": 15925,
+"PP": 15172,
+"VOX": 6221,
+"PODEMOS-IU": 3478,
+"Cs": 2627,
+"PPSO": 1451,
+"PACMA": 200,
+"RECORTES CERO-GV-PCAS-TC": 94,
+"PUM+J": 89,
+"PCTE": 87
+},
+
+"Tarragona": {
+"ERC-SOBIRANISTES": 98326,
+"PSOE": 73218,
+"JxCAT-JUNTS": 51180,
+"ECP-GUANYEM EL CANVI": 46403,
+"VOX": 31030,
+"PP": 29765,
+"Cs": 22639,
+"CUP-PR": 21858,
+"PACMA": 4566,
+"RECORTES CERO-GV": 543,
+"IZQP": 377,
+"PUM+J": 350,
+"PCPC": 239,
+"PCTC": 218
+},
+
+"Teruel": {
+"¡TERUEL EXISTE!": 19696,
+"PSOE": 18777,
+"PP": 17473,
+"VOX": 9328,
+"PODEMOS-IU": 3933,
+"Cs": 3710,
+"PACMA": 208,
+"PCOE": 95,
+"PCPE": 42,
+"PUM+J": 34,
+"UDT": 31,
+"PYLN": 25,
+"AUNACV": 12,
+"RECORTES CERO-GV": 0
+},
+
+"Toledo": {
+"PSOE": 115949,
+"PP": 94214,
+"VOX": 85872,
+"PODEMOS-IU": 34648,
+"Cs": 24760,
+"PACMA": 2664,
+"PUM+J": 650,
+"RECORTES CERO-GV-PCAS-TC": 541,
+"PCPE": 279,
+"PCTE": 217
+},
+
+"Valencia": {
+"PSOE": 374284,
+"PP": 306041,
+"VOX": 245108,
+"PODEMOS-IU": 190729,
+"MÁS PAÍS": 121581,
+"Cs": 106312,
+"PACMA": 15299,
+"ERPV": 3050,
+"AVANT ADELANTE LOS VERDES": 2616,
+"UIG-SOM-CUIDES": 2316,
+"RECORTES CERO-GV": 1570,
+"PCPE": 1119,
+"UNIDOS SÍ-ACPS-DEf": 1064,
+"PUM+J": 1045,
+"CONTIGO": 952,
+"AUNACV": 543
+},
+
+"Valladolid": {
+"PSOE": 93844,
+"PP": 91534,
+"VOX": 56110,
+"PODEMOS-IU": 33938,
+"Cs": 26743,
+"PACMA": 2068,
+"RECORTES CERO-GV-PCAS-TC": 582,
+"PUM+J": 570,
+"UNIÓN REGIONALISTA": 514,
+"PCTE": 279,
+"PCPE": 229,
+"FE de las JONS": 150
+},
+
+"Zamora": {
+"PP": 33128,
+"PSOE": 32406,
+"VOX": 16944,
+"PODEMOS-IU": 6897,
+"Cs": 6754,
+"PACMA": 410,
+"UPL": 364,
+"PREPAL": 267,
+"PCTE": 220,
+"PUM+J": 136,
+"RECORTES CERO-GV-PCAS-TC": 124
+},
+
+"Zaragoza": {
+"PSOE": 157420,
+"PP": 119421,
+"VOX": 91978,
+"PODEMOS-IU": 57398,
+"Cs": 46645,
+"M PAÍS-CHA-EQUO": 22989,
+"PACMA": 3576,
+"EB": 1925,
+"MAS": 1063,
+"RECORTES CERO-GV": 834,
+"PYLN": 527,
+"PUM+J": 477,
+"PCTE": 410,
+"FIA": 381,
+"PCPE": 328
+}
+
+}
+},
+
+"espana_2019_abril" : {
 "CCAA": ["Andalucía", "Aragón", "Asturias", "Baleares", "Canarias", "Cantabria", "Castilla-La Mancha",
           "Castilla y León", "Cataluña", "Ceuta", "Comunidad Valenciana", "Extremadura", "Galicia",
           "La Rioja", "Madrid", "Melilla", "Navarra", "País Vasco", "Región de Murcia"],
