@@ -36,7 +36,7 @@
                <option value=espana_2015>20/12/2015</option>
                <option value=espana_2016>26/06/2016</option>
                <option value=espana_2019_abril>28/04/2019</option>
-               <option value=espana_2019_noviembre_prov selected="selected">10/11/2019</option>
+               <option value=espana_2019_noviembre selected="selected">10/11/2019</option>
             </select><br>
             
             <input id="minimo" value="2" size="1" onChange="procesa()" title="Mínimo de escaños por provincia (por comunidad autónoma si la circunscripción es del tipo Comunidad 1)"> escaños/circ
@@ -65,8 +65,8 @@
             <input id="corte" value="3" size="1" onChange="procesa()" title="Los partidos con un porcentaje de votos menor en una circunscripción serán ignorados en el reparto de escaños de esa circunscripción.">%<br>
             Unir: <select id="sel_union" size=1 onChange="procesa()">
                <option value="nada">Nada</option>
-               <option value="pod_conf" selected="selected">Podemos y confluencias</option>
-               <option value="pod_iu">Podemos + IU</option>
+               <option value="conf" title="Considera el mismo partido aquellos que se presentan en distintas provincias con nombres ligeramente diferentes, como las confluencias de Podemos o de Más País. Mientras no haya circunscripción única, no debería tener efecto en el reparto de escaños, y facilita la visualización de los resultados." selected="selected">Confluencias</option>
+               <option value="pod_iu_mp">Podemos + IU + Más País</option>
                <option value="psoe_up">PSOE + Podemos + IU</option>
                <option value="pp_cs">PP + C's</option>
                <option value="pp_vox">PP + Vox</option>

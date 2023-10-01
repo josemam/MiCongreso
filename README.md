@@ -9,7 +9,7 @@ las leyes electorales hubiesen sido otras pero los votos en cada territorio a
 cada partido hubiesen sido los mismos. Presenta el resultado en números y en un
 gráfico usando [D3.js](https://github.com/mbostock/d3). Los resultados, junto
 con el nombre de los partidos, así como el censo de población, se han obtenido de
-[aquí](http://www.infoelectoral.mir.es/min/areaDescarga.html).
+[aquí](https://infoelectoral.interior.gob.es/opencms/es/elecciones-celebradas/area-de-descargas/).
 
 Las opciones que aparecen al acceder a la página se corresponden con la ley
 electoral española según ha estado configurada desde 1985, por lo que presenta
