@@ -52,6 +52,27 @@ function fptp(resultados, blancos, escanyos, corte) {
    return res_nombres;
 }
 
+// Da tres escaños al partido más votado y uno al siguiente,
+// salvo donde hubiese 1, en cuyo caso da 2, ambos al más votado.
+// Se basa en lo que se hace en el Senado para los senadores de
+// designación directa (asume que el votante marca los tres primeros
+// candidatos a senador del partido al que votó en el Congreso, ignora
+// que los territorios insulares tienen una organización en
+// circunscripciones distinta)
+function simul_senado(resultados, blancos, escanyos, corte) {
+   resultados = aListaOrdenada(resultados)
+   if (resultados.length == 0) return [];
+   var res_nombres = [];
+   if (escanyos == 1)
+      res_nombres[resultados[0].partido] = 2;
+   else
+   {
+      res_nombres[resultados[0].partido] = 3;
+      if (resultados.length > 1) res_nombres[resultados[1].partido] = 1;
+   }
+   return res_nombres;
+}
+
 // Toma tantos votantes al azar como escaños y considera sus votos
 function muestreoaleatorio(resultados, blancos, escanyos, corte) {
    resultados = aListaOrdenada(resultados);
