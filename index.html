@@ -36,7 +36,8 @@
                <option value=espana_2015>20/12/2015</option>
                <option value=espana_2016>26/06/2016</option>
                <option value=espana_2019_abril>28/04/2019</option>
-               <option value=espana_2019_noviembre selected="selected">10/11/2019</option>
+               <option value=espana_2019_noviembre>10/11/2019</option>
+               <option value=espana_2023 selected="selected">23/07/2023</option>
             </select><br>
             
             <input id="minimo" value="2" size="1" onChange="procesa()" title="Mínimo de escaños por provincia (por comunidad autónoma si la circunscripción es del tipo Comunidad 1)"> escaños/circ
@@ -68,10 +69,11 @@
                <option value="nada">Nada</option>
                <option value="conf" title="Considera el mismo partido aquellos que se presentan en distintas provincias con nombres ligeramente diferentes, como las confluencias de Podemos o de Más País. Mientras no haya circunscripción única, no debería tener efecto en el reparto de escaños, y facilita la visualización de los resultados." selected="selected">Confluencias</option>
                <option value="pod_iu_mp">Podemos + IU + Más País</option>
-               <option value="psoe_up">PSOE + Podemos + IU</option>
+               <option value="psoe_up_sumar" title="PSOE, Podemos, IU, Más País, Sumar.">PSOE + UP + Sumar</option>
                <option value="pp_cs">PP + C's</option>
                <option value="pp_vox">PP + Vox</option>
                <option value="pp_cs_vox">PP + C's + Vox</option>
+               <option value="izda_dcha" title="PSOE, Podemos, IU, Más País, Sumar por un lado. PP, Cs, Vox por otro.">Izquierda y derecha</option>
             </select>
          </div>
       </div>
