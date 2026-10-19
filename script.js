@@ -134,7 +134,7 @@ function leerdatos(elec = "espana_2023") {
 }
 
 $(document).ready(function() {
-   $.getJSON("data.json", function(d) { data = d; leerdatos() } );
+   $.getJSON("data.json", function(d) { data = d; leerdatos() } ).fail(function() { document.getElementById("res_texto").value = "Error al cargar los datos electorales"});
 });
 
 // Ordena los partidos según los escaños conseguidos (por votos en caso de empate si se pasan los votos)
