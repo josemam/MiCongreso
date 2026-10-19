@@ -113,6 +113,9 @@ function suma(obj, clave, valor) {
 
 // Reparte los datos del archivo JSON en variables y presenta los resultados reales
 function leerdatos(elec = "espana_2023") {
+   if (typeof(data) === "undefined")
+      return;
+
    var elecciones = data[elec];
    CCAA = elecciones["CCAA"];
    circunscripciones = elecciones["circunscripciones"];
@@ -177,12 +180,16 @@ function getcolores(datos) {
 
 // Limpia el gráfico
 function clear_grafico() {
-   d3.select("#grafico").select("svg").remove();
+   var svg = document.querySelector("#grafico svg");
+   if (svg !== null)
+      svg.remove();
 }
 
 // Limpia el mapa
 function clear_mapa() {
-   d3.select("#mapa").select("svg").remove();
+   var svg = document.querySelector("#mapa svg");
+   if (svg !== null)
+      svg.remove();
 }
 
 // A partir de un color, obtiene uno más claro
@@ -194,8 +201,11 @@ function aclarar(color) {
 }
 
 // Presenta el gráfico de los datos
-function imprime(d) {
+async function imprime(d) {
    clear_grafico();
+   if (typeof(d3) === "undefined")
+      return; // en su lugar se muestra que se está cargando d3js (o que hubo error); se mostrará cuando se cargue
+
    var w = 620,     // anchura del marco del gráfico
        h = 320,     // altura
        r = 300,     // radio exterior
@@ -317,7 +327,7 @@ function getEscanyosFromData(escanos) {
 }
 
 // Prepara el mapa
-function generaMapa(escanos_partidos, votos, circunscripcion, escanyos_supuestos) {
+async function generaMapa(escanos_partidos, votos, circunscripcion, escanyos_supuestos) {
    var colores = {};
    var escanyos = {};
    var cmix = circunscripcion == "comunidad_mix";
@@ -331,10 +341,13 @@ function generaMapa(escanos_partidos, votos, circunscripcion, escanyos_supuestos
       for (var prov in escanyos_supuestos)
          escanyos[prov] = escanyos_supuestos[prov]
    
-   d3.select("#mapa").select("svg").remove();
+   clear_mapa();
 
    var width = 400, height = 300;
-    
+
+   if (typeof(d3) === "undefined")
+      return; // en su lugar se muestra que se está cargando topojson (o que hubo error); se mostrará cuando se cargue
+
    var projection = d3.geoAlbers()
       .center([2.4, 39.4])
       .rotate([4.4, 0])
@@ -351,6 +364,8 @@ function generaMapa(escanos_partidos, votos, circunscripcion, escanyos_supuestos
       .attr("height", height);
 
    d3.json("mapa.json", function(error, mapa) {
+      if (typeof(topojson) === "undefined")
+         return; // en su lugar se muestra que se está cargando topojson (o que hubo error); se mostrará cuando se cargue
       var provincias = topojson.feature(mapa, mapa.objects.provinces);
       var features;
       if (circunscripcion != "comunidad")
