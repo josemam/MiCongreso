@@ -146,12 +146,12 @@ sortPartidos = function(escanos, votos, todos) {
    return partidos.sort(MasAMenosEscanos);
 }
 
-// Obtiene la lista de partidos con sus escaños
+// Obtiene la lista de partidos con sus escaños y votos
 function parsableResults(escanos, votos) {
    var res = [];
    var partidos = sortPartidos(escanos, votos); // Ordena solo los partidos con escaños
    for (var x in partidos)
-      res.push([partidos[x], escanos[partidos[x]]]);
+      res.push({"partido": partidos[x], "escaños": escanos[partidos[x]], "votos": votos[partidos[x]]});
 
    return res;
 }
@@ -167,7 +167,7 @@ function actualiza(data) {
    if (data.circunscripcion != "unica")
       generaMapa(data.l_escanos, data.l_votos, data.circunscripcion, data.escanyos);
 
-   document.getElementById("res_texto").value = salida.map(function(a) {return a.join(": ")}).join("\n");
+   document.getElementById("res_texto").value = salida.map(function(a) {return a.partido + ": " + a.escaños}).join("\n");
    imprime(salida);
 }
 
@@ -175,8 +175,8 @@ function actualiza(data) {
 function getcolores(datos) {
    var col = [];
    for (var x in datos)
-      if (colores[datos[x][0]] != undefined)
-         col[x] = colores[datos[x][0]];
+      if (colores[datos[x].partido] != undefined)
+         col[x] = colores[datos[x].partido];
 
    return col;
 }
@@ -222,9 +222,9 @@ async function imprime(d) {
    var datos = [];   // Nombre y escaños de cada partido
    var total = 0;    // Total de escaños
    for (var x in d)
-      if (d[x][1] != 0) {  // Si tiene más de 0 escaños
-         total += d[x][1];
-         datos.push({"label": d[x][0], "value": d[x][1]});
+      if (d[x].escaños != 0) {
+         total += d[x].escaños;
+         datos.push({"label": d[x].partido, "value": d[x].escaños});
       }
 
    var min = Math.floor(total*0.055);    // mínimo de escaños para mostrar texto
@@ -401,7 +401,7 @@ async function generaMapa(escanos_partidos, votos, circunscripcion, escanyos_sup
             d3.select("#tooltip")
                .style("opacity", 1)
                .select("#contenido")
-                  .html(d.id + ": " + escanyos[d.id] + "<br><br>" + (cmix && !escanos_partidos.hasOwnProperty(d.id) ? "(Escaños de " + d.properties.ccaa + ")<br>" : "") + parsableResults(escanos_partidos[cmix ? d.properties.ccaa : d.id], votos[cmix ? d.properties.ccaa : d.id]).map(function(a) {return a.join(": ")}).join("<br>"));})
+                  .html(d.id + ": " + escanyos[d.id] + "<br><br>" + (cmix && !escanos_partidos.hasOwnProperty(d.id) ? "(Escaños de " + d.properties.ccaa + ")<br>" : "") + parsableResults(escanos_partidos[cmix ? d.properties.ccaa : d.id], votos[cmix ? d.properties.ccaa : d.id]).map(function(a) {return a.partido + ": " + a.escaños}).join("<br>"));})
          .on("mousemove", function() {
             d3.select("#tooltip")
                .style("left", (d3.event.pageX + 10) + "px")
