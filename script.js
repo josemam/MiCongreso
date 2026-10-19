@@ -158,6 +158,9 @@ function parsableResults(escanos, votos) {
 
 // Presenta los datos procesados en gráfico, lista y mapa
 function actualiza(data) {
+   if (typeof(data) === "undefined")
+      return; // se volverá a actualizar cuando se carguen los datos
+
    var salida = parsableResults(data.g_escanos, data.g_votos);
 
    clear_mapa();
@@ -205,6 +208,7 @@ async function imprime(d) {
    clear_grafico();
    if (typeof(d3) === "undefined")
       return; // en su lugar se muestra que se está cargando d3js (o que hubo error); se mostrará cuando se cargue
+   document.querySelector("#grafico").textContent = '';
 
    var w = 620,     // anchura del marco del gráfico
        h = 320,     // altura
@@ -357,15 +361,12 @@ async function generaMapa(escanos_partidos, votos, circunscripcion, escanyos_sup
 
    var path = d3.geoPath()
       .projection(projection);
-    
-    
-   var svg = d3.select("#mapa").append("svg")
-      .attr("width", width)
-      .attr("height", height);
 
    d3.json("mapa.json", function(error, mapa) {
       if (typeof(topojson) === "undefined")
          return; // en su lugar se muestra que se está cargando topojson (o que hubo error); se mostrará cuando se cargue
+      d3.select("#mapa").text("");
+
       var provincias = topojson.feature(mapa, mapa.objects.provinces);
       var features;
       if (circunscripcion != "comunidad")
@@ -384,7 +385,11 @@ async function generaMapa(escanos_partidos, votos, circunscripcion, escanyos_sup
          coloreado = function(d) { return colores[d.id] }
       else
          coloreado = function(d) { return colores[d.properties.ccaa] }
-   
+
+      var svg = d3.select("#mapa").append("svg")
+         .attr("width", width)
+         .attr("height", height);
+
       svg.selectAll(".province")
          .data(features)
          .enter().append("path")
