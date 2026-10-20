@@ -135,6 +135,7 @@ function divisor_sainte_lague_mod(votos, index) {
 }
 
 // Divisor usado en la versión Huntington-Hill del método de promedio mayor
+// El original (que se usa para determinar el tamaño de las circunscripciones) consideraría index*(index+1), pero aquí se toma el siguiente porque de lo contrario cada partido que supere el corte recibe un escaño mientras haya escaños
 function divisor_huntington_hill(votos, index) {
    return votos/(Math.sqrt((index+1)*(index+2)));
 }
@@ -192,7 +193,7 @@ function promedio_mayor(resultados, blancos, escanyos, corte, tipo_divisor) {
    for (var i = 0; i < resultados.length; i++) {
       cocientes_matrix[i] = [];
       for (var j = 0; j < escanyos; j++)
-         cocientes_matrix[i][j] = tipo_divisor(resultados[i].votos, j);
+         cocientes_matrix[i][j] = tipo_divisor(resultados[i].votos, j); // sí, esto funciona incluso cuando el divisor es 0 (sale Infinity)
    }
 
    var res = [];

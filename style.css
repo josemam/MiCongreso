@@ -77,3 +77,6 @@ p {
 a {
    color: #000030;
 }
+abbr {
+   cursor: help;
+}

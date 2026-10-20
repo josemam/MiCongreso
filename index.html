@@ -40,23 +40,27 @@
                <option value=espana_2023 selected="selected">23/07/2023</option>
             </select><br>
             
-            <input id="minimo" value="2" size="1" onChange="procesa()" title="Mínimo de escaños por provincia (por comunidad autónoma si la circunscripción es del tipo Comunidad 1)"> escaños/circ
+            <input id="minimo" value="2" size="1" onChange="procesa()" title="Mínimo de escaños por provincia (por comunidad autónoma si la circunscripción es del tipo Comunidad 1)"> escaños/<abbr title="Circunscripción">circ</abbr>
             hasta <input id="total_diputados" value="350" size="2" onChange="procesa()" title="Total de escaños">
             Método:
-            <select id="sel_metodo" size=1 onChange="procesa()"> 
-               <option value=dhondt title="Método de promedio mayor, muy común">D'Hondt</option>
-               <option value=saintelague title="Método de promedio mayor distinto al D'Hondt, también muy común">Sainte-Laguë</option>
-               <option value=saintelaguemod title="Versión modificada de Sainte-Laguë">S-L modificado</option>
-               <option value=huntington_hill title="Otro método de promedio mayor">Huntington-Hill</option>
-               <option value=droop title="Método del resto mayor con cociente Droop">Droop</option>
-               <option value=hare title="Método del resto mayor con cociente Hare">Hare</option>
-               <option value=fptp title="First-past-the-post o escrutinio mayoritario uninominal, todos los escaños de la circunscripción van al partido con más votos">FPTP</option>
+            <select id="sel_metodo" size=1 onChange="procesa()">
+               <optgroup label="De promedio mayor" title="Estos métodos, en cada circunscripción, van asignando escaños a los partidos que, según interprete el método, tienen más votos para los escaños que llevan asignados. También pueden verse como métodos de divisor: computan el coste que debe tener un escaño para que se asignen todos los escaños, y asignan tantos escaños como veces el coste, siguiendo un criterio de redondeo determinado por el método">
+                  <option value=dhondt title="Método muy común: obtener n escaños requiere n veces los votos de un escaño. Como método de divisor, equivale a redondear a la baja">D'Hondt</option>
+                  <option value=saintelague title="Método bastante común: obtener n escaños requiere 2n - 1 veces los votos de un escaño (visto de otra manera, el coste del n-ésimo escaño es proporcional a n - 1/2). Como método de divisor, equivale a redondear aritméticamente">Sainte-Laguë</option>
+                  <option value=saintelaguemod title="Versión modificada de Sainte-Laguë para que el primer escaño no sea mucho más fácil de obtener que los siguientes (lo que podría dar lugar a que algunos partidos se troceen para obtener más escaños si no entra en juego el corte): el escaño 1 requiere 1,4 veces lo que en el original">S-L modificado</option>
+                  <option value=huntington_hill title="Con este método, obtener n escaños requiere un número de votos proporcional a la media geométrica de n y n+1 (*en el original, que se usa para determinar el tamaño de circunscripciones y no los representantes de cada partido, es n y n-1; se ha cambiado para evitar que todo partido que supere el corte reciba un escaño mientras haya escaños). Esto minimiza la diferencia entre el número de votantes representados por cada diputado en la circunscripción">Huntington-Hill*</option>
+               </optgroup>
+               <optgroup label="De resto mayor" title="Estos métodos, en cada circunscripción, asignan a cada partido una cantidad de escaños proporcional a su número de votos, redondeando hacia arriba aquellos partidos en los que sobraron más votos para alcanzar su número de escaños">
+                  <option value=hare title="Método de resto mayor con cociente Hare: votos/escaños. También llamado método de Hamilton">Hare</option>
+                  <option value=droop title="Método de resto mayor con cociente Droop: 1 + votos/(escaños + 1)">Droop</option>
+               </optgroup>
+               <option value=fptp title="First-past-the-post o escrutinio mayoritario uninominal: todos los escaños de la circunscripción van al partido con más votos">FPTP</option>
                <option value=simul_senado title="Tres escaños al partido más votado de la circunscripción y uno al siguiente, excepto en Ceuta y Melilla donde se dan dos escaños, ambos al partido más votado. Se inspira en el criterio para los senadores por elección directa (asume que el votante elige a los senadores del partido votado en el Congreso; ignora la distinta organización en circunscripciones en territorios insulares)">Simul. Senado</option>
                <option value=escanocadacincuentamil title="Un escaño por cada cincuenta mil votos en una circunscripción. Ignora el reparto de escaños.">Votos/50 000</option>
-               <option value=muestreoaleatorio title="Por cada circunscripción, toma tantos votos (no nulos ni en blanco) al azar como escaños tenga asignados, y cada partido votado recibe un escaño.">Muestreo</option>
+               <option value=muestreoaleatorio title="Por cada circunscripción, toma tantos votos (no nulos ni en blanco) al azar (entre los votantes de partidos que superen el corte) como escaños tenga asignados, y cada partido votado recibe un escaño.">Muestreo</option>
             </select><br>
 
-            Circunscrip.:
+            <abbr title="Circunscripción">Circunscrip.</abbr>:
             <select id="sel_circ" size=1 onChange="procesa()"> 
                <option value="provincia">Provincia</option>
                <option value="comunidad" title="Se juntan los votos de cada provincia en la comunidad autónoma y el número de escaños por comunidad se calcula a partir del censo total de la comunidad.">Comunidad 1</option>
@@ -79,26 +83,32 @@
       </div>
       <div id="mapa">Cargando d3js y topojson para mostrar el mapa de escaños...</div>
       <p>
-         ¿En qué influye la ley electoral? ¿Cómo habría quedado el Congreso de los
-         Diputados tras las últimas elecciones si nuestra ley fuese otra? ¡Compruébalo!
+         ¿En qué influye la
+         <a href="https://boe.es/eli/es/lo/1985/06/19/5/con">ley electoral</a>?
+         ¿Cómo habría quedado el Congreso de los Diputados tras las últimas
+         elecciones si nuestra ley fuese otra? ¡Compruébalo!
          ¡Selecciona una asignación de escaños por provincia, un método de reparto
          de escaños, el ámbito de cada circunscripción y el mínimo de votos
          necesarios para acceder al reparto, y mira cómo fluctúa el Parlamento!<br><br>
          
          También puedes ver el efecto que tendría la fusión de partidos en la
-         distribución de escaños. En el menú Unir, por defecto está seleccionado Podemos
-         y confluencias, de forma que se identifican los partidos relacionados con Podemos
-         o Unidos Podemos como uno solo, lo cual solo tiene efecto visual y no influye en
-         el reparto porque los distintos nombres de las confluencias de Podemos participan
-         en provincias distintas. Sin embargo, se puede seleccionar una unión distinta de
+         distribución de escaños. En el menú Unir, por defecto está seleccionado
+         Confluencias, que identifica entre sí ciertos partidos relacionados que
+         concurren en comunidades distintas, lo cual solo tiene efecto visual y no influye
+         en el reparto de escaños. Sin embargo, se puede seleccionar una unión distinta de
          partidos; al hacer esto se considera que se presentan con el mismo nombre y
          reciben tantos votos como los partidos implicados, afectando notablemente al
-         reparto de escaños y a las posibles coaliciones de gobierno.<br><br>
+         reparto de escaños y a las posibles coaliciones de gobierno, en mayor o
+         menor medida según el sistema electoral.<br><br>
          
-         Nota: Los resultados suponen que los votos son los mismos, pero cambiar
+         Nota: la simulación tiene que suponer que los votos son los mismos, pero cambiar
          la ley electoral o fusionar partidos puede alterar el enfoque que los
          partidos dan a la campaña electoral, las uniones de partidos, e incluso la
          perspectiva de los electores, alterando profundamente los resultados.<br><br>
+         
+         Nota 2: los ajustes admiten valores más allá del
+         <a href="https://boe.es/eli/es/c/1978/12/27/(1)/con#a68">artículo 68</a>
+         de la Constitución Española. Los ajustes por defecto vienen de los artículos <a href="https://boe.es/eli/es/lo/1985/06/19/5/con#acientosesentaydos">162</a> y <a href="https://boe.es/eli/es/lo/1985/06/19/5/con#acientosesentaytres">163</a> de la <a href="https://boe.es/eli/es/lo/1985/06/19/5/con">LOREG</a>.<br><br>
          
          <a href="https://github.com/josemam/MiCongreso">Código fuente aquí</a>
       </p>
