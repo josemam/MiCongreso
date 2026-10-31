@@ -19,13 +19,14 @@
       <div id="titulo">
          <h1>MiCongreso</h1>
       </div>
+      <noscript>Se requiere JavaScript para calcular los escaños y para dibujar el gráfico y el mapa de escaños.<br><br></noscript>
       <div id="tooltip"><span id="contenido"></span></div>
-      <div id="grafico">Cargando d3js para mostrar el gráfico de escaños...</div>
+      <div id="grafico" alt="Gráfico con la distribución de escaños">Cargando d3js para mostrar el gráfico de escaños...</div>
       <div id="derecha_grafico">
          <textarea id="res_texto" READONLY rows="13">Cargando datos electorales...</textarea>
 
          <div id="controles">
-            Resultados del <select id="elecciones" size=1 onChange="leerdatos(this.value)">
+            <label>Resultados del <select id="elecciones" size=1 onChange="leerdatos(this.value)">
                <option value=espana_1989>29/10/1989</option>
                <option value=espana_1993>06/06/1993</option>
                <option value=espana_1996>03/03/1996</option>
@@ -38,11 +39,11 @@
                <option value=espana_2019_abril>28/04/2019</option>
                <option value=espana_2019_noviembre>10/11/2019</option>
                <option value=espana_2023 selected="selected">23/07/2023</option>
-            </select><br>
+            </select></label><br>
             
-            <input id="minimo" value="2" size="1" onChange="procesa()" title="Mínimo de escaños por provincia (por comunidad autónoma si la circunscripción es del tipo Comunidad 1)"> escaños/<abbr title="Circunscripción">circ</abbr>
-            hasta <input id="total_diputados" value="350" size="2" onChange="procesa()" title="Total de escaños">
-            Método:
+            <label><input id="minimo" value="2" size="1" onChange="procesa()" title="Mínimo de escaños por provincia (por comunidad autónoma si la circunscripción es del tipo Comunidad 1)"> escaños/<abbr title="Circunscripción">circ</abbr>
+            hasta <input id="total_diputados" value="350" size="2" onChange="procesa()" title="Total de escaños"></label><br>
+            <label>Método:
             <select id="sel_metodo" size=1 onChange="procesa()">
                <optgroup label="De promedio mayor" title="Estos métodos, en cada circunscripción, van asignando escaños a los partidos que, según interprete el método, tienen más votos para los escaños que llevan asignados. También pueden verse como métodos de divisor: computan el coste que debe tener un escaño para que se asignen todos los escaños, y asignan tantos escaños como veces el coste, siguiendo un criterio de redondeo determinado por el método">
                   <option value=dhondt title="Método muy común: obtener n escaños requiere n veces los votos de un escaño. Como método de divisor, equivale a redondear a la baja">D'Hondt</option>
@@ -58,18 +59,18 @@
                <option value=simul_senado title="Tres escaños al partido más votado de la circunscripción y uno al siguiente, excepto en Ceuta y Melilla donde se dan dos escaños, ambos al partido más votado. Se inspira en el criterio para los senadores por elección directa (asume que el votante elige a los senadores del partido votado en el Congreso; ignora la distinta organización en circunscripciones en territorios insulares)">Simul. Senado</option>
                <option value=escanocadacincuentamil title="Un escaño por cada cincuenta mil votos en una circunscripción. Ignora el reparto de escaños.">Votos/50 000</option>
                <option value=muestreoaleatorio title="Por cada circunscripción, toma tantos votos (no nulos ni en blanco) al azar (entre los votantes de partidos que superen el corte) como escaños tenga asignados, y cada partido votado recibe un escaño.">Muestreo</option>
-            </select><br>
+            </select></label><br>
 
-            <abbr title="Circunscripción">Circunscrip.</abbr>:
+            <label><abbr title="Circunscripción">Circunscrip.</abbr>:
             <select id="sel_circ" size=1 onChange="procesa()"> 
                <option value="provincia">Provincia</option>
                <option value="comunidad" title="Se juntan los votos de cada provincia en la comunidad autónoma y el número de escaños por comunidad se calcula a partir del censo total de la comunidad.">Comunidad 1</option>
                <option value="comunidad_mix" title="Se juntan los votos de cada provincia en la comunidad autónoma, pero el número de escaños de la comunidad es la suma de los escaños de cada provincia.">Comunidad 2</option>
                <option value="unica" title="Se juntan todos los votos en una sola circunscripción para todo el país.">Única</option>
-            </select><br>
-            Corte:
-            <input id="corte" value="3" size="1" onChange="procesa()" title="Los partidos con un porcentaje de votos menor en una circunscripción serán ignorados en el reparto de escaños de esa circunscripción.">%<br>
-            Unir: <select id="sel_union" size=1 onChange="procesa()">
+            </select></label><br>
+            <label>Corte:
+            <input id="corte" value="3" size="1" onChange="procesa()" title="Los partidos con un porcentaje de votos menor en una circunscripción serán ignorados en el reparto de escaños de esa circunscripción.">%</label><br>
+            <label>Unir: <select id="sel_union" size=1 onChange="procesa()">
                <option value="nada">Nada</option>
                <option value="conf" title="Considera el mismo partido aquellos que se presentan en distintas provincias con nombres ligeramente diferentes, como las confluencias de Podemos o de Más País. Mientras no haya circunscripción única, no debería tener efecto en el reparto de escaños, y facilita la visualización de los resultados." selected="selected">Confluencias</option>
                <option value="pod_iu_mp">Podemos + IU + Más País</option>
@@ -78,10 +79,10 @@
                <option value="pp_vox">PP + Vox</option>
                <option value="pp_cs_vox">PP + C's + Vox</option>
                <option value="izda_dcha" title="PSOE, Podemos, IU, Más País, Sumar por un lado. PP, Cs, Vox por otro.">Izquierda y derecha</option>
-            </select>
+            </select></label>
          </div>
       </div>
-      <div id="mapa">Cargando d3js y topojson para mostrar el mapa de escaños...</div>
+      <div id="mapa" alt="Mapa con la distribución de escaños en cada circunscripción">Cargando d3js y topojson para mostrar el mapa de escaños...</div>
       <p>
          ¿En qué influye la
          <a href="https://boe.es/eli/es/lo/1985/06/19/5/con">ley electoral</a>?
