@@ -134,7 +134,7 @@ function leerdatos(elec = "espana_2023") {
 }
 
 $(document).ready(function() {
-   $.getJSON("data.json", function(d) { data = d; leerdatos() } ).fail(function() { document.getElementById("res_texto").value = "Error al cargar los datos electorales"});
+   $.getJSON("data.json", function(d) { data = d; leerdatos() } ).fail(function(error) { document.getElementById("res_texto").value = "Error " + (error.status === 0 ? "no especificado" : error.status + " (" + error.statusText + ")") + " al cargar los datos electorales"});
 });
 
 // Ordena los partidos según los escaños conseguidos (por votos en caso de empate si se pasan los votos)
@@ -363,6 +363,10 @@ async function generaMapa(escanos_partidos, votos, circunscripcion, escanyos_sup
       .projection(projection);
 
    d3.json("mapa.json", function(error, mapa) {
+      if (error !== null) {
+         d3.select("#mapa").text("Error " + (error.target.status === 0 ? "no especificado" : error.target.status + " (" + error.target.statusText + ")") + " al cargar el mapa");
+         return;
+      }
       if (typeof(topojson) === "undefined")
          return; // en su lugar se muestra que se está cargando topojson (o que hubo error); se mostrará cuando se cargue
       d3.select("#mapa").text("");
