@@ -208,7 +208,7 @@ async function imprime(d) {
    clear_grafico();
    if (typeof(d3) === "undefined")
       return; // en su lugar se muestra que se está cargando d3js (o que hubo error); se mostrará cuando se cargue
-   document.querySelector("#grafico").textContent = '';
+   document.getElementById("grafico").textContent = '';
 
    var w = 620,     // anchura del marco del gráfico
        h = 320,     // altura
