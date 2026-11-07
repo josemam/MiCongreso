@@ -12,12 +12,14 @@ body {
 }
 #tooltip {
    opacity: 0;
+   z-index: 1;
    border-style: solid;
    border-width: 2px;
    position: absolute;
    padding: 7px;
    font-size: 14px;
    background-color: white;
+   box-shadow: 2px 2px 5px rgba(0,0,0,0.4);
    -webkit-border-radius: 8px;
    -moz-border-radius: 8px;
    border-radius: 8px;

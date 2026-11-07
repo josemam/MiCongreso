@@ -259,7 +259,6 @@ async function imprime(d) {
 
    d3.select("#tooltip")
       .attr("class", "tooltip")
-      .style("z-index", 1)
       .style("opacity", 0)
 
    var arcs = vis.selectAll("g")
