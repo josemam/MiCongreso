@@ -7,7 +7,7 @@ body {
 #titulo {
    text-align: center;
    font-size: 1.5em;
-   font-family: "PT Sans", sans-serif;
+   font-family: "Fira Sans", "DejaVu Sans Condensed", "Noto Sans", sans-serif;
    text-shadow: 2px 2px 2px #ccc;
 }
 #tooltip {
@@ -24,7 +24,8 @@ body {
    pointer-events: none;
 }
 #contenido, text {
-   font-family: "Lato", sans-serif;
+   font-family: "Lato", "Fira Sans", "Noto Sans", sans-serif;
+   font-weight: 900;
    pointer-events: none;
 }
 text {
