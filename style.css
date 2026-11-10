@@ -49,12 +49,22 @@ text {
 .province-label {
    font-size: 0.7em;
 }
+#grafico {
+   max-width: 100%;
+   width: 620px;
+}
+#mapa {
+   max-width: 60%;
+   width: 400px;
+}
 #grafico, #mapa {
    float: left;
 }
 #derecha_grafico {
    float: right;
    width: 220px;
+   display: flex;
+   flex-direction: column;
 }
 #controles, #res_texto, p {
    font-family: "Roboto Slab", serif;
@@ -62,6 +72,8 @@ text {
 #controles {
    font-size: .93em;
    display: grid;
+   grid-gap: 1px;
+   margin: auto;
 }
 select {
    float: right;
@@ -73,7 +85,8 @@ textarea {
    font-size: .78em;
    line-height: 1.2em;
    padding: 4px;
-   width: 210px;
+   margin-right: 4px;
+   width: 208px;
 }
 p {
    margin-top: 350px;
@@ -84,4 +97,38 @@ a {
 }
 abbr {
    cursor: help;
+}
+@media only screen and (orientation: landscape) and (max-device-width: 856px) {
+   #grafico {
+      max-width: 68%;
+   }
+}
+@media only screen and (orientation: landscape) and (max-device-width: 710px) {
+   #grafico {
+      max-width: 64%;
+   }
+}
+@media only screen and (orientation: landscape) and (max-device-width: 625px) {
+   #grafico {
+      max-width: 100%;
+   }
+}
+@media only screen and (orientation: portrait) and (hover: none) and (pointer: coarse) {
+   #titulo  {
+      font-size: 2.5em;
+   }
+   p, #tooltip  {
+      font-size: 1.7em;
+   }
+   #res_texto {
+      font-size: 1em;
+      width: 188px;
+   }
+   #grafico {
+      width: 100%;
+   }
+   #derecha_grafico {
+      width: fit-content;
+      flex-direction: row;
+   }
 }

@@ -231,11 +231,11 @@ async function imprime(d) {
 
    var vis = d3.select("#grafico")
       .append("svg")
-      .attr("width", w)
-      .attr("height", h)
+      .attr("viewBox", "0 0 " + w + " " + h)
+      .attr("preserveAspectRatio", "xMidYMid meet")
       .data([datos])
       .append("g")
-      .attr("transform", "translate(" + r + "," + r + ")")
+      .attr("transform", "translate(" + w/2 + "," + r + ")")
 
    var arc = d3.arc()
       .outerRadius(r)
@@ -390,8 +390,8 @@ async function generaMapa(escanos_partidos, votos, circunscripcion, escanyos_sup
          coloreado = function(d) { return colores[d.properties.ccaa] }
 
       var svg = d3.select("#mapa").append("svg")
-         .attr("width", width)
-         .attr("height", height);
+         .attr("viewBox", "0 0 " + width + " " + height)
+         .attr("preserveAspectRatio", "xMidYMid meet");
 
       svg.selectAll(".province")
          .data(features)
