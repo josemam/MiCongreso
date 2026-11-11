@@ -39,10 +39,10 @@
                <option value=espana_2019_abril>28/04/2019</option>
                <option value=espana_2019_noviembre>10/11/2019</option>
                <option value=espana_2023 selected="selected">23/07/2023</option>
-            </select></label><br>
+            </select></label>
             
             <label><input id="minimo" value="2" size="1" onChange="procesa()" title="Mínimo de escaños por provincia (por comunidad autónoma si la circunscripción es del tipo Comunidad 1)"> escaños/<abbr title="Circunscripción">circ</abbr>
-            hasta <input id="total_diputados" value="350" size="2" onChange="procesa()" title="Total de escaños"></label><br>
+            hasta <input id="total_diputados" value="350" size="2" onChange="procesa()" title="Total de escaños"></label>
             <label>Método:
             <select id="sel_metodo" size=1 onChange="procesa()">
                <optgroup label="De promedio mayor" title="Estos métodos, en cada circunscripción, van asignando escaños a los partidos que, según interprete el método, tienen más votos para los escaños que llevan asignados. También pueden verse como métodos de divisor: computan el coste que debe tener un escaño para que se asignen todos los escaños, y asignan tantos escaños como veces el coste, siguiendo un criterio de redondeo determinado por el método">
@@ -59,7 +59,7 @@
                <option value=simul_senado title="Tres escaños al partido más votado de la circunscripción y uno al siguiente, excepto en Ceuta y Melilla donde se dan dos escaños, ambos al partido más votado. Se inspira en el criterio para los senadores por elección directa (asume que el votante elige a los senadores del partido votado en el Congreso; ignora la distinta organización en circunscripciones en territorios insulares)">Simul. Senado</option>
                <option value=escanocadacincuentamil title="Un escaño por cada cincuenta mil votos en una circunscripción. Ignora el reparto de escaños.">Votos/50 000</option>
                <option value=muestreoaleatorio title="Por cada circunscripción, toma tantos votos (no nulos ni en blanco) al azar (entre los votantes de partidos que superen el corte) como escaños tenga asignados, y cada partido votado recibe un escaño.">Muestreo</option>
-            </select></label><br>
+            </select></label>
 
             <label><abbr title="Circunscripción">Circunscrip.</abbr>:
             <select id="sel_circ" size=1 onChange="procesa()"> 
@@ -67,9 +67,9 @@
                <option value="comunidad" title="Se juntan los votos de cada provincia en la comunidad autónoma y el número de escaños por comunidad se calcula a partir del censo total de la comunidad.">Comunidad 1</option>
                <option value="comunidad_mix" title="Se juntan los votos de cada provincia en la comunidad autónoma, pero el número de escaños de la comunidad es la suma de los escaños de cada provincia.">Comunidad 2</option>
                <option value="unica" title="Se juntan todos los votos en una sola circunscripción para todo el país.">Única</option>
-            </select></label><br>
+            </select></label>
             <label>Corte:
-            <input id="corte" value="3" size="1" onChange="procesa()" title="Los partidos con un porcentaje de votos menor en una circunscripción serán ignorados en el reparto de escaños de esa circunscripción.">%</label><br>
+            <input id="corte" value="3" size="1" onChange="procesa()" title="Los partidos con un porcentaje de votos menor en una circunscripción serán ignorados en el reparto de escaños de esa circunscripción.">%</label>
             <label>Unir: <select id="sel_union" size=1 onChange="procesa()">
                <option value="nada">Nada</option>
                <option value="conf" title="Considera el mismo partido aquellos que se presentan en distintas provincias con nombres ligeramente diferentes, como las confluencias de Podemos o de Más País. Mientras no haya circunscripción única, no debería tener efecto en el reparto de escaños, y facilita la visualización de los resultados." selected="selected">Confluencias</option>

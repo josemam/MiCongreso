@@ -72,8 +72,9 @@ text {
 #controles {
    font-size: .93em;
    display: grid;
-   grid-gap: 1px;
+   row-gap: 2px;
    margin: auto;
+   height: min-content;
 }
 select {
    float: right;
@@ -122,7 +123,7 @@ abbr {
    }
    #res_texto {
       font-size: 1em;
-      width: 188px;
+      width: 184px;
    }
    #grafico {
       width: 100%;
