@@ -88,7 +88,6 @@ input {
 select {
    border-radius: 4px;
    float: right;
-   padding-inline-start: 5px;
 }
 textarea {
    resize: none;
