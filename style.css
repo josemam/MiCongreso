@@ -76,8 +76,19 @@ text {
    margin: auto;
    height: min-content;
 }
+input, select {
+   border: 1px solid ThreeDShadow;
+   font-size: 13.49px;
+   padding-block: 2px;
+}
+input {
+   border-radius: 2px;
+   padding-inline: 3px;
+}
 select {
+   border-radius: 4px;
    float: right;
+   padding-inline-start: 5px;
 }
 textarea {
    resize: none;
