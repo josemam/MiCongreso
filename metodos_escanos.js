@@ -42,6 +42,18 @@ function escanocadacincuentamil(resultados, blancos, escanyos, corte) {
    return res_nombres;
 }
 
+// Da un escaño a cada partido siguiendo las reglas de Eurovisión
+// 1, 2, 3, 4, 5, 6, 7, 8, 10, 12 escaños por cada circunscripción a los más votados
+function eurovision(resultados, blancos, escanyos, corte) {
+   resultados = aListaOrdenada(resultados);
+
+   var res_nombres = [];
+   for (var x = 0; x < Math.min(resultados.length, 10) && resultados[x].votos > 0; x++)
+      res_nombres[resultados[x].partido] = 10 - x + Math.max(0, 2-x);
+
+   return res_nombres;
+}
+
 // Da todos los escaños al partido más votado en la circunscripción
 // Sí, esto todavía se usa en algunos países
 function fptp(resultados, blancos, escanyos, corte) {
