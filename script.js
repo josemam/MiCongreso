@@ -204,7 +204,7 @@ function aclarar(color) {
 }
 
 // Presenta el gráfico de los datos
-async function imprime(d) {
+function imprime(d) {
    clear_grafico();
    if (typeof(d3) === "undefined")
       return; // en su lugar se muestra que se está cargando d3js (o que hubo error); se mostrará cuando se cargue
@@ -330,7 +330,7 @@ function getEscanyosFromData(escanos) {
 }
 
 // Prepara el mapa
-async function generaMapa(escanos_partidos, votos, circunscripcion, escanyos_supuestos) {
+function generaMapa(escanos_partidos, votos, circunscripcion, escanyos_supuestos) {
    var colores = {};
    var escanyos = {};
    var cmix = circunscripcion == "comunidad_mix";
