@@ -496,5 +496,5 @@ function getResultados(escanyos, metodo, circunscripcion, corte, trasvases) {
       g_escanos = metodo(g_votos, blancos_total, escanyos, corte)
    }
 
-   return {g_escanos, g_votos, l_escanos, l_votos, circunscripcion, escanyos};
+   return {"g_escanos": g_escanos, "g_votos": g_votos, "l_escanos": l_escanos, "l_votos": l_votos, "circunscripcion": circunscripcion, "escanyos": escanyos};
 }
