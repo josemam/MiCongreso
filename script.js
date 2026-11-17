@@ -112,7 +112,7 @@ function suma(obj, clave, valor) {
 }
 
 // Reparte los datos del archivo JSON en variables y presenta los resultados reales
-function leerdatos(elec = "espana_2023") {
+function leerdatos(elec) {
    if (typeof(data) === "undefined")
       return;
 
@@ -134,7 +134,7 @@ function leerdatos(elec = "espana_2023") {
 }
 
 $(document).ready(function() {
-   $.getJSON("data.json", function(d) { data = d; leerdatos() } ).fail(function(error) { document.getElementById("res_texto").value = "Error " + (error.status === 0 ? "no especificado" : error.status + " (" + error.statusText + ")") + " al cargar los datos electorales"});
+   $.getJSON("data.json", function(d) { data = d; document.getElementById("elecciones").onchange() } ).fail(function(error) { document.getElementById("res_texto").value = "Error " + (error.status === 0 ? "no especificado" : error.status + " (" + error.statusText + ")") + " al cargar los datos electorales"});
 });
 
 // Ordena los partidos según los escaños conseguidos (por votos en caso de empate si se pasan los votos)
