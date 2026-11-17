@@ -79,11 +79,13 @@ text {
 input, select {
    border: 1px solid ThreeDShadow;
    font-size: 13.49px;
-   padding-block: 2px;
+   padding-top: 2px;
+   padding-bottom: 2px;
 }
 input {
    border-radius: 2px;
-   padding-inline: 3px;
+   padding-left: 3px;
+   padding-right: 3px;
 }
 select {
    border-radius: 4px;
