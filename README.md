@@ -12,5 +12,6 @@ con el nombre de los partidos, así como el censo de población, se han obtenido
 [aquí](https://infoelectoral.interior.gob.es/opencms/es/elecciones-celebradas/area-de-descargas/).
 
 Las opciones que aparecen al acceder a la página se corresponden con la ley
-electoral española según ha estado configurada desde 1985, por lo que presenta
-los resultados que se obtuvieron en cada uno de los comicios celebrados.
+electoral española según ha estado configurada desde
+[1985](https://boe.es/eli/es/lo/1985/06/19/5/con#acientosesentaydos), por lo que
+presenta los resultados que se obtuvieron en cada uno de los comicios celebrados.
