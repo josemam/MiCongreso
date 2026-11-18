@@ -4,7 +4,7 @@ var data, CCAA, circunscripciones, blancos, nulos, poblacion, resultados;
 function procesa() {
    var minimo = parseInt(document.getElementById('minimo').value, 10);
    var total_diputados = parseInt(document.getElementById('total_diputados').value, 10);
-   var metodo = eval(document.getElementById('sel_metodo').value);
+   var metodo = window[document.getElementById('sel_metodo').value];
    var tipo_circ = document.getElementById('sel_circ').value;
    var corte = parseFloat(document.getElementById('corte').value.replace(",", "."), 10);
 
@@ -30,6 +30,10 @@ function procesa() {
          "pp_cs_vox": pp_cs_vox.concat(agrupaciones),
          "izda_dcha": psoe_up_sumar.concat(pp_cs_vox)
       }[document.getElementById('sel_union').value];
+
+   if (typeof(data) === "undefined")
+      return;
+
    var escanyos = (tipo_circ == "unica" ? total_diputados : getEscanyos(minimo,[[["Ceuta", "Melilla"], 1]], total_diputados, tipo_circ == "comunidad"));
 
    actualiza(getResultados(escanyos, metodo, tipo_circ, corte, trasvases));
