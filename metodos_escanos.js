@@ -4,7 +4,7 @@ function ordenaPorVotos(a, b) { return b.votos - a.votos };
 
 // Mapea a lista ordenada de objetos
 function aListaOrdenada(resultados) {
-   if (typeof(resultados) == "object") {
+   if (typeof(resultados) === "object") {
       if (Object.hasOwnProperty("keys") && Array.prototype.hasOwnProperty("map"))
          resultados = Object.keys(resultados).map(function(partido) {
             return { partido: partido, votos: resultados[partido]}; });
