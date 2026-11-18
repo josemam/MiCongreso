@@ -133,9 +133,28 @@ function leerdatos(elec) {
    procesa();
 }
 
-$(document).ready(function() {
-   $.getJSON("data.json", function(d) { data = d; document.getElementById("elecciones").onchange() } ).fail(function(error) { document.getElementById("res_texto").value = "Error " + (error.status === 0 ? "no especificado" : error.status + " (" + error.statusText + ")") + " al cargar los datos electorales"});
-});
+if (window.jQuery === undefined)
+   document.onload = window.onload = function () {
+      document.getElementById("res_texto").value = document.getElementById("grafico").textContent = "Error al cargar jQuery";
+      if (typeof XMLHttpRequest === "function") {
+         var datajsonreq = new XMLHttpRequest();
+         datajsonreq.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200)
+               try {
+                  data = JSON.parse(datajsonreq.response);
+                  document.getElementById("elecciones").onchange();
+               } catch(err) {
+                  document.getElementById("res_texto").value = "Error al cargar los datos electorales: " + err.toString();
+               }
+         }
+         datajsonreq.open("GET", "data.json", true);
+         datajsonreq.send();
+      }
+   };
+else
+   $(document).ready(function() {
+      $.getJSON("data.json", function(d) { data = d; document.getElementById("elecciones").onchange() } ).fail(function(error) { document.getElementById("res_texto").value = "Error " + (error.status === 0 ? "no especificado" : error.status + " (" + error.statusText + ")") + " al cargar los datos electorales"});
+   });
 
 // Ordena los partidos según los escaños conseguidos (por votos en caso de empate si se pasan los votos)
 // Si todos es true se ordenan los partidos sin escaños también
@@ -447,7 +466,7 @@ function getResultados(escanyos, metodo, circunscripcion, corte, trasvases) {
       for (var ca in CCAA) {
          for (var circ in circunscripciones[CCAA[ca]]) {
             var actual_circ = circunscripciones[CCAA[ca]][circ];
-            l_votos[actual_circ] = jQuery.extend({}, resultados[actual_circ]);  // Hace una copia
+            l_votos[actual_circ] = typeof structuredClone === "function" ? structuredClone(resultados[actual_circ]) : (window.jQuery ? jQuery.extend({}, resultados[actual_circ]) : JSON.parse(JSON.stringify(resultados[actual_circ])));  // Hace una copia
             trasvasa(trasvases, l_votos[actual_circ]);
             l_escanos[actual_circ] = metodo(l_votos[actual_circ], blancos[actual_circ], escanyos[actual_circ], corte);
 

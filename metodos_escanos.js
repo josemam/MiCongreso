@@ -4,10 +4,21 @@ function ordenaPorVotos(a, b) { return b.votos - a.votos };
 
 // Mapea a lista ordenada de objetos
 function aListaOrdenada(resultados) {
-   if (typeof(resultados) == "object")
-      resultados = $.map(resultados, function(value, index) {
-         return { partido: index, votos: value}; });
-         
+   if (typeof(resultados) == "object") {
+      if (Object.hasOwnProperty("keys") && Array.prototype.hasOwnProperty("map"))
+         resultados = Object.keys(resultados).map(function(partido) {
+            return { partido: partido, votos: resultados[partido]}; });
+      else if (window.jQuery)
+         resultados = $.map(resultados, function(value, key) {
+            return { partido: key, votos: value}; });
+      else {
+         var res = [];
+         for (var partido in resultados)
+            res.push({ partido: partido, votos: resultados[partido]})
+         resultados = res;
+      }
+   }
+
    return resultados.sort(ordenaPorVotos);
 }
 
