@@ -140,21 +140,45 @@ function leerdatos(elec) {
 if (window.jQuery === undefined)
    document.onload = window.onload = function () {
       document.getElementById("res_texto").value = document.getElementById("grafico").textContent = "Error al cargar jQuery";
-      if (typeof XMLHttpRequest === "function") {
+      try {
          var datajsonreq = new XMLHttpRequest();
-         datajsonreq.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200)
-               try {
-                  data = JSON.parse(datajsonreq.response);
-                  document.getElementById("elecciones").onchange();
-               } catch(err) {
-                  document.getElementById("res_texto").value = "Error al cargar los datos electorales: " + err.toString();
-               }
-         }
-         datajsonreq.open("GET", "data.json", true);
-         datajsonreq.send();
+      } catch (err) {
+         document.getElementById("res_texto").value = "No se puede cargar los datos electorales porque este navegador no parece capaz de hacer peticiones XHR: " + err.toString();
+         return;
       }
-   };
+      datajsonreq.onload = function(e) {
+         if (this.status >= 200 && this.status < 400) {
+            try {
+               if (datajsonreq.responseType === "json") {
+                  data = datajsonreq.response;
+                  if (data === null)
+                     throw("error de sintaxis en data.json")
+               }
+               else
+                  data = JSON.parse(datajsonreq.responseText);
+            } catch(err) {
+               document.getElementById("res_texto").value = "Error al procesar los datos electorales: " + err.toString();
+               return;
+            }
+            document.getElementById("elecciones").onchange();
+         }
+         else
+            document.getElementById("res_texto").value = "Error " + (this.status === 0 ? "al intentar obtener" : this.status + (this.statusText ? " (" + this.statusText + ")" : "") + " al descargar") + " los datos electorales";
+      }
+      datajsonreq.onprogress = function(e) {
+         document.getElementById("res_texto").value = "Cargando datos electorales... " + (e.lengthComputable ? "(" + Math.floor(e.loaded*100/e.total) + "%)" : ["/", "-", "\\", "|"][Math.floor(Math.random()*4)]);
+      }
+      datajsonreq.onerror = function(e) {
+         document.getElementById("res_texto").value = "Error al cargar los datos electorales"
+      }
+      datajsonreq.onabort = function(e) {
+         document.getElementById("res_texto").value = "Se ha cancelado la carga de los datos electorales";
+      }
+      datajsonreq.open("GET", "data.json", true);
+      if (XMLHttpRequest.prototype.hasOwnProperty("responseType"))
+         datajsonreq.responseType = "json";
+      datajsonreq.send();
+   }
 else
    $(document).ready(function() {
       $.getJSON("data.json", function(d) { data = d; document.getElementById("elecciones").onchange() } ).fail(function(error) { document.getElementById("res_texto").value = "Error " + (error.status === 0 ? "no especificado" : error.status + " (" + error.statusText + ")") + " al cargar los datos electorales"});
