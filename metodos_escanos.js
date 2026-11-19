@@ -8,9 +8,6 @@ function aListaOrdenada(resultados) {
       if (Object.hasOwnProperty("keys") && Array.prototype.hasOwnProperty("map"))
          resultados = Object.keys(resultados).map(function(partido) {
             return { partido: partido, votos: resultados[partido]}; });
-      else if (window.jQuery)
-         resultados = $.map(resultados, function(value, key) {
-            return { partido: key, votos: value}; });
       else {
          var res = [];
          for (var partido in resultados)

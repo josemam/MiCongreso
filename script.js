@@ -470,7 +470,10 @@ function getResultados(escanyos, metodo, circunscripcion, corte, trasvases) {
       for (var ca in CCAA) {
          for (var circ in circunscripciones[CCAA[ca]]) {
             var actual_circ = circunscripciones[CCAA[ca]][circ];
-            l_votos[actual_circ] = typeof structuredClone === "function" ? structuredClone(resultados[actual_circ]) : (window.jQuery ? jQuery.extend({}, resultados[actual_circ]) : JSON.parse(JSON.stringify(resultados[actual_circ])));  // Hace una copia
+            var l_votos_actual_circ = {}, resultados_actual_circ = resultados[actual_circ], partido;
+            for (partido in resultados_actual_circ)
+               l_votos_actual_circ[partido] = resultados_actual_circ[partido];  // Hace una copia
+            l_votos[actual_circ] = l_votos_actual_circ;
             trasvasa(trasvases, l_votos[actual_circ]);
             l_escanos[actual_circ] = metodo(l_votos[actual_circ], blancos[actual_circ], escanyos[actual_circ], corte);
 
