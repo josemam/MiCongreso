@@ -17,18 +17,22 @@ function procesa() {
    var agrupaciones_podemos = [["Podemos", confluencias_podemos_2015], ["Unidos Podemos", confluencias_up_2019]];
    var agrupaciones_mas_pais = [["MÁS PAÍS", ["MÁS PAÍS-EQUO", "MÉS COMPROMÍS", "M PAÍS-CHA-EQUO"]]]
    var agrupaciones = agrupaciones_podemos.concat(agrupaciones_mas_pais)
-   var psoe_up_sumar = [["PSOE+Podemos+SUMAR+IU", ["PSOE", "P.S.O.E.", "PSOE-PROGR.", "COMPROMÍS 2019", "EN MAREA", "SUMAR"].concat(nombres_iu).concat(confluencias_podemos_up)]].concat(agrupaciones)
+   var psoe_sumar = [["PSOE+Podemos+SUMAR+IU", ["PSOE", "P.S.O.E.", "PSOE-PROGR.", "COMPROMÍS 2019", "COMPROMÍS-Q", "EN MAREA", "SUMAR", "EQUO"].concat(nombres_iu).concat(confluencias_podemos_up)]].concat(agrupaciones)
+   var pp_cs = [["PP+C's", ["PP", "P.P.", "C's", "Cs", "NA+"]]]
+   var pp_vox = [["PP+Vox", ["PP", "P.P.", "Vox", "VOX"]]]
    var pp_cs_vox = [["PP+C's+Vox", ["PP", "P.P.", "C's", "Cs", "Vox", "VOX", "NA+"]]]
    
    var trasvases = {
          "nada": [],
          "conf": agrupaciones,
-         "pod_iu_mp": agrupaciones.concat([["Unidos Podemos", ["IU-UPeC", "COMPROMÍS 2019", "EN MAREA", "MÁS PAÍS"].concat(confluencias_podemos_up)]]),
-         "psoe_up_sumar": psoe_up_sumar,
-         "pp_cs": [["PP+C's", ["PP", "P.P.", "C's", "Cs", "NA+"]]].concat(agrupaciones),
-         "pp_vox": [["PP+Vox", ["PP", "P.P.", "Vox", "VOX"]]].concat(agrupaciones),
+         "pod_iu_mp_equo": agrupaciones.concat([["Sumar", ["IU-UPeC", "Podemos", "Unidos Podemos", "COMPROMÍS 2019", "COMPROMÍS-Q", "EN MAREA", "MÁS PAÍS", "EQUO"].concat(confluencias_podemos_up)]]),
+         "psoe_sumar": psoe_sumar,
+         "pp_cs": pp_cs.concat(agrupaciones),
+         "pp_vox": pp_vox.concat(agrupaciones),
          "pp_cs_vox": pp_cs_vox.concat(agrupaciones),
-         "izda_dcha": psoe_up_sumar.concat(pp_cs_vox)
+         "izda_ppcs": psoe_sumar.concat(pp_cs),
+         "izda_ppvox": psoe_sumar.concat(pp_vox),
+         "izda_dcha": psoe_sumar.concat(pp_cs_vox)
       }[document.getElementById('sel_union').value];
 
    if (typeof(data) === "undefined")

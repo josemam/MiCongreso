@@ -1,9 +1,12 @@
 {
 "colores_por_defecto" : {
+"Podemos": "#9A559A",
+"Unidos Podemos": "#9A559A",
 "PP+C's": "#0BB2FF",
 "PP+Vox": "#0BB2FF",
 "PP+C's+Vox": "#0BB2FF",
-"PSOE+Podemos+SUMAR+IU": "#ED0A01"
+"PSOE+Podemos+SUMAR+IU": "#ED0A01",
+"Sumar": "#E51C55"
 },
 
 "espana_2023" : {
@@ -957,7 +960,6 @@
 "PP": "#0BB2FF",
 "PSOE": "#ED0A01",
 "PODEMOS-IU": "#9A559A",
-"Unidos Podemos": "#9A559A",
 "ECP-GUANYEM EL CANVI": "#9A559A",
 "Cs": "#FCA136",
 "VOX": "#66BC29",
@@ -1960,7 +1962,6 @@
 "PP": "#0BB2FF",
 "PSOE": "#ED0A01",
 "PODEMOS-IU-EQUO": "#9A559A",
-"Unidos Podemos": "#9A559A",
 "ECP-GUANYEM EL CANVI": "#9A559A",
 "PODEMOS-EU-MAREAS EN COMÚN-EQUO": "#9A559A",
 "Cs": "#FCA136",
@@ -2914,7 +2915,6 @@
 "colores": {
 "PP": "#0BB2FF",
 "PSOE": "#ED0A01",
-"Unidos Podemos": "#9A559A",
 "PODEMOS-IU-EQUO": "#9A559A",
 "ECP": "#9A559A",
 "PODEMOS-COMPROMÍS-EUPV": "#9A559A",
@@ -3832,12 +3832,10 @@
 "colores": {
 "PP": "#0BB2FF",
 "PSOE": "#ED0A01",
-"Podemos": "#9A559A",
 "PODEMOS": "#9A559A",
 "PODEMOS-COM": "#9A559A",
 "PODEMOS-En": "#9A559A",
 "EN COMÚ": "#9A559A",
-"Unidos Podemos": "#9A559A",
 "C's": "#FCA136",
 "ERC-CATSI": "#FFB232",
 "DL": "#1E2364",
