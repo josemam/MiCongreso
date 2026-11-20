@@ -125,6 +125,10 @@ abbr {
    #grafico {
       max-width: 64%;
    }
+   p {
+      margin-top: 373px;
+      padding: 35px;
+   }
 }
 @media only screen and (orientation: landscape) and (max-device-width: 625px) {
    #grafico {
