@@ -137,52 +137,67 @@ function leerdatos(elec) {
    procesa();
 }
 
-if (window.jQuery === undefined)
-   document.onload = window.onload = function () {
-      document.getElementById("res_texto").value = document.getElementById("grafico").textContent = "Error al cargar jQuery";
-      try {
-         var datajsonreq = new XMLHttpRequest();
-      } catch (err) {
-         document.getElementById("res_texto").value = "No se puede cargar los datos electorales porque este navegador no parece capaz de hacer peticiones XHR: " + err.toString();
-         return;
-      }
-      datajsonreq.onload = function(e) {
-         if (this.status >= 200 && this.status < 400) {
-            try {
-               if (datajsonreq.responseType === "json") {
-                  data = datajsonreq.response;
-                  if (data === null)
-                     throw("error de sintaxis en data.json")
-               }
-               else
-                  data = JSON.parse(datajsonreq.responseText);
-            } catch(err) {
-               document.getElementById("res_texto").value = "Error al procesar los datos electorales: " + err.toString();
-               return;
-            }
-            document.getElementById("elecciones").onchange();
-         }
-         else
-            document.getElementById("res_texto").value = "Error " + (this.status === 0 ? "al intentar obtener" : this.status + (this.statusText ? " (" + this.statusText + ")" : "") + " al descargar") + " los datos electorales";
-      }
-      datajsonreq.onprogress = function(e) {
-         document.getElementById("res_texto").value = "Cargando datos electorales... " + (e.lengthComputable ? "(" + Math.floor(e.loaded*100/e.total) + "%)" : ["/", "-", "\\", "|"][Math.floor(Math.random()*4)]);
-      }
-      datajsonreq.onerror = function(e) {
-         document.getElementById("res_texto").value = "Error al cargar los datos electorales"
-      }
-      datajsonreq.onabort = function(e) {
-         document.getElementById("res_texto").value = "Se ha cancelado la carga de los datos electorales";
-      }
-      datajsonreq.open("GET", "data.json", true);
-      if (XMLHttpRequest.prototype.hasOwnProperty("responseType"))
-         datajsonreq.responseType = "json";
-      datajsonreq.send();
+
+// Obtiene data.json y lo manda a procesar según los ajustes
+function cargardatos() {
+   try {
+      var datajsonreq = new XMLHttpRequest();
+   } catch (err) {
+      document.getElementById("res_texto").value = "No se puede cargar los datos electorales porque este navegador no parece capaz de hacer peticiones XHR: " + err.toString();
+      return;
    }
-else
-   $(document).ready(function() {
-      $.getJSON("data.json", function(d) { data = d; document.getElementById("elecciones").onchange() } ).fail(function(error) { document.getElementById("res_texto").value = "Error " + (error.status === 0 ? "no especificado" : error.status + " (" + error.statusText + ")") + " al cargar los datos electorales"});
-   });
+   datajsonreq.onload = function(e) {
+      if (this.status >= 200 && this.status < 400) {
+         try {
+            if (datajsonreq.responseType === "json") {
+               data = datajsonreq.response;
+               if (data === null)
+                  throw("error de sintaxis en data.json")
+            }
+            else
+               data = JSON.parse(datajsonreq.responseText);
+         } catch(err) {
+            document.getElementById("res_texto").value = "Error al procesar los datos electorales: " + err.toString();
+            return;
+         }
+         document.getElementById("elecciones").onchange();
+      }
+      else
+         document.getElementById("res_texto").value = "Error " + (this.status === 0 ? "al intentar obtener" : this.status + (this.statusText ? " (" + this.statusText + ")" : "") + " al descargar") + " los datos electorales";
+   }
+   datajsonreq.onprogress = function(e) {
+      document.getElementById("res_texto").value = "Cargando datos electorales... " + (e.lengthComputable ? "(" + Math.floor(e.loaded*100/e.total) + "%)" : ["/", "-", "\\", "|"][Math.floor(Math.random()*4)]);
+   }
+   datajsonreq.onerror = function(e) {
+      document.getElementById("res_texto").value = "Error al cargar los datos electorales";
+   }
+   datajsonreq.onabort = function(e) {
+      document.getElementById("res_texto").value = "Se ha cancelado la carga de los datos electorales";
+   }
+   datajsonreq.open("GET", "data.json", true);
+   if (XMLHttpRequest.prototype.hasOwnProperty("responseType"))
+      datajsonreq.responseType = "json";
+   datajsonreq.send();
+}
+
+
+// Carga los datos cuando está listo el DOM, o ya si el DOM ya está listo,
+// o cuando se cargue todo si por lo que sea el navegador no lanza el evento al cargar el DOM.
+// Esto es traído de jQuery (3.8.0, 2.1.4 y 1.12.2), es el comportamiento de $(document).ready()
+function completed() {
+   document.removeEventListener("DOMContentLoaded", completed);
+   window.removeEventListener("load", completed);
+   cargardatos();
+}
+
+if (document.readyState === "complete" || (document.readyState !== "loading" && !document.documentElement.doScroll))
+   window.setTimeout(cargardatos);
+else if (document.addEventListener) {
+   document.addEventListener("DOMContentLoaded", completed);
+   window.addEventListener("load", completed);
+} else
+   window.onload = cargardatos;
+
 
 // Ordena los partidos según los escaños conseguidos (por votos en caso de empate si se pasan los votos)
 // Si todos es true se ordenan los partidos sin escaños también
