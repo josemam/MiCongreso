@@ -185,16 +185,16 @@ function cargardatos() {
 // o cuando se cargue todo si por lo que sea el navegador no lanza el evento al cargar el DOM.
 // Esto es traído de jQuery (3.8.0, 2.1.4 y 1.12.2), es el comportamiento de $(document).ready()
 function completed() {
-   document.removeEventListener("DOMContentLoaded", completed);
-   window.removeEventListener("load", completed);
+   document.removeEventListener("DOMContentLoaded", completed, false);
+   window.removeEventListener("load", completed, false);
    cargardatos();
 }
 
 if (document.readyState === "complete" || (document.readyState !== "loading" && !document.documentElement.doScroll))
    window.setTimeout(cargardatos);
 else if (document.addEventListener) {
-   document.addEventListener("DOMContentLoaded", completed);
-   window.addEventListener("load", completed);
+   document.addEventListener("DOMContentLoaded", completed, false);
+   window.addEventListener("load", completed, false);
 } else
    window.onload = cargardatos;
 
@@ -243,18 +243,19 @@ function getcolores(datos) {
    return col;
 }
 
+function clear_svg(svg) {
+   if (svg !== null)
+      try { svg.remove(); } catch(err) { svg.parentNode.removeChild(svg); }
+}
+
 // Limpia el gráfico
 function clear_grafico() {
-   var svg = document.querySelector("#grafico svg");
-   if (svg !== null)
-      svg.remove();
+   clear_svg(document.querySelector("#grafico svg"));
 }
 
 // Limpia el mapa
 function clear_mapa() {
-   var svg = document.querySelector("#mapa svg");
-   if (svg !== null)
-      svg.remove();
+   clear_svg(document.querySelector("#mapa svg"));
 }
 
 // A partir de un color, obtiene uno más claro
