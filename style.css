@@ -73,15 +73,21 @@ svg {
 #controles, #res_texto, p {
    font-family: "Roboto Slab", serif;
 }
+input, select, fieldset#controles {
+   border: 1px solid ThreeDShadow;
+}
 #controles {
-   font-size: .93em;
-   display: grid;
-   row-gap: 2px;
+   font-size: .92em;
+   display: table;
+   border-spacing: 2px;
    margin: auto;
    height: min-content;
+   padding: 3px;
+}
+#controles label {
+   display: table-row;
 }
 input, select {
-   border: 1px solid ThreeDShadow;
    font-size: 13.49px;
    padding-top: 2px;
    padding-bottom: 2px;
@@ -91,6 +97,7 @@ input {
    border-radius: 2px;
    padding-left: 3px;
    padding-right: 3px;
+   min-width: 27px;
 }
 select {
    border-radius: 4px;
