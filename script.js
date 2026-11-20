@@ -25,7 +25,7 @@ function procesa() {
    var trasvases = {
          "nada": [],
          "conf": agrupaciones,
-         "pod_iu_mp_equo": agrupaciones.concat([["Sumar", ["IU-UPeC", "Podemos", "Unidos Podemos", "COMPROMÍS 2019", "COMPROMÍS-Q", "EN MAREA", "MÁS PAÍS", "EQUO"].concat(confluencias_podemos_up)]]),
+         "pod_iu_mp_equo": agrupaciones.concat([["Sumar", ["Podemos", "Unidos Podemos", "COMPROMÍS 2019", "COMPROMÍS-Q", "EN MAREA", "MÁS PAÍS", "EQUO"].concat(nombres_iu).concat(confluencias_podemos_up)]]),
          "psoe_sumar": psoe_sumar,
          "pp_cs": pp_cs.concat(agrupaciones),
          "pp_vox": pp_vox.concat(agrupaciones),
