@@ -83,6 +83,7 @@ input, select, fieldset#controles {
    margin: auto;
    height: min-content;
    padding: 3px;
+   padding-right: 2px;
 }
 #controles label {
    display: table-row;
