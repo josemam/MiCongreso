@@ -254,12 +254,14 @@ function clear_svg(svg) {
 
 // Limpia el gráfico
 function clear_grafico() {
-   clear_svg(document.querySelector("#grafico svg"));
+   if (typeof(d3) !== "undefined")
+      clear_svg(document.querySelector("#grafico svg"));
 }
 
 // Limpia el mapa
 function clear_mapa() {
-   clear_svg(document.querySelector("#mapa svg"));
+   if (typeof(d3) !== "undefined" && typeof(topojson) !== "undefined")
+      clear_svg(document.querySelector("#mapa svg"));
 }
 
 // A partir de un color, obtiene uno más claro
