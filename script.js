@@ -158,8 +158,10 @@ function cargardatos() {
                if (data === null)
                   throw("error de sintaxis en data.json")
             }
-            else
+            else if (window.JSON && window.JSON.parse)
                data = JSON.parse(datajsonreq.responseText);
+            else
+               data = new Function("return " + datajsonreq.responseText)();
          } catch(err) {
             document.getElementById("res_texto").value = "Error al procesar los datos electorales: " + err.toString();
             return;
@@ -201,6 +203,16 @@ else if (document.addEventListener) {
    window.addEventListener("load", completed, false);
 } else
    window.onload = cargardatos;
+
+
+// Para navegadores muy viejunos
+if (!Object.keys)
+   Object.keys = function (o) {
+      var keys = [];
+      for (var key in o)
+         keys.push(key);
+      return keys;
+   }
 
 
 // Ordena los partidos según los escaños conseguidos (por votos en caso de empate si se pasan los votos)
