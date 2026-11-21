@@ -155,9 +155,9 @@ function divisor_sainte_lague_mod(votos, index) {
 }
 
 // Divisor usado en la versión Huntington-Hill del método de promedio mayor
-// El original (que se usa para determinar el tamaño de las circunscripciones) consideraría index*(index+1), pero aquí se toma el siguiente porque de lo contrario cada partido que supere el corte recibe un escaño mientras haya escaños
+// El original (que se usa para determinar el tamaño de las circunscripciones) consideraría index*(index+1), pero aquí se toma el siguiente, que da un resultado intermedio entre d'Hondt y Sainte-Laguë, porque de lo contrario cada partido que supere el corte recibe un escaño mientras haya escaños
 function divisor_huntington_hill(votos, index) {
-   return votos/(Math.sqrt((index+1)*(index+2)));
+   return votos/(Math.sqrt((index+0.5)*(index+1)));
 }
 
 // Aplica un método de resto mayor
