@@ -93,12 +93,13 @@ input, select {
    padding-top: 2px;
    padding-bottom: 2px;
    margin: 0px;
+   font-size-adjust: 0.5;
 }
 input {
    border-radius: 2px;
    padding-left: 3px;
-   padding-right: 3px;
-   min-width: 27px;
+   padding-right: 0px;
+   min-width: 30px;
 }
 select {
    border-radius: 4px;
