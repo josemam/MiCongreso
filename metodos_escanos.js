@@ -165,9 +165,9 @@ function resto_mayor(resultados, blancos, escanyos, corte, tipo_cociente) {
    resultados = aListaOrdenada(resultados);
    var votos_totales = contarVotosTotales(resultados, blancos);
    resultados = corta(resultados, votos_totales, corte);
-   // Se podría volver a contar los votos totales, lo que trataría los votos a candidaturas sin suficientes votos como nulos. Al no hacer nada, los tratamos como votos en blanco
 
    if (resultados.length == 0) return [];
+   votos_totales = contarVotosTotales(resultados, 0); // contamos los votos de las candidaturas que pasan el corte, pues de lo contrario podría haber escaños sin asignar si hay suficientes votos en blanco y a candidaturas que no superen el umbral
 
    var divisor = tipo_cociente(votos_totales, escanyos);
 
@@ -186,7 +186,7 @@ function resto_mayor(resultados, blancos, escanyos, corte, tipo_cociente) {
             maximo = i;
 
       if (restos[maximo] === -1)
-         break; // ya se añadió un escaño a todos los partidos que superaron el corte: se dejan vacantes los demás. (Esto puede pasar si hay suficientes votos en blanco)
+         break; // no debería pasar esto, pero por si pasase esto dejaría claro que algo ha pasado sin distorsionar demasiado los resultados
 
       cocientes[maximo]++;
       restos[maximo] = -1;
