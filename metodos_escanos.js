@@ -176,7 +176,7 @@ function resto_mayor(resultados, blancos, escanyos, corte, tipo_cociente) {
    var asignados = 0;
    for (var i = 0; i < resultados.length; i++) {
       asignados += (cocientes[i] = Math.floor(resultados[i].votos/divisor));
-      restos[i] = resultados[i].votos - cocientes[i]/divisor;
+      restos[i] = resultados[i].votos - cocientes[i]*divisor;
    }
 
    while(asignados < escanyos) {
