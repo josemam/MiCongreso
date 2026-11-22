@@ -185,7 +185,7 @@ function cargardatos() {
    datajsonreq.open("GET", "data.json", true);
    if (XMLHttpRequest.prototype.hasOwnProperty("responseType"))
       datajsonreq.responseType = "json";
-   datajsonreq.send();
+   datajsonreq.send(null);
 }
 
 
