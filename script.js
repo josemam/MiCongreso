@@ -172,7 +172,9 @@ function cargardatos() {
          document.getElementById("res_texto").value = "Error " + (this.status === 0 ? "al intentar obtener" : this.status + (this.statusText ? " (" + this.statusText + ")" : "") + " al descargar") + " los datos electorales";
    }
    datajsonreq.onprogress = function(e) {
-      document.getElementById("res_texto").value = "Cargando datos electorales... " + (e.lengthComputable ? "(" + Math.floor(e.loaded*100/e.total) + "%)" : ["/", "-", "\\", "|"][Math.floor(Math.random()*4)]);
+      try {
+         document.getElementById("res_texto").value = "Cargando datos electorales... " + (e.lengthComputable ? "(" + Math.floor(e.loaded*100/e.total) + "%)" : ["/", "-", "\\", "|"][Math.floor(Math.random()*4)]);
+      } catch (err) {}
    }
    datajsonreq.onerror = function(e) {
       document.getElementById("res_texto").value = "Error al cargar los datos electorales";
