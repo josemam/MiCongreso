@@ -247,7 +247,14 @@ function actualiza(data) {
    if (data.circunscripcion != "unica")
       generaMapa(data.l_escanos, data.l_votos, data.circunscripcion, data.escanyos);
 
-   document.getElementById("res_texto").value = salida.map(function(a) {return a.partido + ": " + a.escaños}).join("\n");
+   var linea = function(a) {return a.partido + ": " + a.escaños};
+   if (Array.prototype.hasOwnProperty("map"))
+      var salida_lineas = salida.map(linea);
+   else {
+      var salida_lineas = [];
+      for (var s in salida) salida_lineas.push(linea(salida[s]));
+   }
+   document.getElementById("res_texto").value = salida_lineas.join("\n");
    imprime(salida);
 }
 
