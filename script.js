@@ -198,7 +198,7 @@ function completed() {
    cargardatos();
 }
 
-if (document.readyState === "complete" || (document.readyState !== "loading" && !document.documentElement.doScroll))
+if (document.readyState === "complete" || (document.readyState !== undefined && document.readyState !== "loading" && !document.documentElement.doScroll))
    window.setTimeout(cargardatos);
 else if (document.addEventListener) {
    document.addEventListener("DOMContentLoaded", completed, false);
