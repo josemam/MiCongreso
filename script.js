@@ -287,6 +287,10 @@ function clear_mapa() {
 
 // A partir de un color, obtiene uno más claro
 function aclarar(color) {
+   if (color[0] !== '#') return color;
+   if (color.length === 4)
+      color = "#" + color[1] + color[1] + color[2] + color[2] + color[3] + color[3];
+   else if (color.length !== 7) return color;
    var r = (102+Math.ceil(parseInt(color.substring(1,3), 16)*3/5)).toString(16);
    var g = (102+Math.ceil(parseInt(color.substring(3,5), 16)*3/5)).toString(16);
    var b = (102+Math.ceil(parseInt(color.substring(5,7), 16)*3/5)).toString(16);
