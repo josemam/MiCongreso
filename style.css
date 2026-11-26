@@ -24,6 +24,7 @@ body {
    -moz-border-radius: 8px;
    border-radius: 8px;
    pointer-events: none;
+   cursor: default;
 }
 #contenido, text {
    font-family: "Lato", "Fira Sans", "Noto Sans", sans-serif;
@@ -32,6 +33,10 @@ body {
 }
 text {
    text-anchor: middle;
+   user-select: none;
+   -moz-user-select: none;
+   -webkit-user-select: none;
+   cursor: default;
 }
 .province {
    fill: #cdd;
@@ -79,6 +84,7 @@ input, select, fieldset#controles {
 #controles {
    font-size: .92em;
    display: table;
+   table-layout: fixed;
    border-spacing: 2px;
    margin: auto;
    height: min-content;

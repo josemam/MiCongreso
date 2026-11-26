@@ -209,7 +209,7 @@ else if (document.addEventListener) {
 
 // Para navegadores muy viejunos
 if (!Object.keys)
-   Object.keys = function (o) {
+   Object.keys = function(o) {
       var keys = [];
       for (var key in o)
          keys.push(key);

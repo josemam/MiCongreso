@@ -6,7 +6,7 @@
       <title>MiCongreso</title>
       <meta name="viewport" content="width=950">
       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/d3@4.13.0" charset="utf-8" async integrity="sha256-hYXbQJK4qdJiAeDVjjQ9G0D6A0xLnDQ4eJI9dkm7Fpk" crossorigin="anonymous" onload="if (!d3 || !d3.pie) {this.onerror();d3=undefined;return}; if (document.getElementById('grafico') !== null) { document.getElementById('grafico').textContent = ''; if (typeof(data) !== 'undefined') procesa();}" onerror="var graficoerror = function() {document.getElementById('grafico').textContent = 'No se puede mostrar el gráfico de escaños: error al cargar d3js'}; var mapaerror = function() {document.getElementById('mapa').textContent = 'No se puede mostrar el mapa de escaños: error al cargar d3js'}; if (document.getElementById('grafico') !== null) graficoerror(); else window.addEventListener('load', graficoerror, false); if (document.getElementById('mapa') !== null) mapaerror(); else window.addEventListener('load', mapaerror, false);"></script>
-      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/topojson@3.0.2" async integrity="sha256-tHoAPGoNdhIR28YHl9DWLzeRfdwigkH7OCBXMrHXhoM" crossorigin="anonymous" onload="if (!topojson || !topojson.feature) {this.onerror();topojson=undefined;return}; if (document.getElementById('mapa') !== null) { document.getElementById('mapa').textContent = ''; if (typeof(data) !== 'undefined' && typeof(d3) !== 'undefined') procesa();}" onerror="var mapaerror = function() {document.getElementById('mapa').textContent = 'No se puede mostrar el mapa de escaños: error al cargar topojson'}; if (document.getElementById('mapa') !== null) mapaerror(); else window.addEventListener('load', mapaerror, false);"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/topojson@3.0.2" async integrity="sha256-tHoAPGoNdhIR28YHl9DWLzeRfdwigkH7OCBXMrHXhoM" crossorigin="anonymous" onload="if (!topojson || !topojson.feature) {this.onerror();topojson=undefined;return}; if (document.getElementById('mapa') !== null && typeof(d3) !== 'undefined') { document.getElementById('mapa').textContent = ''; if (typeof(data) !== 'undefined') procesa();}" onerror="var mapaerror = function() {document.getElementById('mapa').textContent = 'No se puede mostrar el mapa de escaños: error al cargar topojson'}; if (document.getElementById('mapa') !== null) mapaerror(); else window.addEventListener('load', mapaerror, false);"></script>
       <script type="text/javascript" src="metodos_escanos.js"></script>
       <script type="text/javascript" src="script.js"></script>
       <link rel="stylesheet" type="text/css" href="style.css">
@@ -64,7 +64,7 @@
                </optgroup>
             </select></label>
 
-            <label><abbr title="Circunscripción">Circunscrip.</abbr>:
+            <label><abbr title="Circunscripción electoral">Circunscrip.</abbr>:
             <select id="sel_circ" size=1 onChange="procesa()"> 
                <option value="provincia">Provincia</option>
                <option value="comunidad" title="Se juntan los votos de cada provincia en la comunidad autónoma y el número de escaños por comunidad se calcula a partir del censo total de la comunidad.">Comunidad 1</option>
@@ -85,7 +85,7 @@
                <option value="izda_ppvox" title="PSOE, Podemos, IU, Más País, Sumar por un lado. PP, Vox por otro.">Izquierda y PP+Vox</option>
                <option value="izda_dcha" title="PSOE, Podemos, IU, Más País, Sumar por un lado. PP, Cs, Vox por otro.">Izquierda y derecha</option>
             </select></label>
-         </div>
+         </fieldset>
       </div>
       <div id="mapa" alt="Mapa con la distribución de escaños en cada circunscripción">Cargando d3js y topojson para mostrar el mapa de escaños...</div>
       <p>
