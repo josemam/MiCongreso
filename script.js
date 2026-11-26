@@ -268,21 +268,21 @@ function getcolores(datos) {
    return col;
 }
 
-function clear_svg(svg) {
-   if (svg !== null)
-      try { svg.remove(); } catch(err) { svg.parentNode.removeChild(svg); }
+function remove_element(el) {
+   if (el !== null)
+      try { el.remove(); } catch(err) { el.parentNode.removeChild(el); }
 }
 
 // Limpia el gráfico
 function clear_grafico() {
    if (typeof(d3) !== "undefined")
-      clear_svg(document.querySelector("#grafico svg"));
+      remove_element(document.getElementById("grafico_svg"));
 }
 
 // Limpia el mapa
 function clear_mapa() {
    if (typeof(d3) !== "undefined" && typeof(topojson) !== "undefined")
-      clear_svg(document.querySelector("#mapa svg"));
+      remove_element(document.getElementById("mapa_svg"));
 }
 
 // A partir de un color, obtiene uno más claro
@@ -325,6 +325,7 @@ function imprime(d) {
 
    var vis = d3.select("#grafico")
       .append("svg")
+      .attr("id", "grafico_svg")
       .attr("viewBox", "0 0 " + w + " " + h)
       .attr("preserveAspectRatio", "xMidYMid meet")
       .data([datos])
@@ -484,6 +485,7 @@ function generaMapa(escanos_partidos, votos, circunscripcion, escanyos_supuestos
          coloreado = function(d) { return colores[d.properties.ccaa] }
 
       var svg = d3.select("#mapa").append("svg")
+         .attr("id", "mapa_svg")
          .attr("viewBox", "0 0 " + width + " " + height)
          .attr("preserveAspectRatio", "xMidYMid meet");
 
