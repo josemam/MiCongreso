@@ -353,7 +353,6 @@ function imprime(d) {
       .padAngle(pad);
 
    d3.select("#tooltip")
-      .attr("class", "tooltip")
       .style("opacity", 0)
 
    var arcs = vis.selectAll("g")
