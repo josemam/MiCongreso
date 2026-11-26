@@ -360,21 +360,30 @@ function imprime(d) {
       .enter()
          .append("svg:g")
 
+   function path_onmouseover(d, i) {
+      d3.select(this).style("fill", aclarar(coloreado(d, i)));
+      d3.select("#tooltip")
+         .style("opacity", 1)
+         .select("#contenido")
+            .text(datos[i].label + ": " + d.value);
+      path_onmousemove();
+   }
+   function path_onmousemove() {
+      d3.select("#tooltip")
+         .style("left", (d3.event.pageX + 5) + "px")
+         .style("top", (d3.event.pageY - 35) + "px");
+   }
+   function path_onmouseout(d, i) {
+      d3.select(this).style("fill", coloreado(d, i));
+      d3.select("#tooltip").style("opacity", 0);
+   }
+
    arcs.append("svg:path")
       .attr("fill", coloreado)
       .attr("d", arc)
-      .on("mouseover", function(d, i) {d3.select(this).style("fill",aclarar(coloreado(d,i)));
-         d3.select("#tooltip")
-            .style("opacity", 1)
-            .select("#contenido")
-               .text(datos[i].label + ": " + d.value);})
-      .on("mousemove", function() {
-         d3.select("#tooltip")
-            .style("left", (d3.event.pageX + 5) + "px")
-            .style("top", (d3.event.pageY - 35) + "px")})
-      .on("mouseout", function(d, i) {
-         d3.select(this).style("fill",coloreado(d,i));
-         d3.select("#tooltip").style("opacity", 0)})
+      .on("mouseover", path_onmouseover)
+      .on("mousemove", path_onmousemove)
+      .on("mouseout", path_onmouseout);
 
    arcs.append("svg:text")
       .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
@@ -488,25 +497,33 @@ function generaMapa(escanos_partidos, votos, circunscripcion, escanyos_supuestos
          .attr("viewBox", "0 0 " + width + " " + height)
          .attr("preserveAspectRatio", "xMidYMid meet");
 
+      function province_onmouseover(d, i) {
+         d3.select(this).style("fill", function(d) { return aclarar(coloreado(d)); } );
+         d3.select("#tooltip")
+            .style("opacity", 1)
+            .select("#contenido")
+               .html(d.id + ": " + escanyos[d.id] + "<br><br>" + (cmix && !escanos_partidos.hasOwnProperty(d.id) ? "(Escaños de " + d.properties.ccaa + ")<br>" : "") + parsableResults(escanos_partidos[cmix ? d.properties.ccaa : d.id], votos[cmix ? d.properties.ccaa : d.id]).map(function(a) {return a.partido + ": " + a.escaños}).join("<br>"));
+         province_onmousemove();
+      }
+      function province_onmousemove() {
+         d3.select("#tooltip")
+            .style("left", (d3.event.pageX + 10) + "px")
+            .style("top", (d3.event.pageY + 5) + "px");
+      }
+      function province_onmouseout(d, i) {
+         d3.select(this).style("fill", coloreado);
+         d3.select("#tooltip").style("opacity", 0);
+      }
+
       svg.selectAll(".province")
          .data(features)
          .enter().append("path")
          .attr("class", function(d) { return "province " + d.id; })
          .attr("d", path)
          .style("fill", coloreado)
-         .on("mouseover", function(d, i) {
-            d3.select(this).style("fill", function(d) { return aclarar(coloreado(d)); } );
-            d3.select("#tooltip")
-               .style("opacity", 1)
-               .select("#contenido")
-                  .html(d.id + ": " + escanyos[d.id] + "<br><br>" + (cmix && !escanos_partidos.hasOwnProperty(d.id) ? "(Escaños de " + d.properties.ccaa + ")<br>" : "") + parsableResults(escanos_partidos[cmix ? d.properties.ccaa : d.id], votos[cmix ? d.properties.ccaa : d.id]).map(function(a) {return a.partido + ": " + a.escaños}).join("<br>"));})
-         .on("mousemove", function() {
-            d3.select("#tooltip")
-               .style("left", (d3.event.pageX + 10) + "px")
-               .style("top", (d3.event.pageY + 5) + "px")})
-         .on("mouseout", function(d, i) {
-            d3.select(this).style("fill", coloreado);
-            d3.select("#tooltip").style("opacity", 0)});
+         .on("mouseover", province_onmouseover)
+         .on("mousemove", province_onmousemove)
+         .on("mouseout", province_onmouseout);
 
       if (circunscripcion == "provincia" || circunscripcion == "comunidad_mix")
          svg.append("path")
