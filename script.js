@@ -336,12 +336,12 @@ function imprime(d) {
       .innerRadius(ir);
 
    vis.append("svg:text")
-      .attr("font-size", "22px")
+      .attr("id", "total-escanos")
       .attr("dy", "-1.1em")
       .text(function() {return total})
 
    vis.append("svg:text")
-      .attr("font-size", "16px")
+      .attr("id", "MA")
       .attr("dy", ".0em")
       .text(function() {return "MA: " + Math.floor(total/2+1)})
 

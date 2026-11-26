@@ -38,6 +38,18 @@ text {
    -webkit-user-select: none;
    cursor: default;
 }
+#total-escanos, #MA {
+   display: block;
+   text-align: center;
+   margin: 4px;
+}
+#total-escanos {
+   font-size: 22px;
+}
+#MA {
+   font-size: 16px;
+   pointer-events: auto;
+}
 .province {
    fill: #cdd;
 }
