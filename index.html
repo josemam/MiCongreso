@@ -21,7 +21,10 @@
       </div>
       <noscript>Se requiere JavaScript para calcular los escaños y para dibujar el gráfico y el mapa de escaños.<br><br></noscript>
       <div id="tooltip"><span id="contenido"></span></div>
-      <div id="grafico" alt="Gráfico con la distribución de escaños">Cargando d3js para mostrar el gráfico de escaños...</div>
+      <div id="espacio_graficos">
+         <div id="grafico" alt="Gráfico con la distribución de escaños">Cargando d3js para mostrar el gráfico de escaños...</div>
+         <div id="placeholder_grafico_alternativo" alt="Gráfico alternativo con la distribución de escaños en caso de que no se pueda cargar d3js"></div>
+      </div>
       <div id="derecha_grafico">
          <textarea id="res_texto" READONLY rows="13" aria-label="Resultados">Cargando datos electorales...</textarea>
 
@@ -88,7 +91,7 @@
          </fieldset>
       </div>
       <div id="mapa" alt="Mapa con la distribución de escaños en cada circunscripción">Cargando d3js y topojson para mostrar el mapa de escaños...</div>
-      <p>
+      <p id="descripcion">
          ¿En qué influye la
          <a href="https://boe.es/eli/es/lo/1985/06/19/5/con">ley electoral</a>?
          ¿Cómo habría quedado el Congreso de los Diputados tras las últimas

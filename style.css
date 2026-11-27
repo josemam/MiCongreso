@@ -66,15 +66,52 @@ text {
 .province-label {
    font-size: 0.7em;
 }
-#grafico {
+#espacio_graficos {
    max-width: 100%;
    width: 620px;
+}
+#grafico_alternativo {
+   height: 100%;
+   max-height: 56px;
+   max-width: 100%;
+   table-layout: fixed;
+   margin: 10px;
+   display: block;
+   border-spacing: 0px;
+   overflow: hidden;
+}
+#grafico_alternativo tr {
+   border-spacing: 1px;
+   width: 100%;
+}
+#grafico_alternativo td {
+   height: 56px;
+   padding: 0px;
+   text-align: center;
+   overflow: hidden;
+}
+#grafico_alternativo td text {
+   display: block;
+   max-height: 56px;
+   padding: 0px;
+   overflow: hidden;
+   font-size: 12px;
+   word-break: break-word;
+}
+#grafico_alternativo #barra_MA {
+   margin-left: 50%;
+   margin-right: 50%;
+   height: 56px;
+   border-left: 1px dashed #000;
+   position: relative;
+   top: -56px;
+   pointer-events: none;
 }
 #mapa {
    max-width: 60%;
    width: 400px;
 }
-#grafico, #mapa {
+#espacio_graficos, #mapa {
    float: left;
 }
 svg {
@@ -146,12 +183,12 @@ abbr {
    cursor: help;
 }
 @media only screen and (orientation: landscape) and (max-device-width: 856px) {
-   #grafico {
+   #espacio_graficos {
       max-width: 68%;
    }
 }
 @media only screen and (orientation: landscape) and (max-device-width: 710px) {
-   #grafico {
+   #espacio_graficos {
       max-width: 64%;
    }
    p {
@@ -160,7 +197,7 @@ abbr {
    }
 }
 @media only screen and (orientation: landscape) and (max-device-width: 625px) {
-   #grafico {
+   #espacio_graficos {
       max-width: 100%;
    }
 }
@@ -175,7 +212,7 @@ abbr {
       font-size: 1em;
       width: 184px;
    }
-   #grafico {
+   #espacio_graficos {
       width: 100%;
    }
    #derecha_grafico {

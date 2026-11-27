@@ -277,6 +277,7 @@ function remove_element(el) {
 function clear_grafico() {
    if (typeof(d3) !== "undefined")
       remove_element(document.getElementById("grafico_svg"));
+   remove_element(document.getElementById("grafico_alternativo"));
 }
 
 // Limpia el mapa
@@ -297,31 +298,17 @@ function aclarar(color) {
    return "#" + r + g + b;
 }
 
-// Presenta el gráfico de los datos
-function imprime(d) {
-   clear_grafico();
-   if (typeof(d3) === "undefined")
-      return; // en su lugar se muestra que se está cargando d3js (o que hubo error); se mostrará cuando se cargue
-   document.getElementById("grafico").textContent = '';
-
+function imprime_grafico_d3js(datos, colores, total_escaños) {
    var w = 620,     // anchura del marco del gráfico
        h = 320,     // altura
        r = 300,     // radio exterior
        ir = 160,    // radio interior
        pad = 1/400, // grados de espacio entre bloques (radianes)
-       colores = getcolores(d),
-       color_def = d3.scaleOrdinal(d3.schemeCategory10);  // paleta para los partidos sin color
-   var coloreado = function(d, i) { return (colores[i] != undefined ? colores[i] : color_def(i)); }
+       color_def = d3.scaleOrdinal(d3.schemeCategory10),  // paleta para los partidos sin color
+       coloreado = function(d, i) { return (colores[i] != undefined ? colores[i] : color_def(i)); },
+       min_escaños = Math.floor(total_escaños*0.055);    // mínimo de escaños para mostrar texto
 
-   var datos = [];   // Nombre y escaños de cada partido
-   var total = 0;    // Total de escaños
-   for (var x in d)
-      if (d[x].escaños != 0) {
-         total += d[x].escaños;
-         datos.push({"label": d[x].partido, "value": d[x].escaños});
-      }
-
-   var min = Math.floor(total*0.055);    // mínimo de escaños para mostrar texto
+   document.getElementById("grafico").textContent = '';
 
    var vis = d3.select("#grafico")
       .append("svg")
@@ -339,12 +326,13 @@ function imprime(d) {
    vis.append("svg:text")
       .attr("id", "total-escanos")
       .attr("dy", "-1.1em")
-      .text(function() {return total})
+      .text(function() {return total_escaños})
 
    vis.append("svg:text")
       .attr("id", "MA")
       .attr("dy", ".0em")
-      .text(function() {return "MA: " + Math.floor(total/2+1)})
+      .attr("title", "Mayoría absoluta")
+      .text(function() {return "MA: " + Math.floor(total_escaños/2+1)})
 
    var pie = d3.pie()
       .value(function(d) { return d.value; })
@@ -388,7 +376,123 @@ function imprime(d) {
    arcs.append("svg:text")
       .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
       .attr("font-size", "12px")
-      .text(function(d, i) { if (d.value < min) return ""; else return datos[i].label + " " + d.value; });
+      .text(function(d, i) { if (d.value < min_escaños) return ""; else return datos[i].label + " " + d.value; });
+}
+
+function imprime_grafico_alternativo(datos, colores, total_escaños) {
+   var color_def = function(i) { return ["#ccc", "#888"][i%2]; },  // paleta para los partidos sin color
+       coloreado = function(d, i) { return (colores[i] != undefined ? colores[i] : color_def(i)); };
+
+   var min_escaños = Math.floor(total_escaños*0.055);    // mínimo de escaños para mostrar texto
+
+   var graf = document.createElement("table");
+   graf.id = "grafico_alternativo";
+   graf.setAttribute("cellpadding", "0");
+
+   var fila_barras = document.createElement("tr");
+
+   function barra_onmousemove(mouseEvent) {
+      var tooltip_style = document.getElementById("tooltip").style;
+      tooltip_style.setProperty("left", (mouseEvent.pageX + 5) + "px", "");
+      tooltip_style.setProperty("top", (mouseEvent.pageY - 35) + "px", "");
+   }
+   function barra_onmouseover(nombre_partido, index, num_escaños) {
+      return function(mouseEvent) {
+         this.style.setProperty("background-color", aclarar(coloreado(nombre_partido, index)), "");
+         document.getElementById("contenido").textContent = nombre_partido + ": " + num_escaños;
+         document.getElementById("tooltip").style.setProperty("opacity", 1, "");
+         barra_onmousemove(mouseEvent);
+      }
+   }
+   function barra_onmouseout(nombre_partido, index) {
+      return function() {
+         this.style.setProperty("background-color", coloreado(nombre_partido, index), "");
+         document.getElementById("tooltip").style.setProperty("opacity", 0, "");
+      }
+   }
+
+   var colgroup = document.createElement("colgroup");
+   for (var x in datos) {
+      var col = document.createElement("col");
+      col.setAttribute("style", "min-width: " + datos[x].value*100/total_escaños + "%;");
+      colgroup.appendChild(col);
+   }
+   graf.appendChild(colgroup);
+
+   for (var x in datos) {
+      var nombre_partido = datos[x].label;
+      var num_escaños = datos[x].value;
+
+      var barra = document.createElement("td");
+      barra.setAttribute("style", "max-width:0.01px; width: " + num_escaños*1000 + "px; width: -webkit-calc(" + num_escaños*100/total_escaños + "%); width: calc(" + num_escaños*100/total_escaños + "%); background-color: " + coloreado(nombre_partido, x) + ";");
+
+      barra.title = nombre_partido + ": " + num_escaños;
+      barra.addEventListener("mouseover", barra_onmouseover(nombre_partido, x, num_escaños), false);
+      barra.addEventListener("mousemove", barra_onmousemove, false);
+      barra.addEventListener("mouseout", barra_onmouseout(nombre_partido, x), false);
+
+      if (num_escaños > min_escaños) {
+         var texto = document.createElement("text");
+         texto.textContent = nombre_partido.replace(/\+/g, '\u200b+').replace(/\-/g, '-\u200b') + " " + num_escaños; // añade espacios de ancho cero, que se comportan como <wbr>
+         barra.appendChild(texto);
+      }
+      fila_barras.appendChild(barra);
+   }
+
+   var ultima_barra = document.createElement("td");
+   ultima_barra.setAttribute("style", "width: 1000px;");
+   fila_barras.appendChild(ultima_barra);
+
+   var barra_MA = document.createElement("div");
+   barra_MA.id = "barra_MA";
+
+   graf.appendChild(fila_barras);
+   graf.appendChild(barra_MA);
+
+   var texto_escaños_totales = document.createElement("text");
+   texto_escaños_totales.id = "total-escanos";
+   texto_escaños_totales.textContent = total_escaños;
+
+   var texto_MA = document.createElement("text");
+   texto_MA.id = "MA";
+   texto_MA.innerHTML = "<abbr title='Mayoría absoluta'>MA</abbr>: " + Math.floor(total_escaños/2+1);
+
+   var placeholder = document.getElementById("placeholder_grafico_alternativo");
+   placeholder.textContent = 'Gráfico de escaños alternativo al de d3js. Podría haber imprecisiones.';
+   placeholder.appendChild(graf);
+   placeholder.appendChild(texto_escaños_totales);
+   placeholder.appendChild(texto_MA);
+
+   document.getElementById("descripcion").style.setProperty("margin-top", "200px", "");
+}
+
+// Presenta el gráfico de los datos
+function imprime(d) {
+   clear_grafico();
+
+   var datos = [],   // Nombre y escaños de cada partido
+       colores = getcolores(d),
+       total_escaños = 0;
+   for (var x in d)
+      if (d[x].escaños != 0) {
+         total_escaños += d[x].escaños;
+         datos.push({"label": d[x].partido, "value": d[x].escaños});
+      }
+
+   if (typeof(d3) !== "undefined") {
+      try {
+         imprime_grafico_d3js(datos, colores, total_escaños);
+         document.getElementById("placeholder_grafico_alternativo").textContent = '';
+         try {
+            document.getElementById("descripcion").style.removeProperty("margin-top");
+         } catch(err){}
+         return;
+      } catch(err) {
+         document.getElementById("grafico").textContent = "Error al dibujar el gráfico de escaños con d3js: " + err.toString();
+      }
+   }
+   // Si pasa algo con d3js, se imprime otro gráfico
+   imprime_grafico_alternativo(datos, colores, total_escaños);
 }
 
 // Pasa los votos de un partido a otro en una circunscripción
