@@ -41,6 +41,8 @@ function corta(resultados, votos_totales, corte) {
 // Da un escaño a cada partido por cada cincuenta mil votos (ignora el corte)
 function escanocadacincuentamil(resultados, blancos, escanyos, corte) {
    resultados = aListaOrdenada(resultados);
+   var votos_totales = contarVotosTotales(resultados, blancos);
+   resultados = corta(resultados, votos_totales, corte);
 
    var res_nombres = [];
    var divisor = 50000;
@@ -54,6 +56,8 @@ function escanocadacincuentamil(resultados, blancos, escanyos, corte) {
 // 1, 2, 3, 4, 5, 6, 7, 8, 10, 12 escaños por cada circunscripción a los más votados
 function eurovision(resultados, blancos, escanyos, corte) {
    resultados = aListaOrdenada(resultados);
+   var votos_totales = contarVotosTotales(resultados, blancos);
+   resultados = corta(resultados, votos_totales, corte);
 
    var res_nombres = [];
    for (var x = 0; x < Math.min(resultados.length, 10) && resultados[x].votos > 0; x++)
@@ -65,7 +69,10 @@ function eurovision(resultados, blancos, escanyos, corte) {
 // Da todos los escaños al partido más votado en la circunscripción
 // Sí, esto todavía se usa en algunos países
 function fptp(resultados, blancos, escanyos, corte) {
-   resultados = aListaOrdenada(resultados)
+   resultados = aListaOrdenada(resultados);
+   var votos_totales = contarVotosTotales(resultados, blancos);
+   resultados = corta(resultados, votos_totales, corte);
+
    if (resultados.length == 0) return [];
    var res_nombres = [];
    res_nombres[resultados[0].partido] = escanyos;
@@ -80,7 +87,10 @@ function fptp(resultados, blancos, escanyos, corte) {
 // que los territorios insulares tienen una organización en
 // circunscripciones distinta)
 function simul_senado(resultados, blancos, escanyos, corte) {
-   resultados = aListaOrdenada(resultados)
+   resultados = aListaOrdenada(resultados);
+   var votos_totales = contarVotosTotales(resultados, blancos);
+   resultados = corta(resultados, votos_totales, corte);
+
    if (resultados.length == 0) return [];
    var res_nombres = [];
    if (escanyos == 1)
