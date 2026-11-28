@@ -41,6 +41,8 @@ function procesa() {
        tipo_circ = document.getElementById('sel_circ').value,
        corte = parseFloat(document.getElementById('corte').value.replace(",", "."), 10);
 
+   document.getElementById("minimo").disabled = document.getElementById("total_diputados").disabled = (metodo === simul_senado || metodo === escanocadacincuentamil || metodo === eurovision);
+
    var trasvases = getTrasvases(document.getElementById('sel_union').value);
 
    if (typeof(data) === "undefined")
