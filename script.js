@@ -18,6 +18,7 @@ function procesa() {
    var agrupaciones_mas_pais = [["MÁS PAÍS", ["MÁS PAÍS-EQUO", "MÉS COMPROMÍS", "M PAÍS-CHA-EQUO"]]]
    var agrupaciones = agrupaciones_podemos.concat(agrupaciones_mas_pais)
    var psoe_sumar = [["PSOE+Podemos+SUMAR+IU", ["PSOE", "P.S.O.E.", "PSOE-PROGR.", "COMPROMÍS 2019", "COMPROMÍS-Q", "EN MAREA", "SUMAR", "EQUO", "CHA", "UA-CH.A"].concat(nombres_iu).concat(confluencias_podemos_up)]].concat(agrupaciones)
+   var izquierda_abertzale = [["EH Bildu", ["EA", "EA-EUE", "ARALAR-ZUTIK", "aralar", "EE", "HB"]]] // se excluye Amaiur porque ya unió todos los que se presentaron
    var pp_cs = [["PP+C's", ["PP", "P.P.", "C's", "Cs", "NA+"]]]
    var pp_vox = [["PP+Vox", ["PP", "P.P.", "Vox", "VOX"]]]
    var pp_cs_vox = [["PP+C's+Vox", ["PP", "P.P.", "C's", "Cs", "Vox", "VOX", "NA+"]]]
@@ -27,6 +28,7 @@ function procesa() {
          "conf": agrupaciones,
          "pod_iu_mp_equo": agrupaciones.concat([["Sumar", ["Podemos", "Unidos Podemos", "COMPROMÍS 2019", "COMPROMÍS-Q", "EN MAREA", "MÁS PAÍS", "EQUO", "CHA", "UA-CH.A"].concat(nombres_iu).concat(confluencias_podemos_up)]]),
          "psoe_sumar": psoe_sumar,
+         "izquierda_abertzale": izquierda_abertzale,
          "pp_cs": pp_cs.concat(agrupaciones),
          "pp_vox": pp_vox.concat(agrupaciones),
          "pp_cs_vox": pp_cs_vox.concat(agrupaciones),
