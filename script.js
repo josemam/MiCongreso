@@ -15,9 +15,10 @@ function procesa() {
    var confluencias_podemos_up = confluencias_podemos_2015.concat(confluencias_up_2019);
    var nombres_iu = ["IU-UPeC", "IU-LV", "I.U.", "IU"];
    var agrupaciones_podemos = [["Podemos", confluencias_podemos_2015], ["Unidos Podemos", confluencias_up_2019]];
-   var agrupaciones_mas_pais = [["MÁS PAÍS", ["MÁS PAÍS-EQUO", "MÉS COMPROMÍS", "M PAÍS-CHA-EQUO"]]]
+   var confluencias_mas_pais = ["MÁS PAÍS-EQUO", "MÉS COMPROMÍS", "M PAÍS-CHA-EQUO"]
+   var agrupaciones_mas_pais = [["MÁS PAÍS", confluencias_mas_pais]]
    var agrupaciones = agrupaciones_podemos.concat(agrupaciones_mas_pais)
-   var psoe_sumar = [["PSOE+Podemos+SUMAR+IU", ["PSOE", "P.S.O.E.", "PSOE-PROGR.", "COMPROMÍS 2019", "COMPROMÍS-Q", "EN MAREA", "SUMAR", "EQUO", "CHA", "UA-CH.A"].concat(nombres_iu).concat(confluencias_podemos_up)]].concat(agrupaciones)
+   var psoe_sumar = [["PSOE+Podemos+SUMAR+IU", ["PSOE", "P.S.O.E.", "PSOE-PROGR.", "COMPROMÍS 2019", "COMPROMÍS-Q", "EN MAREA", "SUMAR", "EQUO", "CHA", "UA-CH.A"].concat(nombres_iu).concat(confluencias_podemos_up).concat(confluencias_mas_pais)]]
    var izquierda_abertzale = [["EH Bildu", ["EA", "EA-EUE", "ARALAR-ZUTIK", "aralar", "EE", "HB"]]] // se excluye Amaiur porque ya unió todos los que se presentaron
    var pp_cs = [["PP+C's", ["PP", "P.P.", "C's", "Cs", "NA+"]]]
    var pp_vox = [["PP+Vox", ["PP", "P.P.", "Vox", "VOX"]]]
