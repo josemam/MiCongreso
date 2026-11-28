@@ -1,13 +1,6 @@
 var data, CCAA, circunscripciones, blancos, nulos, poblacion, resultados;
 
-// Lee los campos y genera los resultados
-function procesa() {
-   var minimo = parseInt(document.getElementById('minimo').value, 10);
-   var total_diputados = parseInt(document.getElementById('total_diputados').value, 10);
-   var metodo = window[document.getElementById('sel_metodo').value];
-   var tipo_circ = document.getElementById('sel_circ').value;
-   var corte = parseFloat(document.getElementById('corte').value.replace(",", "."), 10);
-
+function getTrasvases(id_trasvases) {
    var confluencias_podemos_2015 = ["PODEMOS", "EN COMÚ", "PODEMOS-COM", "PODEMOS-En"];
    var confluencias_up_2016 = ["PODEMOS-IU-EQUO", "PODEMOS-EN MAREA-ANOVA-EU", "ECP", "PODEMOS-COMPROMÍS-EUPV"];
    var confluencias_up_nuevas_2019 = ["PODEMOS-EU-MAREAS EN COMÚN-EQUO", "ECP-GUANYEM EL CANVI", "PODEMOS-IU", "PODEMOS-EU"];
@@ -24,19 +17,30 @@ function procesa() {
    var pp_vox = [["PP+Vox", ["PP", "P.P.", "Vox", "VOX"]]]
    var pp_cs_vox = [["PP+C's+Vox", ["PP", "P.P.", "C's", "Cs", "Vox", "VOX", "NA+"]]]
    
-   var trasvases = {
-         "nada": [],
-         "conf": agrupaciones,
-         "pod_iu_mp_equo": agrupaciones.concat([["Sumar", ["Podemos", "Unidos Podemos", "COMPROMÍS 2019", "COMPROMÍS-Q", "EN MAREA", "MÁS PAÍS", "EQUO", "CHA", "UA-CH.A"].concat(nombres_iu).concat(confluencias_podemos_up)]]),
-         "psoe_sumar": psoe_sumar,
-         "izquierda_abertzale": izquierda_abertzale,
-         "pp_cs": pp_cs.concat(agrupaciones),
-         "pp_vox": pp_vox.concat(agrupaciones),
-         "pp_cs_vox": pp_cs_vox.concat(agrupaciones),
-         "izda_ppcs": psoe_sumar.concat(pp_cs),
-         "izda_ppvox": psoe_sumar.concat(pp_vox),
-         "izda_dcha": psoe_sumar.concat(pp_cs_vox)
-      }[document.getElementById('sel_union').value];
+   return {
+      "nada": [],
+      "conf": agrupaciones,
+      "pod_iu_mp_equo": agrupaciones.concat([["Sumar", ["Podemos", "Unidos Podemos", "COMPROMÍS 2019", "COMPROMÍS-Q", "EN MAREA", "MÁS PAÍS", "EQUO", "CHA", "UA-CH.A"].concat(nombres_iu).concat(confluencias_podemos_up)]]),
+      "psoe_sumar": psoe_sumar,
+      "izquierda_abertzale": izquierda_abertzale,
+      "pp_cs": pp_cs.concat(agrupaciones),
+      "pp_vox": pp_vox.concat(agrupaciones),
+      "pp_cs_vox": pp_cs_vox.concat(agrupaciones),
+      "izda_ppcs": psoe_sumar.concat(pp_cs),
+      "izda_ppvox": psoe_sumar.concat(pp_vox),
+      "izda_dcha": psoe_sumar.concat(pp_cs_vox)
+   }[id_trasvases];
+}
+
+// Lee los campos y genera los resultados
+function procesa() {
+   var minimo = parseInt(document.getElementById('minimo').value, 10),
+       total_diputados = parseInt(document.getElementById('total_diputados').value, 10),
+       metodo = window[document.getElementById('sel_metodo').value],
+       tipo_circ = document.getElementById('sel_circ').value,
+       corte = parseFloat(document.getElementById('corte').value.replace(",", "."), 10);
+
+   var trasvases = getTrasvases(document.getElementById('sel_union').value);
 
    if (typeof(data) === "undefined")
       return;
