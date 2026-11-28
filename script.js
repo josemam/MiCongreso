@@ -11,7 +11,8 @@ function getTrasvases(id_trasvases) {
    var confluencias_mas_pais = ["MÁS PAÍS-EQUO", "MÉS COMPROMÍS", "M PAÍS-CHA-EQUO"]
    var agrupaciones_mas_pais = [["MÁS PAÍS", confluencias_mas_pais]]
    var agrupaciones = agrupaciones_podemos.concat(agrupaciones_mas_pais)
-   var psoe_sumar = [["PSOE+Podemos+SUMAR+IU", ["PSOE", "P.S.O.E.", "PSOE-PROGR.", "COMPROMÍS 2019", "COMPROMÍS-Q", "EN MAREA", "SUMAR", "EQUO", "CHA", "UA-CH.A"].concat(nombres_iu).concat(confluencias_podemos_up).concat(confluencias_mas_pais)]]
+   var sumar_2023 = ["Podemos", "Unidos Podemos", "COMPROMÍS 2019", "COMPROMÍS-Q", "EN MAREA", "MÁS PAÍS", "EQUO", "CHA", "UA-CH.A", "MÉS", "ARA-MES-ESQUERRA", "MÉS-ESQUERRA"].concat(nombres_iu).concat(confluencias_podemos_up);
+   var psoe_sumar = [["PSOE+Podemos+SUMAR+IU", ["PSOE", "P.S.O.E.", "PSOE-PROGR.", "SUMAR"].concat(sumar_2023).concat(nombres_iu).concat(confluencias_podemos_up).concat(confluencias_mas_pais)]]
    var izquierda_abertzale = [["EH Bildu", ["EA", "EA-EUE", "ARALAR-ZUTIK", "aralar", "EE", "HB"]]] // se excluye Amaiur porque ya unió todos los que se presentaron
    var pp_cs = [["PP+C's", ["PP", "P.P.", "C's", "Cs", "NA+"]]]
    var pp_vox = [["PP+Vox", ["PP", "P.P.", "Vox", "VOX"]]]
@@ -20,7 +21,7 @@ function getTrasvases(id_trasvases) {
    return {
       "nada": [],
       "conf": agrupaciones,
-      "pod_iu_mp_equo": agrupaciones.concat([["Sumar", ["Podemos", "Unidos Podemos", "COMPROMÍS 2019", "COMPROMÍS-Q", "EN MAREA", "MÁS PAÍS", "EQUO", "CHA", "UA-CH.A"].concat(nombres_iu).concat(confluencias_podemos_up)]]),
+      "pod_iu_mp_equo": agrupaciones.concat([["Sumar", sumar_2023]]),
       "psoe_sumar": psoe_sumar,
       "izquierda_abertzale": izquierda_abertzale,
       "pp_cs": pp_cs.concat(agrupaciones),
